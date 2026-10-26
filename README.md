@@ -5,6 +5,12 @@ HTML, CSS e JavaScript puros: **sem build, sem framework, sem dependências**.
 Abra o `index.html` no navegador e está rodando; suba a pasta em qualquer
 hospedagem estática e está no ar.
 
+O site tem **as mesmas páginas, nos mesmos endereços, do site atual em
+WordPress** (`/credito-pessoal/`, `/governanca/`, `/aviso/`…): cada endereço é
+uma pasta com um `index.html`. É isso que preserva o SEO já conquistado — não
+renomeie, não mova e não apague essas pastas. Veja
+[Páginas internas e endereços](#páginas-internas-e-endereços).
+
 Junto dele, um único arquivo HTML autocontido em
 [`compartilhar/proposta-hs-financeira.html`](compartilhar/proposta-hs-financeira.html)
 — com CSS, JS e imagens embutidos — para mandar por e-mail, WhatsApp ou Teams
@@ -18,16 +24,22 @@ e o time abrir com dois cliques, offline.
 arquivos em `css/`, `js/` ou o próprio `index.html`, e recarregue a página.
 Nada para instalar, nada para compilar.
 
-Se preferir servir por HTTP (URLs absolutas, DevTools mais completo):
+Para navegar entre as páginas, sirva por HTTP — aberto direto do disco
+(`file://`), um link como `credito-pessoal/` mostra a pasta em vez da página:
 
 ```bash
 python -m http.server 8080     # ou: npm run serve
 # → http://localhost:8080
 ```
 
-**Para publicar:** copie a pasta (menos `tools/`, `reference/` e os arquivos de
-configuração) para o servidor, ou aponte Netlify/Vercel/S3/nginx para a raiz do
-repositório. Não há etapa de build.
+**Para publicar:** copie a pasta (menos `tools/`, `reference/`, `docs/` e os
+arquivos de configuração) para o servidor, **incluindo o `.htaccess` e o
+`404.html`**, ou aponte Netlify/Vercel/S3/nginx para a raiz do repositório e
+reproduza nele as regras do `.htaccess`. Não há etapa de build. Atenção: as
+páginas linkam documentos em `https://hsfinanceira.com.br/wp-content/uploads/…`
+(contratos, políticas, relatórios, demonstrações financeiras), que hoje moram
+no WordPress — a pasta `wp-content/uploads/` precisa continuar no servidor
+depois da troca, ou esses links e os PDFs indexados no Google viram 404.
 
 **Para atualizar o arquivo único** depois de mexer no site:
 
@@ -43,8 +55,14 @@ Requer Node 18+, e só para isso — o site nunca depende dele.
 
 ```
 HS-Financeira/
-├── index.html                 # a página inteira: <head>, 15 seções, dados estruturados
-├── aviso.html                 # avisos de segurança contra golpes (destino do "Saiba Mais")
+├── index.html                 # página inicial: <head>, 15 seções, dados estruturados
+├── credito-pessoal/index.html # páginas internas: uma pasta por endereço do site atual
+├── aviso/index.html           #   (avisos de segurança, destino do "Saiba Mais"),
+├── governanca/index.html      #   governança, LGPD, parceiros, posts do blog…
+├── …                          #   lista completa em "Páginas internas e endereços"
+├── category/categoria/        # lista do blog (endereço herdado do WordPress)
+├── 404.html                   # página de endereço inexistente (caminhos absolutos)
+├── .htaccess                  # https sem www, 301 dos endereços só do WordPress, 404
 ├── css/
 │   ├── base/
 │   │   ├── tokens.css          # cores, fontes, espaçamento, tema claro/escuro
@@ -56,7 +74,8 @@ HS-Financeira/
 │       ├── aviso.css  rail.css  header.css  hero.css  facts.css  produtos.css
 │       ├── simulador.css  split.css  empresas.css  parceiros.css
 │       ├── investimentos.css  governanca.css  ajuda.css  cta-final.css  footer.css
-│       └── aviso-pagina.css    # só da aviso.html
+│       ├── pagina.css          # blocos das páginas internas (abertura, texto, etapas, arquivos…)
+│       └── aviso-pagina.css    # só da aviso/
 ├── js/
 │   ├── config.js               # taxa do simulador e parâmetros de negócio
 │   ├── utils/format.js         # formatação de números em pt-BR
@@ -73,6 +92,7 @@ HS-Financeira/
 ├── robots.txt  sitemap.xml  llms.txt  favicon.ico   # rastreamento, SEO e IA (ver docs/SEO.md)
 ├── docs/SEO.md                 # diagnóstico de SEO, o que foi feito e próximos passos
 ├── tools/bundle.mjs            # gera o arquivo único (opcional)
+├── tools/paginas.mjs           # copia cabeçalho, rodapé e <head> comum para as páginas internas (npm run paginas)
 ├── tools/seo-check.mjs         # confere SEO e sincroniza o JSON-LD do FAQ (npm run seo)
 ├── compartilhar/
 │   └── proposta-hs-financeira.html   # o arquivo para enviar ao time (751 KB)
@@ -105,7 +125,7 @@ troque o nome também no `index.html`). Vale recomprimir antes: as imagens são
 ~70% do peso do arquivo único.
 
 **Mudar o aviso contra golpes** — o texto aparece em dois lugares: na faixa do
-topo do `index.html` (seção `AVISO`) e no comunicado da `aviso.html`. Mantenha
+topo do `index.html` (seção `AVISO`) e no comunicado da `aviso/index.html`. Mantenha
 os dois iguais. Ao fechar a faixa no "x", ela fica fechada até o fim da visita
 (`sessionStorage`); numa nova visita volta a aparecer.
 
@@ -141,6 +161,22 @@ FAQ do JSON-LD bate com a página. Detalhes e pendências em
 **Criar uma seção** — adicione o markup no `index.html` entre os comentários de
 seção, crie `css/sections/nova.css` e registre o `<link>` no `<head>`.
 
+**Mudar cabeçalho, rodapé, faixa de aviso, logo, fontes ou favicon** — edite só
+o `index.html` (e o CSS) e rode `npm run paginas`: o
+[`tools/paginas.mjs`](tools/paginas.mjs) copia essas partes para todas as
+páginas internas, ajustando os caminhos. `npm run paginas -- --verificar` só
+confere, sem gravar nada.
+
+**Mudar o texto de uma página interna** — direto no `index.html` da pasta
+(`governanca/index.html`…), dentro do `<main>`. Não mexa no endereço, no
+`canonical` nem no `og:url`.
+
+**Criar uma página interna** — copie uma pasta parecida (por exemplo
+`credito-pessoal/`) com o nome do endereço novo, troque `<title>`, description,
+`canonical`, `og:` e JSON-LD, escreva o `<main>` com os blocos de
+[`css/sections/pagina.css`](css/sections/pagina.css) e rode `npm run paginas`.
+Inclua a URL no `sitemap.xml` e linke a página de algum lugar do site.
+
 **Cores e tipografia** — tudo em [`css/base/tokens.css`](css/base/tokens.css),
 seguindo a identidade do site atual: vermelho `#D9222E` nas faixas (cabeçalho e
 rodapé, `--brand-band`), `#D3363B` em botões e destaques (`--brand`), títulos
@@ -151,6 +187,73 @@ temas — ao criar uma cor nova, confira (texto normal ≥ 4,5:1). O vermelho
 `--brand-deep`. O tema escuro é o mesmo conjunto de tokens redefinido em dois
 blocos (`prefers-color-scheme` e `[data-theme="dark"]`); mexer só no primeiro
 deixa o tema inconsistente. Cabeçalho e rodapé ficam vermelhos nos dois temas.
+
+---
+
+## Páginas internas e endereços
+
+O site atual (WordPress) tem 23 páginas, 3 posts de blog e 1 categoria
+indexados — a lista vem do sitemap dele (`/wp-sitemap.xml`). Todos continuam
+existindo aqui, no mesmo endereço, com o mesmo assunto e o conteúdo
+equivalente, agora no visual novo:
+
+| Endereço | Página |
+|---|---|
+| `/` | Início (`index.html`) |
+| `/credito-pessoal/` | Crédito Pessoal |
+| `/emprestimo-com-a-menor-taxa-do-mercado/` | Consignado INSS |
+| `/um-cartao-cheio-de-vantagens-para-quem-vive-o-hoje/` | Cartão Hoje |
+| `/portabilidade-de-credito/` | Portabilidade de crédito |
+| `/cdc-credito-direto-ao-consumidor/` | CDC — Crédito Direto ao Consumidor |
+| `/investimentos/` | Investimentos (LC e CDB) |
+| `/solicitar-credito-pessoal/` | Solicitar Crédito Pessoal (formulário de emprestaqi.com.br, embutido) |
+| `/solicitacao_credito_pessoal/` | Duplicata antiga da anterior: mesmo conteúdo, `canonical` para ela |
+| `/linhas-de-credito-para-acelerar-as-conquistas-da-sua-empresa/` | CDC PJ |
+| `/linha-pj-completa-sem-burocracia-com-as-melhores-taxas/` | Antecipação de recebíveis |
+| `/nossos-parceiros-lojas-taqi/` | Parceiro: lojas taQi |
+| `/nossos-parceiros-iplace/` | Parceiro: iPlace |
+| `/nossos-parceiros-hs-corretora-de-seguros/` | Parceiro: HS Corretora de Seguros |
+| `/nossa-historia/` | Nossa história |
+| `/governanca/` | Governança (políticas, contratos, tarifas, relatórios) |
+| `/divulgacao-de-resultados/` | Demonstrações financeiras por ano |
+| `/canal-de-etica-e-denuncia/` | Canal de Ética e Denúncia |
+| `/lgpd/` | LGPD |
+| `/politicas-de-privacidade-e-transparencia/` | Privacidade e transparência |
+| `/cadastro-positivo-2/` | Cadastro Positivo (o "-2" é do endereço original) |
+| `/envie-nos-uma-mensagem/` | Atendimento e contato |
+| `/aviso/` | Avisos de segurança |
+| `/como-escolher-a-contratacao-de-um-servico-financeiro/` | Post do blog |
+| `/qual-a-importancia-de-ter-uma-reserva-de-emergencia/` | Post do blog |
+| `/especialista-da-5-dicas-para-lidar-melhor-com-seu-dinheiro/` | Post do blog |
+| `/category/categoria/` | Lista do blog |
+
+Regras que mantêm o SEO:
+
+- **O endereço é a pasta.** `/governanca/` é `governanca/index.html`. Mudar o
+  nome da pasta muda a URL e joga fora o histórico dela no Google; se um dia for
+  inevitável, crie um 301 do endereço antigo para o novo no `.htaccess`.
+- Cada página tem `canonical` e `og:url` com o próprio endereço absoluto (com a
+  barra final), `<title>`, description, um único `<h1>` e JSON-LD (`WebPage` +
+  `BreadcrumbList`; posts com `BlogPosting`). `npm run paginas -- --verificar`
+  confere tudo isso e se a página está no `sitemap.xml`.
+- Links entre páginas são relativos (`../governanca/`), para o site navegar
+  também em homologação; o `paginas.mjs` converte os absolutos
+  (`https://hsfinanceira.com.br/credito-pessoal/`) que aparecerem no `<body>`
+  do `index.html`. JSON-LD, `canonical`, `og:` e `sitemap.xml` ficam absolutos.
+  No arquivo único de `compartilhar/`, que abre offline, o `bundle.mjs` aponta
+  esses links para o site publicado.
+- O [`.htaccess`](.htaccess) (o servidor atual é LiteSpeed, compatível com
+  Apache) força `https://hsfinanceira.com.br` sem `www`, tira o `index.html` dos
+  endereços e redireciona com 301 o que só existia no WordPress: sitemaps
+  (`/wp-sitemap.xml`), feeds, arquivos por data e autor, busca (`?s=`) e os links
+  curtos `?p=ID`. Endereços inexistentes caem na `404.html` (`noindex`).
+- **Pendente — formulários:** "Fale conosco" (`/envie-nos-uma-mensagem/`),
+  denúncia identificada e anônima (`/canal-de-etica-e-denuncia/`) e as três
+  solicitações da LGPD (`/lgpd/`) eram formulários do WordPress. O site estático
+  ainda não tem para onde enviá-los: as páginas mostram os canais oficiais e um
+  comentário `PENDENTE` no HTML lista os campos de cada formulário.
+- **Pendente — documentos:** os PDFs e imagens linkados continuam em
+  `/wp-content/uploads/…` (ver "Para publicar").
 
 ---
 
