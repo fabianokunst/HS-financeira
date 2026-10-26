@@ -63,5 +63,10 @@
   /* Forma de recebimento: só destaca a escolha, não entra no cálculo. */
   grupoChips(".chip[data-w]");
 
+  /* O chip aceso ao abrir a página sai do config, não do HTML. */
+  document.querySelectorAll(".chip[data-n]").forEach(function (chip) {
+    chip.setAttribute("aria-pressed", Number(chip.dataset.n) === prazo ? "true" : "false");
+  });
+
   render();
 })();

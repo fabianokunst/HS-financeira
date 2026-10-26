@@ -8,7 +8,7 @@ HS.config = {
   taxaMensal: 0.0399,
 
   /* Prazo pré-selecionado ao abrir a página (precisa existir como chip
-     [data-n] em partials/simulador.html). */
+     [data-n] na seção SIMULADOR do index.html). */
   prazoPadrao: 18,
 
   /* Largura, em px, a partir da qual o menu mobile é fechado. */
