@@ -93,9 +93,14 @@ Em ordem de impacto:
 
 1. **Migração sem perder posição.** O site novo vai substituir o WordPress no
    mesmo domínio: toda URL antiga precisa responder no mesmo endereço ou com
-   redirecionamento 301 (a sessão "Manutenção da estrutura de páginas para
-   SEO" está recriando as 26 páginas e o `.htaccess`). Incluir 301 de
-   `http://` e de `www.` para `https://hsfinanceira.com.br/`.
+   redirecionamento 301. As 26 páginas foram recriadas nos mesmos endereços e
+   o `.htaccess` já cuida de `http://`/`www.` → `https://hsfinanceira.com.br/`,
+   feeds, sitemaps e links curtos do WordPress. **Falta:** a página aponta
+   para 14 PDFs e imagens em `/wp-content/uploads/` (Código de Conduta,
+   contratos, tarifas, Pilar 3, Ouvidoria, demonstrações financeiras), e o
+   projeto novo não tem essa pasta. Copie `/wp-content/uploads/` do WordPress
+   para o servidor novo, ou traga os arquivos para o projeto com 301 das URLs
+   antigas — senão esses documentos ficam fora do ar no dia da troca.
 2. **Google Search Console e Bing Webmaster Tools.** Verificar o domínio,
    enviar o `sitemap.xml` e acompanhar a cobertura na semana da troca. O Bing
    é a base de busca do ChatGPT e do Copilot — sem ele, a HS aparece menos nas
