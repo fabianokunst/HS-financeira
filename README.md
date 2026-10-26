@@ -67,8 +67,13 @@ HS-Financeira/
 │   └── chat.js                 # inicia o chat de atendimento (Ubots)
 ├── assets/
 │   ├── img/                    # as 5 fotos da página
-│   └── favicon/                # favicon.svg (fonte), favicon.ico e apple-touch-icon.png
+│   ├── favicon/                # favicon.svg (fonte), favicon.ico e apple-touch-icon.png
+│   ├── og/                     # imagem de compartilhamento (WhatsApp, redes), 1200×630
+│   └── marca/                  # logo 512px usado nos dados estruturados
+├── robots.txt  sitemap.xml  llms.txt  favicon.ico   # rastreamento, SEO e IA (ver docs/SEO.md)
+├── docs/SEO.md                 # diagnóstico de SEO, o que foi feito e próximos passos
 ├── tools/bundle.mjs            # gera o arquivo único (opcional)
+├── tools/seo-check.mjs         # confere SEO e sincroniza o JSON-LD do FAQ (npm run seo)
 ├── compartilhar/
 │   └── proposta-hs-financeira.html   # o arquivo para enviar ao time (751 KB)
 └── reference/                  # versão original, antes da organização
@@ -112,7 +117,16 @@ para a tela inicial do iPhone) são exportações dele — se mudar o SVG, expor
 os dois de novo.
 
 **Adicionar uma pergunta no FAQ** — copie um bloco `.acc__it` na seção `FAQ`. O
-primeiro item tem `is-open` e `aria-expanded="true"`; os demais, não.
+primeiro item tem `is-open` e `aria-expanded="true"`; os demais, não. A pergunta
+fica dentro de `<h3 class="acc__h">`. Depois rode `npm run seo -- --corrigir-faq`:
+o JSON-LD do `<head>` repete o FAQ para o Google e as IAs, e precisa ficar igual
+ao texto visível. Um `id` no `.acc__it` (como `#renegociacao`) permite linkar a
+pergunta, que já abre respondida.
+
+**Antes de publicar** — `npm run seo`. Confere canonical, imagem de
+compartilhamento, títulos, imagens, arquivos referenciados, robots/sitemap e se o
+FAQ do JSON-LD bate com a página. Detalhes e pendências em
+[`docs/SEO.md`](docs/SEO.md).
 
 **Criar uma seção** — adicione o markup no `index.html` entre os comentários de
 seção, crie `css/sections/nova.css` e registre o `<link>` no `<head>`.
@@ -138,7 +152,13 @@ só no primeiro deixa o tema inconsistente.
   arquivo único — sem internet, o navegador cai no fallback serif/sans-serif.
 - **Simulador**: Tabela Price (`pmt = pv · i / (1 − (1 + i)⁻ⁿ)`), cálculo 100%
   local, sem envio de dados e sem consulta a CPF, como diz o texto da seção.
-- **Dados estruturados** (schema.org `FinancialService`) inline no `<head>`.
+- **Dados estruturados** (schema.org) inline no `<head>`: um `@graph` com a
+  empresa (`FinancialService`, canais de atendimento e catálogo de produtos),
+  `WebSite`, `WebPage` e `FAQPage`. URLs dele, do canonical, do `og:` e do
+  `llms.txt` são absolutas de propósito — não converta para relativas.
+- **SEO sem efeito visual**: títulos de produtos e cards são `h3` com
+  `font:inherit` (o reset daria a eles a fonte dos títulos); `.sr-only` em
+  `reset.css` esconde rótulos que só leitores de tela e robôs precisam.
 - **Chat de atendimento** é o mesmo widget da Ubots do site oficial, com a
   mesma configuração do Grupo Herval (as conversas caem na mesma fila). São três
   peças: `ubots.min.css` no `<head>` e `ubots.min.js` no fim do `<body>`, ambos
