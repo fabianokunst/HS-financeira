@@ -1,0 +1,38 @@
+# robots.txt — HS Financeira (https://hsfinanceira.com.br)
+#
+# Buscadores e assistentes de IA podem ler o site inteiro, exceto as pastas
+# internas do projeto. Os robôs de IA estão listados um a um de propósito:
+# assim fica explícito que são bem-vindos e é fácil bloquear um deles depois.
+#
+#   Só buscam para responder (citam o site como fonte):
+#     OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User,
+#     PerplexityBot, Perplexity-User
+#   Coletam para treinar modelos (bloquear não afeta o Google nem o Bing):
+#     GPTBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot
+#
+# Para bloquear um robô, troque o "Allow: /" do grupo dele por "Disallow: /"
+# (e mova-o para um grupo próprio).
+
+User-agent: *
+Allow: /
+Disallow: /compartilhar/
+Disallow: /reference/
+Disallow: /tools/
+
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+Allow: /
+Disallow: /compartilhar/
+Disallow: /reference/
+Disallow: /tools/
+
+Sitemap: https://hsfinanceira.com.br/sitemap.xml

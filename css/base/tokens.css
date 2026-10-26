@@ -1,79 +1,82 @@
-/* Tokens de design — paleta, tipografia, espaçamento, tema claro/escuro */
+/* Tokens de design — paleta, tipografia, espaçamento, tema claro/escuro.
+   Cores tiradas do site atual (hsfinanceira.com.br): vermelho #D9222E nas faixas
+   (cabeçalho e rodapé), #D3363B em botões e destaques, títulos em preto,
+   texto em cinza-arroxeado #5F5C6B e grafite #33303E. Fonte: Manrope. */
 
 :root{
-  --paper:#FBF9F8;
-  --paper-2:#F4F0EF;
-  --paper-3:#EDE7E6;
-  --ink:#1A1517;
-  --ink-2:#3A3134;
-  --ink-soft:#6E6265;
-  --ink-faint:#9A8E90;
+  --font:Manrope,"Segoe UI",system-ui,sans-serif;
+  --paper:#FFFFFF;
+  --paper-2:#F8F8F8;
+  --paper-3:#EDEDED;
+  --ink:#000000;
+  --ink-2:#33303E;
+  --ink-soft:#5F5C6B;
+  --ink-faint:#6C6A7C;
   --brand:#D3363B;
-  --brand-deep:#8E1F23;
-  --brand-wash:#FBEFEF;
-  --blue:#1863DC;
-  --blue-wash:#EDF2FC;
-  --line:#E5DEDD;
-  --line-strong:#D2C8C7;
+  --brand-band:#D9222E;
+  --brand-deep:#B81C26;
+  --brand-wash:#FBEBEC;
+  --line:#E6E6E6;
+  --line-strong:#D6D6D6;
   --on-brand:#FFFFFF;
-  --dark-ground:#171315;
-  --dark-ground-2:#221C1E;
-  --dark-line:#38302F;
-  --dark-text:#F2ECEB;
-  --dark-text-soft:#A79C9D;
-  --shadow-sm:0 1px 2px rgba(26,21,23,.05);
-  --shadow-lift:0 12px 32px -12px rgba(26,21,23,.18);
-  --r:3px;
+  --dark-ground:#33303E;
+  --dark-ground-2:#2A2733;
+  --dark-line:#4A4658;
+  --dark-text:#FFFFFF;
+  --dark-text-soft:#C9C6D3;
+  --dark-accent:#FF8A8F;
+  --shadow-sm:0 1px 2px rgba(51,48,62,.06);
+  --shadow-lift:0 12px 32px -12px rgba(51,48,62,.22);
+  --r:10px;
+  --r-btn:7px;
   --wrap:1180px;
   --gut:clamp(20px,5vw,56px);
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --paper:#141011;
-    --paper-2:#1D1819;
-    --paper-3:#262021;
-    --ink:#F3EDEC;
-    --ink-2:#DCD3D2;
-    --ink-soft:#A29899;
-    --ink-faint:#7B7172;
-    --brand:#EE5A5E;
-    --brand-deep:#F58184;
-    --brand-wash:#2A1A1B;
-    --blue:#6FA0F5;
-    --blue-wash:#16202F;
-    --line:#302A2B;
-    --line-strong:#413939;
-    --on-brand:#1A1517;
-    --dark-ground:#0D0A0B;
-    --dark-ground-2:#181314;
-    --dark-line:#2C2526;
-    --dark-text:#F3EDEC;
-    --dark-text-soft:#A29899;
+    --paper:#18161D;
+    --paper-2:#211F28;
+    --paper-3:#2B2833;
+    --ink:#F4F3F7;
+    --ink-2:#DEDCE5;
+    --ink-soft:#ABA8B8;
+    --ink-faint:#9794A4;
+    --brand:#FF6B71;
+    --brand-deep:#FF8A8F;
+    --brand-wash:#2E1B20;
+    --line:#2F2C37;
+    --line-strong:#423E4C;
+    --on-brand:#14121A;
+    --dark-ground:#26232E;
+    --dark-ground-2:#1F1C26;
+    --dark-line:#3D3947;
+    --dark-text:#FFFFFF;
+    --dark-text-soft:#C9C6D3;
+    --dark-accent:#FF8A8F;
     --shadow-sm:0 1px 2px rgba(0,0,0,.4);
     --shadow-lift:0 12px 32px -12px rgba(0,0,0,.6);
   }
 }
 :root[data-theme="dark"]{
-  --paper:#141011;
-  --paper-2:#1D1819;
-  --paper-3:#262021;
-  --ink:#F3EDEC;
-  --ink-2:#DCD3D2;
-  --ink-soft:#A29899;
-  --ink-faint:#7B7172;
-  --brand:#EE5A5E;
-  --brand-deep:#F58184;
-  --brand-wash:#2A1A1B;
-  --blue:#6FA0F5;
-  --blue-wash:#16202F;
-  --line:#302A2B;
-  --line-strong:#413939;
-  --on-brand:#1A1517;
-  --dark-ground:#0D0A0B;
-  --dark-ground-2:#181314;
-  --dark-line:#2C2526;
-  --dark-text:#F3EDEC;
-  --dark-text-soft:#A29899;
+  --paper:#18161D;
+  --paper-2:#211F28;
+  --paper-3:#2B2833;
+  --ink:#F4F3F7;
+  --ink-2:#DEDCE5;
+  --ink-soft:#ABA8B8;
+  --ink-faint:#9794A4;
+  --brand:#FF6B71;
+  --brand-deep:#FF8A8F;
+  --brand-wash:#2E1B20;
+  --line:#2F2C37;
+  --line-strong:#423E4C;
+  --on-brand:#14121A;
+  --dark-ground:#26232E;
+  --dark-ground-2:#1F1C26;
+  --dark-line:#3D3947;
+  --dark-text:#FFFFFF;
+  --dark-text-soft:#C9C6D3;
+  --dark-accent:#FF8A8F;
   --shadow-sm:0 1px 2px rgba(0,0,0,.4);
   --shadow-lift:0 12px 32px -12px rgba(0,0,0,.6);
 }

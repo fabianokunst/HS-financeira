@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Atualize <lastmod> quando o conteúdo da página mudar de verdade (não a cada
+     publicação): o Google ignora datas que mudam sem motivo. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://hsfinanceira.com.br/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <image:image><image:loc>https://hsfinanceira.com.br/assets/img/hero-cliente-app.jpg</image:loc></image:image>
+    <image:image><image:loc>https://hsfinanceira.com.br/assets/img/cartao-hoje.jpg</image:loc></image:image>
+    <image:image><image:loc>https://hsfinanceira.com.br/assets/img/empresas-oficina.jpg</image:loc></image:image>
+    <image:image><image:loc>https://hsfinanceira.com.br/assets/img/parceiros-atendimento.jpg</image:loc></image:image>
+    <image:image><image:loc>https://hsfinanceira.com.br/assets/img/investimentos-especialista.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://hsfinanceira.com.br/aviso.html</loc>
+    <lastmod>2026-10-26</lastmod>
+  </url>
+</urlset>
