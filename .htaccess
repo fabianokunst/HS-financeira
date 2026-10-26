@@ -91,4 +91,4 @@ RewriteRule ^$ /um-cartao-cheio-de-vantagens-para-quem-vive-o-hoje/? [R=301,L]
 </IfModule>
 
 # ── Pastas do projeto que não fazem parte do site publicado ──
-RedirectMatch 404 ^/(?:\.git|\.claude|tools|reference)(?:/|$)
+RedirectMatch 404 ^/(?:\.git|\.claude|docs|tools|reference)(?:/|$)
