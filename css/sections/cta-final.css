@@ -1,13 +1,14 @@
 /* Chamada final */
 
-.fcta{background:var(--brand);color:#fff}
+.fcta{background:var(--dark-ground);color:#fff}
 .fcta__in{
   display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
   gap:26px;padding-block:clamp(38px,4.6vw,58px);
 }
 .fcta h2{font-size:clamp(25px,3.2vw,38px);line-height:1.1;letter-spacing:-.018em;color:#fff;max-width:20ch}
-.fcta p{margin-top:10px;font-size:15px;color:rgba(255,255,255,.82);max-width:44ch}
+.fcta p{margin-top:10px;font-size:15px;color:var(--dark-text-soft);max-width:44ch}
 .fcta__acts{display:flex;flex-wrap:wrap;gap:11px}
-.fcta .btn--onDark{background:#fff;color:var(--brand-deep)}
+.fcta .btn--onDark{background:var(--brand-band);color:#fff}
+.fcta .btn--onDark:hover{background:var(--brand-band-deep);color:#fff}
 .fcta .btn--lineDark{border-color:rgba(255,255,255,.42);color:#fff}
 .fcta .btn--lineDark:hover{background:rgba(255,255,255,.12);border-color:#fff}

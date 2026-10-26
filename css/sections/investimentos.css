@@ -4,14 +4,14 @@
 .inv__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,4vw,58px);align-items:center}
 .inv__panel{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
 .ibox{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:20px}
-.ibox h3{font-family:Newsreader,serif;font-size:22px;font-weight:500;letter-spacing:-.01em}
+.ibox h3{font-size:21px;font-weight:800;letter-spacing:-.01em}
 .ibox em{display:block;font-style:normal;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-top:2px}
 .ibox p{font-size:13px;color:var(--ink-soft);line-height:1.5;margin-top:9px}
 .fgc{
   display:flex;gap:13px;align-items:flex-start;margin-top:18px;padding:15px 17px;
   background:var(--brand-wash);border-radius:var(--r);
 }
-.fgc__s{font-family:Newsreader,serif;font-size:24px;font-weight:500;color:var(--brand);line-height:1;flex:0 0 auto;font-variant-numeric:tabular-nums}
+.fgc__s{font-size:22px;font-weight:800;color:var(--brand);line-height:1;flex:0 0 auto;font-variant-numeric:tabular-nums}
 .fgc p{font-size:12.5px;color:var(--ink-2);line-height:1.5}
 .inv__img{width:100%;aspect-ratio:4/4.5;object-fit:cover;object-position:50% 22%;border-radius:var(--r)}
 @media(max-width:840px){.inv__grid{grid-template-columns:1fr}.inv__media{display:none}.inv__panel{grid-template-columns:1fr}}

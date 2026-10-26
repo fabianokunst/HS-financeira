@@ -1,0 +1,140 @@
+/* Páginas internas — uma pasta por endereço (credito-pessoal/, governanca/, aviso/…).
+   Abertura com trilha, texto corrido, etapas, arquivos para baixar, depoimentos,
+   canais de atendimento e "veja também". Os blocos são independentes: cada página
+   usa só os que precisa, sempre dentro de .sec (layout/section.css). */
+
+/* ── Abertura ── */
+.pg{padding-block:clamp(28px,4vw,48px) clamp(44px,6vw,72px)}
+.pg__trilha{
+  display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;
+  font-size:12.5px;color:var(--ink-faint);margin-bottom:clamp(26px,3.4vw,42px);
+}
+.pg__trilha a{color:var(--ink-soft)}
+.pg__trilha a:hover{color:var(--brand)}
+.pg__trilha [aria-current]{color:var(--ink-2);font-weight:500}
+.pg__h1{font-size:clamp(32px,4.6vw,54px);line-height:1.08;letter-spacing:-.025em;margin:14px 0 18px;max-width:20ch}
+.pg__fatos{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.pg__acts{display:flex;flex-wrap:wrap;gap:11px;margin-top:28px}
+
+/* Abertura com um quadro-resumo ao lado */
+.pg__grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(32px,5vw,72px);align-items:end}
+@media(max-width:900px){.pg__grid{grid-template-columns:1fr;align-items:start}}
+.resumo{
+  border:1px solid var(--line);border-radius:var(--r);background:var(--paper-2);
+  padding:clamp(20px,2.4vw,28px);
+}
+.resumo dl{margin:0;display:grid;gap:14px}
+.resumo dl>div{display:grid;gap:2px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.resumo dl>div:last-child{padding-bottom:0;border-bottom:0}
+.resumo dt{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+.resumo dd{margin:0;font-size:15.5px;font-weight:600;color:var(--ink)}
+
+/* ── Texto corrido (políticas, LGPD, posts do blog…) ── */
+.texto{max-width:72ch}
+.texto>*+*{margin-top:1em}
+.texto h2{font-size:clamp(24px,2.6vw,30px);line-height:1.15;letter-spacing:-.015em;margin-top:1.7em}
+.texto h3{font-size:clamp(19px,2vw,22px);line-height:1.25;margin-top:1.5em}
+.texto>h2:first-child,.texto>h3:first-child{margin-top:0}
+.texto p,.texto li{font-size:16.5px;line-height:1.72;color:var(--ink-2)}
+.texto ul{padding-left:1.25em;list-style:disc}
+.texto ol{padding-left:1.25em;list-style:decimal}
+.texto li+li{margin-top:.45em}
+.texto li::marker{color:var(--brand)}
+.texto a{color:var(--brand);font-weight:600;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;overflow-wrap:anywhere}
+.texto b,.texto strong{color:var(--ink);font-weight:600}
+.texto blockquote{
+  margin:1.6em 0;padding-left:20px;border-left:3px solid var(--brand);
+  font-size:clamp(18px,1.9vw,21px);line-height:1.5;font-weight:600;color:var(--ink);
+}
+.texto__nota{font-size:13.5px!important;color:var(--ink-soft)!important}
+
+/* Duas colunas (texto + canais, por exemplo) */
+.pg__duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,88px)}
+@media(max-width:860px){.pg__duo{grid-template-columns:1fr}}
+
+/* ── Etapas numeradas, lado a lado ("como contratar") ── */
+.etapas{
+  counter-reset:etapa;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+}
+.etapa{counter-increment:etapa;background:var(--paper);padding:24px 22px 26px;display:flex;flex-direction:column;gap:8px}
+.etapa::before{
+  content:"Etapa " counter(etapa);margin-bottom:4px;
+  font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);
+}
+.etapa b{font-size:16px;font-weight:600}
+.etapa p{font-size:14px;color:var(--ink-soft);line-height:1.6}
+.etapas--3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:960px){.etapas,.etapas--3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.etapas,.etapas--3{grid-template-columns:1fr}}
+
+/* Passos numerados, um embaixo do outro */
+.passos{counter-reset:passo;display:grid;gap:22px;margin-top:26px}
+.passos li{counter-increment:passo;display:grid;grid-template-columns:34px 1fr;gap:4px 14px}
+.passos li::before{
+  content:counter(passo);grid-row:span 2;width:34px;height:34px;
+  display:grid;place-items:center;border-radius:50%;
+  background:var(--brand-wash);color:var(--brand);font-weight:700;font-size:14px;
+}
+.passos b{font-size:15.5px;font-weight:600;padding-top:5px}
+.passos p{font-size:14px;color:var(--ink-soft);line-height:1.6}
+
+/* ── Arquivos para baixar (contratos, relatórios, demonstrações) ── */
+.arquivos{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:clamp(30px,3.4vw,44px) clamp(28px,4vw,56px)}
+.arquivos__grupo h3{
+  font-size:19px;line-height:1.2;padding-bottom:12px;margin-bottom:4px;border-bottom:1px solid var(--ink);
+}
+.arquivos__grupo p{font-size:14px;color:var(--ink-soft);line-height:1.6;margin:10px 0 6px}
+.arquivo a{
+  display:grid;grid-template-columns:18px 1fr auto;gap:12px;align-items:start;
+  padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px;color:var(--ink-2);
+  transition:color .18s;
+}
+.arquivo a:hover{color:var(--brand)}
+.arquivo svg{width:18px;height:18px;margin-top:2px;color:var(--brand)}
+.arquivo em{font-style:normal;font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-faint);margin-top:3px}
+
+/* ── Depoimentos ── */
+.depos{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+}
+.depo{margin:0;background:var(--paper);padding:26px 24px 24px;display:flex;flex-direction:column;justify-content:space-between;gap:18px}
+.depo blockquote{margin:0;font-size:17px;line-height:1.55;font-weight:600;color:var(--ink)}
+.depo figcaption{font-size:13px;font-weight:600;color:var(--ink-soft)}
+@media(max-width:860px){.depos{grid-template-columns:1fr}}
+
+/* ── Canais de atendimento ── */
+.canais{
+  display:grid;gap:1px;margin-top:26px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--r);
+}
+.canal{
+  background:var(--paper);padding:15px 18px;
+  display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px;
+}
+.canal em{font-style:normal;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-faint)}
+.canal a,.canal span{font-size:17px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.canal a:hover{color:var(--brand)}
+.canal small{flex-basis:100%;font-size:12.5px;color:var(--ink-soft)}
+.canais__nota{margin-top:14px;font-size:13px;color:var(--ink-soft);line-height:1.55}
+
+/* ── Veja também (links para outras páginas do site) ── */
+.mais{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mais a{
+  display:flex;flex-direction:column;gap:6px;height:100%;padding:20px 22px;
+  border:1px solid var(--line);border-radius:var(--r);background:var(--paper);
+  transition:border-color .18s,transform .18s;
+}
+.mais a:hover{border-color:var(--brand);transform:translateY(-2px)}
+.mais b{font-size:15.5px;font-weight:600;color:var(--ink)}
+.mais span{font-size:13.5px;color:var(--ink-soft);line-height:1.55}
+@media(max-width:860px){.mais{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.mais a{transition:none}.mais a:hover{transform:none}}
+
+/* ── Conteúdo de outro sistema embutido (formulário de solicitação) ── */
+.moldura{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
+.moldura iframe{display:block;width:100%;height:min(1000px,88vh);border:0}
+
+/* ── Post do blog ── */
+.post__meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--ink-faint)}

@@ -11,7 +11,7 @@
 
 /* O widget pede Roboto, que a página não carrega; usa a fonte do site. */
 #ubots-form-div,#ubots-form-div>*,.ubots-form>*,.ubots-reset>*{
-  font-family:Archivo,"Segoe UI",system-ui,sans-serif !important;
+  font-family:var(--font) !important;
 }
 
 /* O cabeçalho é sticky com z-index 50: o botão fica por baixo dele (o menu

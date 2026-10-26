@@ -4,7 +4,7 @@
 .field:last-child{margin-bottom:0}
 .field__top{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:11px}
 .field__lb{font-size:12.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft)}
-.field__vl{font-family:Newsreader,serif;font-size:23px;font-weight:500;letter-spacing:-.015em;font-variant-numeric:tabular-nums}
+.field__vl{font-size:22px;font-weight:800;letter-spacing:-.015em;font-variant-numeric:tabular-nums}
 input[type=range]{
   -webkit-appearance:none;appearance:none;width:100%;height:3px;background:var(--line-strong);
   border-radius:2px;outline-offset:6px;

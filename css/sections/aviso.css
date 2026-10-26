@@ -1,8 +1,8 @@
 /* Faixa de aviso contra golpes, acima da barra de telefones */
 
 .aviso{
-  background:var(--brand-wash);color:var(--ink-2);
-  border-bottom:1px solid color-mix(in srgb,var(--brand) 22%,transparent);
+  background:var(--paper);color:var(--ink-2);
+  border-bottom:1px solid var(--line);
   font-size:12.5px;line-height:1.6;
 }
 .aviso__in{position:relative;padding-block:12px}
@@ -14,9 +14,9 @@
 .aviso__x{
   position:absolute;top:8px;right:calc(var(--gut) - 8px);
   width:32px;height:32px;display:grid;place-items:center;
-  border-radius:var(--r);color:var(--ink-soft);
+  border-radius:var(--r-btn);color:var(--ink-soft);
 }
-.aviso__x:hover{background:color-mix(in srgb,var(--brand) 12%,transparent);color:var(--ink)}
+.aviso__x:hover{background:var(--brand-wash);color:var(--ink)}
 .aviso__x svg{width:14px;height:14px}
 @media(max-width:620px){
   .aviso{font-size:12px}

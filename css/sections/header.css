@@ -2,40 +2,42 @@
 
 .hdr{
   position:sticky;top:0;z-index:50;
-  background:color-mix(in srgb,var(--paper) 88%,transparent);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line);
+  background:var(--brand-band);color:#fff;
 }
-.hdr__in{display:flex;align-items:center;gap:28px;min-height:70px}
-.mark{display:flex;align-items:center;gap:10px;flex:0 0 auto}
-.mark__glyph{width:38px;height:38px;flex:0 0 auto}
-.mark__txt{display:flex;flex-direction:column;line-height:1.05}
-.mark__name{font-family:Archivo,sans-serif;font-weight:700;font-size:17px;letter-spacing:-.01em}
-.mark__name em{font-style:normal;font-weight:400;color:var(--ink-soft)}
-.mark__sub{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);font-weight:500}
+.hdr__in{display:flex;align-items:center;gap:28px;min-height:80px}
+/* Logo oficial do site atual (PNG branco, sem nenhuma alteração). A imagem tem
+   margem transparente; as margens negativas só alinham o desenho ao conteúdo. */
+.mark{display:flex;align-items:center;flex:0 0 auto}
+.mark__logo{display:block;width:146px;height:auto;margin:-10px 0 -15px -18px}
 .nav{display:flex;gap:26px;margin-left:8px}
-.nav a{font-size:14.5px;font-weight:500;color:var(--ink-2);padding-block:6px;border-bottom:2px solid transparent;white-space:nowrap}
-.nav a:hover{color:var(--brand);border-bottom-color:var(--brand)}
+.nav a{font-size:15px;font-weight:700;color:#fff;padding-block:6px;border-bottom:2px solid transparent;white-space:nowrap}
+.nav a:hover{border-bottom-color:#fff}
 .hdr__cta{margin-left:auto;display:flex;align-items:center;gap:14px}
-.hdr__ghost{font-size:14px;font-weight:500;color:var(--ink-soft);white-space:nowrap}
-.hdr__ghost:hover{color:var(--ink)}
+.hdr__ghost{font-size:15px;font-weight:700;color:#fff;white-space:nowrap;border-bottom:2px solid transparent;padding-block:6px}
+.hdr__ghost:hover{border-bottom-color:#fff}
+/* Sobre a faixa vermelha o botão principal fica branco com texto vermelho,
+   igual nos dois temas. */
+.hdr__cta .btn--solid{background:#fff;color:var(--brand-band)}
+.hdr__cta .btn--solid:hover{background:#FBEBEC;color:var(--brand-band-deep)}
+.hdr :focus-visible{outline-color:#fff}
 .burger{
   display:none;flex-direction:column;justify-content:center;gap:5px;
   width:42px;height:42px;align-items:center;
-  border:1px solid var(--line-strong);border-radius:var(--r);
+  border:1px solid rgba(255,255,255,.55);border-radius:var(--r-btn);
 }
 .burger span{
-  display:block;width:17px;height:1.5px;background:var(--ink);border-radius:2px;
+  display:block;width:17px;height:1.5px;background:#fff;border-radius:2px;
   transition:transform .22s ease,opacity .18s;
 }
 .burger[aria-expanded=true] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 .burger[aria-expanded=true] span:nth-child(2){opacity:0}
 .burger[aria-expanded=true] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-.mnav{border-top:1px solid var(--line);background:var(--paper);max-height:calc(100svh - 108px);overflow-y:auto}
+.mnav{background:var(--paper);color:var(--ink);max-height:calc(100svh - 118px);overflow-y:auto}
+.mnav :focus-visible{outline-color:var(--brand)}
 .mnav a{
   display:flex;align-items:center;justify-content:space-between;
   padding:15px var(--gut);border-bottom:1px solid var(--line);
-  font-size:16px;font-weight:500;
+  font-size:16px;font-weight:600;
 }
 .mnav a:hover,.mnav a:active{background:var(--paper-2);color:var(--brand)}
 .mnav a svg{width:15px;height:15px;color:var(--ink-faint)}
@@ -50,11 +52,11 @@
 @media(max-width:960px){
   .nav,.hdr__ghost{display:none}
   .burger{display:flex}
-  .hdr__in{gap:14px;min-height:64px}
+  .hdr__in{gap:14px;min-height:68px}
+  .mark__logo{width:124px;margin:-8px 0 -13px -15px}
 }
 @media(min-width:961px){.mnav{display:none}}
 @media(max-width:430px){
   .hdr__cta .btn--solid{padding:11px 14px;font-size:13.5px}
-  .mark__sub{display:none}
 }
 @media(prefers-reduced-motion:reduce){.burger span{transition:none}}

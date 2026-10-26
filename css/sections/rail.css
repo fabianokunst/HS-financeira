@@ -1,18 +1,13 @@
 /* Barra superior de telefones e atalhos */
 
 .rail{
-  background:var(--ink);color:var(--dark-text);
+  background:var(--dark-ground);color:var(--dark-text);
   font-size:12.5px;
 }
-:root[data-theme="dark"] .rail,
-:root:not([data-theme="light"]) .rail{background:var(--dark-ground-2)}
-@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .rail{background:var(--ink)}}
 .rail__in{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;min-height:38px;padding-block:8px}
 .rail__item{display:inline-flex;align-items:baseline;gap:7px;white-space:nowrap}
-.rail__k{color:var(--ink-faint);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
-:root[data-theme="dark"] .rail__k,:root:not([data-theme="light"]) .rail__k{color:var(--dark-text-soft)}
-.rail__v{font-weight:600;font-variant-numeric:tabular-nums;color:#fff}
-:root[data-theme="dark"] .rail__v,:root:not([data-theme="light"]) .rail__v{color:var(--dark-text)}
+.rail__k{color:var(--dark-text-soft);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.rail__v{font-weight:700;font-variant-numeric:tabular-nums;color:var(--dark-text)}
 .rail__spacer{margin-left:auto}
-.rail a.rail__link{color:var(--dark-text-soft);font-weight:500}
+.rail a.rail__link{color:var(--dark-text-soft);font-weight:600}
 .rail a.rail__link:hover{color:#fff}

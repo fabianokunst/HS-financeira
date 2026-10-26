@@ -1,30 +1,32 @@
 /* Rodapé e informações legais */
 
-.ft{background:var(--dark-ground);color:var(--dark-text-soft);font-size:13.5px}
+/* Rodapé vermelho com logo branco, como no site atual. Branco puro em todo o
+   texto: tons rosados sobre #D9222E ficam abaixo do contraste AA. */
+.ft{background:var(--brand-band);color:#fff;font-size:13.5px}
 .ft__top{display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:34px 26px;padding-block:clamp(40px,5vw,62px) 34px}
-.ft__brand .mark__name{color:var(--dark-text)}
-.ft__brand .mark__name em{color:var(--dark-text-soft)}
-.ft__brand .mark__sub{color:var(--dark-text-soft)}
+.ft__logo{display:block;width:210px;height:auto;margin:-14px 0 -22px -26px}
 .ft__about{margin-top:16px;line-height:1.6;max-width:34ch}
-.ft h2{font-family:Archivo,sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dark-text);margin-bottom:14px}
+.ft h2{font-size:14px;font-weight:800;letter-spacing:0;color:#fff;margin-bottom:14px}
 .ft__col ul{display:grid;gap:9px}
-.ft__col a:hover{color:var(--dark-text)}
+.ft__col a{border-bottom:1px solid transparent}
+.ft__col a:hover{border-bottom-color:#fff}
+.ft :focus-visible{outline-color:#fff}
 .ft__phones{display:grid;gap:12px;margin-top:18px}
 .ft__ph{display:flex;flex-direction:column;gap:1px}
-.ft__ph em{font-style:normal;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-faint)}
-.ft__ph b{font-size:17px;font-weight:600;color:var(--dark-text);font-variant-numeric:tabular-nums;letter-spacing:-.005em}
+.ft__ph em{font-style:normal;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.ft__ph b{font-size:17px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-.005em}
 .ft__soc{display:flex;gap:9px;margin-top:20px}
 .ft__soc a{
-  width:34px;height:34px;border:1px solid var(--dark-line);border-radius:var(--r);
+  width:36px;height:36px;border:1px solid rgba(255,255,255,.6);border-radius:var(--r-btn);
   display:grid;place-items:center;transition:border-color .18s,color .18s;
 }
-.ft__soc a:hover{border-color:var(--dark-text);color:var(--dark-text)}
+.ft__soc a:hover{border-color:#fff;background:#fff;color:var(--brand-band)}
 .ft__soc svg{width:16px;height:16px}
 .ft__legal{
-  border-top:1px solid var(--dark-line);padding-block:26px 34px;
+  border-top:1px solid rgba(255,255,255,.35);padding-block:26px 34px;
   display:flex;flex-wrap:wrap;gap:14px 30px;font-size:12px;line-height:1.6;
 }
 .ft__legal p{max-width:78ch}
-.ft__legal b{color:var(--dark-text);font-weight:600}
+.ft__legal b{color:#fff;font-weight:700}
 @media(max-width:1000px){.ft__top{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){.ft__top{grid-template-columns:1fr}}
