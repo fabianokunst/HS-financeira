@@ -51,7 +51,7 @@ HS-Financeira/
 │   │   └── reset.css           # elementos base e utilitários (.wrap, .lede, .eyebrow)
 │   ├── layout/
 │   │   └── section.css         # casca de seção (.sec, .sec__head, .sec__h2)
-│   ├── components/             # reutilizáveis: buttons, tag, field, chips
+│   ├── components/             # reutilizáveis: buttons, tag, field, chips, chat
 │   └── sections/               # um arquivo por seção, mesmo nome da seção
 │       ├── aviso.css  rail.css  header.css  hero.css  facts.css  produtos.css
 │       ├── simulador.css  split.css  empresas.css  parceiros.css
@@ -63,7 +63,8 @@ HS-Financeira/
 │   ├── aviso.js                # fechar a faixa de aviso do topo
 │   ├── nav.js                  # menu mobile
 │   ├── accordion.js            # FAQ
-│   └── simulador.js            # cálculo da parcela
+│   ├── simulador.js            # cálculo da parcela
+│   └── chat.js                 # inicia o chat de atendimento (Ubots)
 ├── assets/
 │   ├── img/                    # as 5 fotos da página
 │   └── favicon/                # favicon.svg (fonte), favicon.ico e apple-touch-icon.png
@@ -138,6 +139,17 @@ só no primeiro deixa o tema inconsistente.
 - **Simulador**: Tabela Price (`pmt = pv · i / (1 − (1 + i)⁻ⁿ)`), cálculo 100%
   local, sem envio de dados e sem consulta a CPF, como diz o texto da seção.
 - **Dados estruturados** (schema.org `FinancialService`) inline no `<head>`.
+- **Chat de atendimento** é o mesmo widget da Ubots do site oficial, com a
+  mesma configuração do Grupo Herval (as conversas caem na mesma fila). São três
+  peças: `ubots.min.css` no `<head>` e `ubots.min.js` no fim do `<body>`, ambos
+  do CDN da Ubots, e [`js/chat.js`](js/chat.js), que chama `UbotsWC.init` com a
+  URL da configuração. Título, formulário e horário de atendimento vêm dessa
+  configuração, mantida pela Ubots, não daqui. As cores da marca e as camadas
+  (botão abaixo do cabeçalho, janela acima) ficam em
+  [`css/components/chat.css`](css/components/chat.css). O CSS da Ubots tem um
+  `*{margin:0;padding:0}` global, por isso margens que antes vinham do padrão
+  do navegador (a `<dl>` do simulador, o slider) agora estão explícitas.
+  Sem internet o widget não carrega e o resto da página segue normal.
 
 ### Como o gerador do arquivo único funciona
 
