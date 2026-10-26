@@ -1,0 +1,94 @@
+# HS Financeira — regras do servidor (LiteSpeed/Apache, o mesmo do WordPress atual)
+#
+# O site novo mantém todos os endereços do WordPress (cada página é uma pasta
+# com index.html). Estas regras cuidam do que sobra: forçar o endereço canônico,
+# redirecionar com 301 os endereços que só existiam no WordPress e servir a 404.
+# Em outra hospedagem (Netlify, Vercel, S3/CloudFront, nginx), reproduza estas
+# mesmas regras na configuração dela.
+
+DirectoryIndex index.html
+Options -Indexes
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# ── Endereço canônico: https e sem www ──
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://hsfinanceira.com.br%{REQUEST_URI} [R=301,L,NE]
+
+# ── /pasta/index.html → /pasta/ (evita conteúdo duplicado) ──
+RewriteCond %{THE_REQUEST} \s/+((?:[^\s?]*/)?)index\.html[\s?]
+RewriteRule ^ /%1 [R=301,L]
+
+# ── Endereços que só existiam no WordPress ──
+# Sitemaps do WordPress → sitemap novo
+RewriteRule ^wp-sitemap[^/]*\.xml$ /sitemap.xml [R=301,L]
+# Feeds RSS (do site, dos comentários, de cada post e da categoria) → a página correspondente
+RewriteRule ^(?:comments/)?feed/?$ / [R=301,L]
+RewriteRule ^(.+)/feed/?$ /$1/ [R=301,L]
+# Arquivos por data e páginas de autor → lista do blog
+RewriteRule ^\d{4}(?:/\d{2}){0,2}/?$ /category/categoria/ [R=301,L]
+RewriteRule ^author/ /category/categoria/ [R=301,L]
+# Busca do WordPress (?s=…) → início
+RewriteCond %{QUERY_STRING} (?:^|&)s= [NC]
+RewriteRule ^$ /? [R=301,L]
+
+# Links curtos do WordPress (?p=ID e ?page_id=ID) → endereço da página
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=1396$
+RewriteRule ^$ /aviso/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=800$
+RewriteRule ^$ /cadastro-positivo-2/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=1754$
+RewriteRule ^$ /canal-de-etica-e-denuncia/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=1933$
+RewriteRule ^$ /cdc-credito-direto-ao-consumidor/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=1$
+RewriteRule ^$ /como-escolher-a-contratacao-de-um-servico-financeiro/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=1590$
+RewriteRule ^$ /credito-pessoal/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=591$
+RewriteRule ^$ /divulgacao-de-resultados/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=393$
+RewriteRule ^$ /emprestimo-com-a-menor-taxa-do-mercado/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=322$
+RewriteRule ^$ /envie-nos-uma-mensagem/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=930$
+RewriteRule ^$ /especialista-da-5-dicas-para-lidar-melhor-com-seu-dinheiro/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=568$
+RewriteRule ^$ /governanca/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=29$
+RewriteRule ^$ /? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=1214$
+RewriteRule ^$ /investimentos/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=585$
+RewriteRule ^$ /lgpd/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=559$
+RewriteRule ^$ /linha-pj-completa-sem-burocracia-com-as-melhores-taxas/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=514$
+RewriteRule ^$ /linhas-de-credito-para-acelerar-as-conquistas-da-sua-empresa/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=366$
+RewriteRule ^$ /nossa-historia/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=310$
+RewriteRule ^$ /nossos-parceiros-hs-corretora-de-seguros/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=291$
+RewriteRule ^$ /nossos-parceiros-iplace/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=316$
+RewriteRule ^$ /nossos-parceiros-lojas-taqi/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=2231$
+RewriteRule ^$ /politicas-de-privacidade-e-transparencia/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=338$
+RewriteRule ^$ /portabilidade-de-credito/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=924$
+RewriteRule ^$ /qual-a-importancia-de-ter-uma-reserva-de-emergencia/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=2815$
+RewriteRule ^$ /solicitar-credito-pessoal/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=2889$
+RewriteRule ^$ /solicitar-credito-pessoal/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:p|page_id)=501$
+RewriteRule ^$ /um-cartao-cheio-de-vantagens-para-quem-vive-o-hoje/? [R=301,L]
+</IfModule>
+
+# ── Pastas do projeto que não fazem parte do site publicado ──
+RedirectMatch 404 ^/(?:\.git|\.claude|tools|reference)(?:/|$)

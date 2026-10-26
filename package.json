@@ -6,7 +6,8 @@
   "scripts": {
     "bundle": "node tools/bundle.mjs",
     "serve": "python -m http.server 8080",
-    "seo": "node tools/seo-check.mjs"
+    "seo": "node tools/seo-check.mjs",
+    "paginas": "node tools/paginas.mjs"
   },
   "engines": {
     "node": ">=18"

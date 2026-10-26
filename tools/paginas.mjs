@@ -41,7 +41,7 @@ const SITE = "https://hsfinanceira.com.br/";
 const VERIFICAR = process.argv.includes("--verificar");
 
 /* Pastas do projeto que não são páginas. */
-const FORA = new Set(["assets", "css", "js", "tools", "compartilhar", "reference", "node_modules", "wp-content"]);
+const FORA = new Set(["assets", "css", "js", "docs", "tools", "compartilhar", "reference", "node_modules", "wp-content"]);
 
 /* Blocos copiados do index.html, pelo nome do comentário de seção. */
 const BLOCOS = ["AVISO", "TOP RAIL", "HEADER", "FOOTER"];
@@ -187,7 +187,9 @@ function conferirSeo(pagina, html, sitemap) {
   if (valor(/<link rel="canonical" href="([^"]*)"/) !== url) problemas.push(`canonical diferente de ${url}`);
   if (valor(/<meta property="og:url" content="([^"]*)"/) !== url) problemas.push(`og:url diferente de ${url}`);
   if (!valor(/<title>([^<]+)<\/title>/)) problemas.push("sem <title>");
-  if (!valor(/<meta name="description" content="([^"]+)"/)) problemas.push("sem meta description");
+  const descricao = valor(/<meta name="description" content="([^"]+)"/);
+  if (!descricao) problemas.push("sem meta description");
+  else if (descricao.length > 160) problemas.push(`meta description com ${descricao.length} caracteres (o Google corta perto de 155)`);
   const h1 = (html.match(/<h1[\s>]/g) || []).length;
   if (h1 !== 1) problemas.push(`${h1} <h1> (deve ter exatamente um)`);
   const canonical = valor(/<link rel="canonical" href="([^"]*)"/);
