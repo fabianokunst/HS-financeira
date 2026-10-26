@@ -81,7 +81,7 @@
 .passos p{font-size:14px;color:var(--ink-soft);line-height:1.6}
 
 /* ── Arquivos para baixar (contratos, relatórios, demonstrações) ── */
-.arquivos{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:clamp(30px,3.4vw,44px) clamp(28px,4vw,56px)}
+.arquivos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(30px,3.4vw,44px) clamp(28px,4vw,56px)}
 .arquivos__grupo h3{
   font-size:19px;line-height:1.2;padding-bottom:12px;margin-bottom:4px;border-bottom:1px solid var(--ink);
 }
