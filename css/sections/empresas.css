@@ -13,7 +13,7 @@
   display:flex;flex-direction:column;gap:7px;transition:border-color .18s,background .18s;
 }
 .pcard:hover{border-color:var(--blue);background:rgba(110,160,245,.05)}
-.pcard b{font-size:15.5px;font-weight:600}
+.pcard h3{font:inherit;font-size:15.5px;font-weight:600;letter-spacing:normal}
 .pcard p{font-size:13px;color:var(--dark-text-soft);line-height:1.5}
 .pcard__v{
   margin-top:auto;padding-top:10px;font-size:13px;font-weight:600;color:var(--blue);

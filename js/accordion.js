@@ -12,14 +12,28 @@
     });
   }
 
+  function abrir(item) {
+    fecharTodos();
+    item.classList.add("is-open");
+    item.querySelector(".acc__q").setAttribute("aria-expanded", "true");
+  }
+
   perguntas.forEach(function (pergunta) {
     pergunta.addEventListener("click", function () {
       var estavaAberto = pergunta.getAttribute("aria-expanded") === "true";
-      fecharTodos();
-      if (!estavaAberto) {
-        pergunta.closest(".acc__it").classList.add("is-open");
-        pergunta.setAttribute("aria-expanded", "true");
-      }
+      if (estavaAberto) fecharTodos();
+      else abrir(pergunta.closest(".acc__it"));
     });
   });
+
+  /* Link direto para uma pergunta (#renegociacao, #consignado, #telefones)
+     já chega com a resposta aberta — vale para o menu e para quem vem de busca. */
+  function abrirPeloEndereco() {
+    var alvo = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
+    var item = alvo && alvo.closest(".acc__it");
+    if (item) abrir(item);
+  }
+
+  window.addEventListener("hashchange", abrirPeloEndereco);
+  abrirPeloEndereco();
 })();

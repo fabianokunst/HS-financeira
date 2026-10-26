@@ -3,6 +3,8 @@
 .faq__grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(24px,4vw,58px);align-items:start}
 .acc{border-top:1px solid var(--ink)}
 .acc__it{border-bottom:1px solid var(--line)}
+/* O título envolve o botão (padrão de acordeão acessível) e não muda o visual. */
+.acc__h{font:inherit;letter-spacing:normal}
 .acc__q{
   width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;
   padding:19px 0;text-align:left;font-size:16px;font-weight:600;letter-spacing:-.005em;

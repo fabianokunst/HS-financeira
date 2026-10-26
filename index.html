@@ -4,13 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>HS Financeira — Crédito Pessoal, Cartão e Investimentos</title>
-  <meta name="description" content="Crédito pessoal, Cartão Hoje, consignado INSS, crédito para empresas e investimentos em LC e CDB com garantia do FGC. A financeira do Grupo Herval desde 2005.">
+  <meta name="description" content="Empréstimo pessoal sem conta em banco, Cartão Hoje, consignado INSS, crédito PJ e investimentos LC e CDB com garantia do FGC. Financeira do Grupo Herval.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://hsfinanceira.com.br/">
   <meta name="theme-color" content="#D3363B" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#141011" media="(prefers-color-scheme: dark)">
+
+  <!-- Compartilhamento (WhatsApp, LinkedIn, Facebook, X). URLs absolutas: os
+       robôs dessas redes não resolvem caminhos relativos. -->
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="HS Financeira">
+  <meta property="og:url" content="https://hsfinanceira.com.br/">
   <meta property="og:title" content="HS Financeira — Crédito Pessoal, Cartão e Investimentos">
   <meta property="og:description" content="Crédito que cabe no seu ritmo, sem burocracia. Simule a parcela antes de pedir.">
+  <meta property="og:image" content="https://hsfinanceira.com.br/assets/og/hs-financeira-og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="HS Financeira, do Grupo Herval: crédito que cabe no seu ritmo, sem burocracia">
   <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="assets/favicon/favicon.ico" sizes="32x32">
   <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
@@ -19,6 +31,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Archivo:wght@400;500;600;700&display=swap">
+  <!-- Chat de atendimento (Ubots): o CSS do widget vem antes do nosso para
+       css/components/chat.css poder ajustá-lo. -->
+  <link rel="stylesheet" href="https://cdn.ubots.com.br/webchat/ubots.min.css">
 
   <!-- Estilos: a ordem destas linhas é a ordem da cascata.
        Ao criar um arquivo em css/, registre-o aqui na posição certa. -->
@@ -32,6 +47,7 @@
   <link rel="stylesheet" href="css/components/tag.css">
   <link rel="stylesheet" href="css/components/field.css">
   <link rel="stylesheet" href="css/components/chips.css">
+  <link rel="stylesheet" href="css/components/chat.css">
 
   <!-- Seções da página, na ordem em que aparecem -->
   <link rel="stylesheet" href="css/sections/aviso.css">
@@ -50,8 +66,34 @@
   <link rel="stylesheet" href="css/sections/cta-final.css">
   <link rel="stylesheet" href="css/sections/footer.css">
 
+  <!-- Dados estruturados (schema.org) para Google, Bing e assistentes de IA.
+       O bloco FAQPage repete as perguntas e respostas da seção FAQ e é gerado
+       a partir dela: depois de mexer no FAQ, rode `npm run seo -- --corrigir-faq`. -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"FinancialService","name":"HS Financeira","legalName":"HS Financeira S/A - Crédito, Financiamento e Investimento","url":"https://hsfinanceira.com.br/","foundingDate":"2005","parentOrganization":{"@type":"Organization","name":"Grupo Herval"},"taxID":"07.512.441/0001-11","email":"contato@hsfinanceira.com.br","sameAs":["https://www.facebook.com/hsfinanceiracfi/","https://br.linkedin.com/company/hs-financeira-s-a---cfi","https://www.instagram.com/hsfinanceira/"],"address":{"@type":"PostalAddress","streetAddress":"Rodovia BR-116, 7070, 1º andar, sala 14, Portal da Serra","addressLocality":"Dois Irmãos","addressRegion":"RS","postalCode":"93950-000","addressCountry":"BR"},"contactPoint":[{"@type":"ContactPoint","contactType":"customer service","telephone":"+55-800-602-2202"},{"@type":"ContactPoint","contactType":"complaints","telephone":"+55-800-648-7070"}]}
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"FinancialService","@id":"https://hsfinanceira.com.br/#organizacao","name":"HS Financeira","alternateName":["HS Financeira S/A","HS Financeira S/A CFI"],"legalName":"HS Financeira S/A - Crédito, Financiamento e Investimento","description":"Financeira do Grupo Herval, autorizada a funcionar pelo Banco Central do Brasil, com crédito pessoal, Cartão Hoje, consignado INSS, CDC, crédito para empresas e investimentos em LC e CDB com garantia do FGC.","url":"https://hsfinanceira.com.br/","logo":{"@type":"ImageObject","@id":"https://hsfinanceira.com.br/#logo","url":"https://hsfinanceira.com.br/assets/marca/hs-financeira-logo-512.png","contentUrl":"https://hsfinanceira.com.br/assets/marca/hs-financeira-logo-512.png","width":512,"height":512,"caption":"HS Financeira"},"image":"https://hsfinanceira.com.br/assets/og/hs-financeira-og.jpg","foundingDate":"2005","parentOrganization":{"@type":"Organization","name":"Grupo Herval"},"taxID":"07.512.441/0001-11","email":"contato@hsfinanceira.com.br","telephone":"+55-800-602-2202","sameAs":["https://www.facebook.com/hsfinanceiracfi/","https://br.linkedin.com/company/hs-financeira-s-a---cfi","https://www.instagram.com/hsfinanceira/"],"address":{"@type":"PostalAddress","streetAddress":"Rodovia BR-116, 7070, 1º andar, sala 14, Portal da Serra","addressLocality":"Dois Irmãos","addressRegion":"RS","postalCode":"93950-000","addressCountry":"BR"},"areaServed":{"@type":"Country","name":"Brasil"},
+     "contactPoint":[
+      {"@type":"ContactPoint","contactType":"customer service","name":"SAC","telephone":"+55-800-602-2202","areaServed":"BR","availableLanguage":"Portuguese","hoursAvailable":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"20:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"08:00","closes":"18:00"}]},
+      {"@type":"ContactPoint","contactType":"customer service","name":"Capitais e regiões metropolitanas","telephone":"4020 2202","areaServed":"BR","availableLanguage":"Portuguese"},
+      {"@type":"ContactPoint","contactType":"customer service","name":"WhatsApp do SAC","telephone":"+55-51-4042-1377","availableLanguage":"Portuguese"},
+      {"@type":"ContactPoint","contactType":"complaints","name":"Ouvidoria","telephone":"+55-800-648-7070","email":"contato@hsfinanceira.com.br","areaServed":"BR","availableLanguage":"Portuguese","hoursAvailable":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"12:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"13:30","closes":"15:00"}]},
+      {"@type":"ContactPoint","contactType":"billing support","name":"Central de Cobrança","telephone":"+55-51-99590-3326","email":"centraldecobranca@herval.com.br","availableLanguage":"Portuguese"},
+      {"@type":"ContactPoint","contactType":"sales","name":"Investimentos (captação)","telephone":"+55-51-4042-6468","email":"captacao@hsfinanceira.com.br","availableLanguage":"Portuguese"}],
+     "knowsAbout":["Empréstimo pessoal","Crédito pessoal","Cartão de crédito","Crédito consignado INSS","Portabilidade de crédito","Crédito Direto ao Consumidor (CDC)","Antecipação de recebíveis","Crédito para empresas","Letra de Câmbio (LC)","Certificado de Depósito Bancário (CDB)"],
+     "hasOfferCatalog":{"@type":"OfferCatalog","name":"Produtos da HS Financeira","itemListElement":[
+      {"@type":"Offer","itemOffered":{"@type":"LoanOrCredit","name":"Crédito Pessoal","alternateName":"Empréstimo pessoal","url":"https://hsfinanceira.com.br/credito-pessoal/","description":"Dinheiro livre, sem exigir conta em banco, contratado nas lojas taQi ou pelo WhatsApp. Sujeito a análise de crédito.","currency":"BRL","loanTerm":{"@type":"QuantitativeValue","maxValue":24,"unitCode":"MON"}}},
+      {"@type":"Offer","itemOffered":{"@type":"CreditCard","name":"Cartão Hoje","url":"https://hsfinanceira.com.br/um-cartao-cheio-de-vantagens-para-quem-vive-o-hoje/","description":"Cartão de crédito Visa internacional pedido pelo app Hoje Cartão, com até 15x sem juros e até 40 dias para pagar. Para maiores de 21 anos com renda superior a um salário mínimo."}},
+      {"@type":"Offer","itemOffered":{"@type":"LoanOrCredit","name":"Consignado INSS","alternateName":"Empréstimo consignado INSS","loanType":"Crédito consignado","url":"https://hsfinanceira.com.br/emprestimo-com-a-menor-taxa-do-mercado/","description":"Para aposentados e pensionistas do INSS, com parcelas fixas descontadas direto do benefício.","currency":"BRL","loanTerm":{"@type":"QuantitativeValue","maxValue":84,"unitCode":"MON"}}},
+      {"@type":"Offer","itemOffered":{"@type":"LoanOrCredit","name":"Portabilidade de crédito","url":"https://hsfinanceira.com.br/portabilidade-de-credito/"}},
+      {"@type":"Offer","itemOffered":{"@type":"LoanOrCredit","name":"CDC — Crédito Direto ao Consumidor","url":"https://hsfinanceira.com.br/cdc-credito-direto-ao-consumidor/","description":"Financiamento da compra na hora da compra, nas lojas taQi e iPlace."}},
+      {"@type":"Offer","itemOffered":{"@type":"InvestmentOrDeposit","name":"LC — Letra de Câmbio","url":"https://hsfinanceira.com.br/investimentos/","description":"Renda fixa coberta pelo FGC em até R$ 250.000,00 por CPF e por instituição."}},
+      {"@type":"Offer","itemOffered":{"@type":"InvestmentOrDeposit","name":"CDB — Certificado de Depósito Bancário","url":"https://hsfinanceira.com.br/investimentos/","description":"Renda fixa coberta pelo FGC em até R$ 250.000,00 por CPF e por instituição."}},
+      {"@type":"Offer","itemOffered":{"@type":"FinancialProduct","name":"Antecipação de recebíveis","url":"https://hsfinanceira.com.br/linha-pj-completa-sem-burocracia-com-as-melhores-taxas/","description":"Antecipação de notas fiscais e duplicatas emitidas para o Grupo Herval, exclusiva para parceiros e correspondentes."}},
+      {"@type":"Offer","itemOffered":{"@type":"LoanOrCredit","name":"Crédito para PJ (CDC Pessoa Jurídica)","url":"https://hsfinanceira.com.br/linhas-de-credito-para-acelerar-as-conquistas-da-sua-empresa/","description":"Para empresas comprarem produtos do Grupo Herval na iPlace Corporativo, iPlace Distribuição e taQi Empresas.","amount":{"@type":"MonetaryAmount","maxValue":1000000,"currency":"BRL"},"loanTerm":{"@type":"QuantitativeValue","maxValue":36,"unitCode":"MON"}}}]}},
+    {"@type":"WebSite","@id":"https://hsfinanceira.com.br/#site","url":"https://hsfinanceira.com.br/","name":"HS Financeira","alternateName":"HS Financeira S/A","inLanguage":"pt-BR","publisher":{"@id":"https://hsfinanceira.com.br/#organizacao"}},
+    {"@type":"WebPage","@id":"https://hsfinanceira.com.br/#pagina","url":"https://hsfinanceira.com.br/","name":"HS Financeira — Crédito Pessoal, Cartão e Investimentos","inLanguage":"pt-BR","isPartOf":{"@id":"https://hsfinanceira.com.br/#site"},"about":{"@id":"https://hsfinanceira.com.br/#organizacao"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://hsfinanceira.com.br/assets/og/hs-financeira-og.jpg","width":1200,"height":630}},
+    {"@type":"FAQPage","@id":"https://hsfinanceira.com.br/#ajuda","inLanguage":"pt-BR","isPartOf":{"@id":"https://hsfinanceira.com.br/#pagina"},"mainEntity":[]}
+  ]}
   </script>
 </head>
 <body>
@@ -69,9 +111,9 @@
 <!-- ══════════════ TOP RAIL ══════════════ -->
 <div class="rail">
   <div class="wrap rail__in">
-    <span class="rail__item"><span class="rail__k">Capitais</span><span class="rail__v">4020 2202</span></span>
-    <span class="rail__item"><span class="rail__k">SAC</span><span class="rail__v">0800 602 2202</span></span>
-    <span class="rail__item"><span class="rail__k">Ouvidoria</span><span class="rail__v">0800 648 7070</span></span>
+    <a class="rail__item" href="tel:40202202"><span class="rail__k">Capitais</span><span class="rail__v">4020 2202</span></a>
+    <a class="rail__item" href="tel:08006022202"><span class="rail__k">SAC</span><span class="rail__v">0800 602 2202</span></a>
+    <a class="rail__item" href="tel:08006487070"><span class="rail__k">Ouvidoria</span><span class="rail__v">0800 648 7070</span></a>
     <span class="rail__spacer"></span>
     <a class="rail__link" href="#renegociacao">Renegociar dívida</a>
     <a class="rail__link" href="#governanca">Governança</a>
@@ -143,7 +185,7 @@
       <p class="hero__fine">Sujeito a análise de crédito. HS Financeira S/A &mdash; Crédito, Financiamento e Investimento, autorizada pelo Banco Central do Brasil.</p>
     </div>
     <div class="hero__media">
-      <img class="hero__img" src="assets/img/hero-cliente-app.jpg" alt="Cliente da HS Financeira consultando o app no celular ao ar livre" width="1000" height="1100">
+      <img class="hero__img" fetchpriority="high" src="assets/img/hero-cliente-app.jpg" alt="Cliente da HS Financeira consultando o app no celular ao ar livre" width="1000" height="1100">
       <div class="hero__badge">
         <b class="num">+20 anos</b>
         <span>de operação como financeira do Grupo Herval, com atendimento nas lojas taQi e iPlace</span>
@@ -193,42 +235,42 @@
       </div>
 
       <a class="prow" href="https://hsfinanceira.com.br/credito-pessoal/">
-        <span class="prow__name"><b>Crédito Pessoal</b><em>Dinheiro livre</em></span>
-        <span class="prow__desc">Dinheiro na conta ou em mãos, sem precisar dizer para que é e sem exigir conta em banco.</span>
-        <span class="prow__val num">até 24x<s>Sujeito a análise</s></span>
-        <span class="prow__val">Lojas taQi<s>ou WhatsApp</s></span>
+        <div class="prow__name"><h3>Crédito Pessoal</h3><em>Dinheiro livre</em></div>
+        <span class="prow__desc">Empréstimo com dinheiro na conta ou em mãos, sem precisar dizer para que é e sem exigir conta em banco.</span>
+        <span class="prow__val num"><span class="sr-only">Prazo: </span>até 24x<small>Sujeito a análise</small></span>
+        <span class="prow__val"><span class="sr-only">Onde contratar: </span>Lojas taQi<small>ou WhatsApp</small></span>
         <span class="prow__go">Contratar <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
 
       <a class="prow" href="#cartao">
-        <span class="prow__name"><b>Cartão Hoje</b><em>Visa internacional</em></span>
+        <div class="prow__name"><h3>Cartão Hoje</h3><em>Visa internacional</em></div>
         <span class="prow__desc">Pedido pelo app, com cartão virtual liberado assim que a proposta é aprovada, até 15x sem juros e até 40 dias para pagar.</span>
-        <span class="prow__val num">até 15x<s>sem juros</s></span>
-        <span class="prow__val">App Hoje Cartão<s>iOS e Android</s></span>
+        <span class="prow__val num"><span class="sr-only">Prazo: </span>até 15x<small>sem juros</small></span>
+        <span class="prow__val"><span class="sr-only">Onde contratar: </span>App Hoje Cartão<small>iOS e Android</small></span>
         <span class="prow__go">Pedir o cartão <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
 
       <a class="prow" href="https://hsfinanceira.com.br/emprestimo-com-a-menor-taxa-do-mercado/">
-        <span class="prow__name"><b>Consignado INSS</b><em>Aposentados e pensionistas</em></span>
+        <div class="prow__name"><h3>Consignado INSS</h3><em>Aposentados e pensionistas</em></div>
         <span class="prow__desc">Parcelas fixas descontadas direto do benefício do INSS, a partir de 22 anos. Contratação segura e sem boleto.</span>
-        <span class="prow__val num">até 84x<s>conforme a idade</s></span>
-        <span class="prow__val">Lojas taQi<s>correspondente bancário</s></span>
+        <span class="prow__val num"><span class="sr-only">Prazo: </span>até 84x<small>conforme a idade</small></span>
+        <span class="prow__val"><span class="sr-only">Onde contratar: </span>Lojas taQi<small>correspondente bancário</small></span>
         <span class="prow__go">Saber mais <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
 
       <a class="prow" href="#parceiros">
-        <span class="prow__name"><b>CDC</b><em>Crédito Direto ao Consumidor</em></span>
+        <div class="prow__name"><h3>CDC</h3><em>Crédito Direto ao Consumidor</em></div>
         <span class="prow__desc">Financie o que você está comprando na hora da compra, dentro das lojas taQi e iPlace, com simulação feita por um especialista.</span>
-        <span class="prow__val">Simulado na loja<s>sujeito a análise</s></span>
-        <span class="prow__val">taQi e iPlace<s>rede física</s></span>
+        <span class="prow__val"><span class="sr-only">Prazo: </span>Simulado na loja<small>sujeito a análise</small></span>
+        <span class="prow__val"><span class="sr-only">Onde contratar: </span>taQi e iPlace<small>rede física</small></span>
         <span class="prow__go">Ver lojas <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
 
       <a class="prow" href="#investimentos">
-        <span class="prow__name"><b>Investimentos</b><em>LC e CDB</em></span>
+        <div class="prow__name"><h3>Investimentos</h3><em>LC e CDB</em></div>
         <span class="prow__desc">Renda fixa com rendimento acima da poupança e garantia do FGC até R$ 250 mil por CPF.</span>
-        <span class="prow__val">Renda fixa<s>prazos variáveis</s></span>
-        <span class="prow__val">Especialista<s>WhatsApp</s></span>
+        <span class="prow__val"><span class="sr-only">Prazo: </span>Renda fixa<small>prazos variáveis</small></span>
+        <span class="prow__val"><span class="sr-only">Onde contratar: </span>Especialista<small>WhatsApp</small></span>
         <span class="prow__go">Investir <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
     </div>
@@ -298,7 +340,7 @@
 <section class="sec sec--line" id="cartao">
   <div class="wrap split split--flip">
     <div class="split__media">
-      <img class="split__img" src="assets/img/cartao-hoje.jpg" alt="Pessoa segurando o cartão Hoje e o aplicativo aberto no celular" width="880" height="704">
+      <img class="split__img" loading="lazy" decoding="async" src="assets/img/cartao-hoje.jpg" alt="Pessoa segurando o cartão Hoje e o aplicativo aberto no celular" width="880" height="704">
     </div>
     <div>
       <p class="eyebrow">Cartão Hoje</p>
@@ -322,7 +364,7 @@
 <section class="sec pj" id="para-empresas">
   <div class="wrap pj__grid">
     <div class="pj__media">
-      <img class="pj__img" src="assets/img/empresas-oficina.jpg" alt="Pequeno empresário em sua oficina conferindo o celular durante o trabalho" width="880" height="682">
+      <img class="pj__img" loading="lazy" decoding="async" src="assets/img/empresas-oficina.jpg" alt="Pequeno empresário em sua oficina conferindo o celular durante o trabalho" width="880" height="682">
     </div>
     <div>
       <p class="eyebrow is-blue">Para empresas &middot; pessoa jurídica</p>
@@ -331,22 +373,22 @@
 
       <div class="pj__cards">
         <div class="pcard">
-          <b>Antecipação de recebíveis</b>
+          <h3>Antecipação de recebíveis</h3>
           <p>Antecipe notas fiscais e duplicatas emitidas para o Grupo Herval. Exclusivo para parceiros e correspondentes da HS Financeira.</p>
           <span class="pcard__v">Taxas especiais para fornecedores Herval</span>
         </div>
         <div class="pcard">
-          <b>Crédito para PJ</b>
+          <h3>Crédito para PJ</h3>
           <p>CDC Pessoa Jurídica para comprar produtos do Grupo Herval na iPlace Corporativo, iPlace Distribuição e taQi Empresas.</p>
           <span class="pcard__v num">até R$ 1.000.000 &middot; 36x</span>
         </div>
         <div class="pcard pcard--soon">
-          <b>Antecipação de cartão de crédito</b>
+          <h3>Antecipação de cartão de crédito</h3>
           <p>Receba antes do prazo os valores das vendas parceladas no cartão.</p>
           <span class="pcard__v">Em breve</span>
         </div>
         <div class="pcard pcard--soon">
-          <b>Capital de giro</b>
+          <h3>Capital de giro</h3>
           <p>Empréstimo parcelado para atender às necessidades de caixa do seu negócio.</p>
           <span class="pcard__v">Em breve</span>
         </div>
@@ -392,7 +434,7 @@
       </a>
     </div>
     <div style="margin-top:28px">
-      <img src="assets/img/parceiros-atendimento.jpg" alt="Equipe de uma loja parceira da HS Financeira no atendimento" style="width:100%;height:clamp(180px,26vw,300px);object-fit:cover;object-position:50% 35%;border-radius:var(--r)" width="880" height="300">
+      <img loading="lazy" decoding="async" src="assets/img/parceiros-atendimento.jpg" alt="Equipe de uma loja parceira da HS Financeira no atendimento" style="width:100%;height:clamp(180px,26vw,300px);object-fit:cover;object-position:50% 35%;border-radius:var(--r)" width="880" height="300">
     </div>
   </div>
 </section>
@@ -407,11 +449,11 @@
 
       <div class="inv__panel">
         <div class="ibox">
-          <b>LC</b><em>Letra de Câmbio</em>
+          <h3>LC</h3><em>Letra de Câmbio</em>
           <p>Renda fixa de baixo risco, com juros e correção monetária. Rende mais quanto mais tempo você mantém até o vencimento.</p>
         </div>
         <div class="ibox">
-          <b>CDB</b><em>Certificado de Depósito Bancário</em>
+          <h3>CDB</h3><em>Certificado de Depósito Bancário</em>
           <p>Você empresta recursos à instituição e recebe o valor corrigido no prazo combinado. Resgate antecipado possível.</p>
         </div>
       </div>
@@ -428,7 +470,7 @@
       <p class="hero__fine">WhatsApp da captação: (51) 4042-6468. Rentabilidade passada não garante resultado futuro.</p>
     </div>
     <div class="inv__media">
-      <img class="inv__img" src="assets/img/investimentos-especialista.jpg" alt="Especialista de investimentos da HS Financeira" width="700" height="788">
+      <img class="inv__img" loading="lazy" decoding="async" src="assets/img/investimentos-especialista.jpg" alt="Especialista de investimentos da HS Financeira" width="700" height="788">
     </div>
   </div>
 </section>
@@ -443,17 +485,17 @@
     <div class="tr__grid">
       <div class="tr" id="seguranca">
         <svg class="tr__ic" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 4.5 6v6c0 4.5 3.2 7.9 7.5 9 4.3-1.1 7.5-4.5 7.5-9V6L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <b>Cuidado com golpes</b>
+        <h3>Cuidado com golpes</h3>
         <p>A HS Financeira <b>nunca</b> pede pagamento antecipado por boleto, Pix ou transferência para liberar crédito. Pagamentos à instituição vão sempre para o CNPJ 07.512.441/0001-11, nunca para conta de pessoa física, e não temos agentes oferecendo crédito ou investimentos em redes sociais. <a href="aviso.html">Como identificar uma fraude</a></p>
       </div>
       <div class="tr">
         <svg class="tr__ic" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 20V9l7-5 7 5v11" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.5 20v-6h5v6M3 20h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        <b>Governança aberta</b>
+        <h3>Governança aberta</h3>
         <p>Código de Conduta Ética, políticas socioambiental, cibernética e de proteção de dados, contratos, tarifas e relatórios de risco (Pilar 3) e da Ouvidoria. <a href="https://hsfinanceira.com.br/governanca/">Portal de governança</a></p>
       </div>
       <div class="tr">
         <svg class="tr__ic" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        <b>Canal de Ética e Denúncia</b>
+        <h3>Canal de Ética e Denúncia</h3>
         <p>Funcionários, clientes, parceiros e fornecedores podem relatar indícios de irregularidade, com opção de denúncia anônima, conforme as normas do Banco Central. <a href="https://hsfinanceira.com.br/canal-de-etica-e-denuncia/">Registrar uma denúncia</a></p>
       </div>
     </div>
@@ -506,45 +548,63 @@
 
     <div class="acc" id="acc">
       <div class="acc__it is-open">
-        <button class="acc__q" aria-expanded="true">Onde eu contrato o crédito pessoal da HS?
+        <h3 class="acc__h"><button class="acc__q" aria-expanded="true">Onde eu contrato o crédito pessoal da HS?
           <svg class="acc__pm" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-        </button>
+        </button></h3>
         <div class="acc__a"><div><p>Presencialmente nas lojas taQi, e também de forma digital pelo WhatsApp. Você escolhe receber o valor na sua conta bancária ou em dinheiro na própria loja, e parcela em até 24 vezes, sujeito a análise de crédito.</p></div></div>
       </div>
       <div class="acc__it">
-        <button class="acc__q" aria-expanded="false">Preciso ter conta em banco para pegar crédito?
+        <h3 class="acc__h"><button class="acc__q" aria-expanded="false">Preciso ter conta em banco para pegar crédito?
           <svg class="acc__pm" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-        </button>
+        </button></h3>
         <div class="acc__a"><div><p>Não. O crédito pessoal da HS Financeira dispensa conta bancária — você pode retirar o valor em dinheiro na loja taQi mais próxima.</p></div></div>
       </div>
       <div class="acc__it">
-        <button class="acc__q" aria-expanded="false">A HS cobra alguma taxa antes de liberar o crédito?
+        <h3 class="acc__h"><button class="acc__q" aria-expanded="false">A HS Financeira é confiável?
           <svg class="acc__pm" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-        </button>
+        </button></h3>
+        <div class="acc__a"><div><p>Sim. A HS Financeira S/A — Crédito, Financiamento e Investimento (CNPJ 07.512.441/0001-11) é uma instituição autorizada a funcionar pelo Banco Central do Brasil, fundada em 2005, com sede em Dois Irmãos (RS), e faz parte do Grupo Herval, o mesmo grupo das lojas taQi e iPlace.</p><p>O Código de Conduta Ética, as demonstrações financeiras e os relatórios de risco e da Ouvidoria estão publicados no <a href="https://hsfinanceira.com.br/governanca/">portal de governança</a>. E a HS nunca cobra valores antecipados para liberar crédito.</p></div></div>
+      </div>
+      <div class="acc__it">
+        <h3 class="acc__h"><button class="acc__q" aria-expanded="false">A HS cobra alguma taxa antes de liberar o crédito?
+          <svg class="acc__pm" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button></h3>
         <div class="acc__a"><div><p>Nunca. Não solicitamos pagamento antecipado de boleto, depósito, Pix ou transferência como condição para aprovar ou liberar crédito, e todo pagamento à HS vai para o CNPJ 07.512.441/0001-11, nunca para conta de pessoa física. Se alguém fizer esse pedido em nome da HS, trata-se de fraude: avise pelo SAC 0800 602 2202, pela Ouvidoria 0800 648 7070 ou pelo e-mail <a href="mailto:contato@hsfinanceira.com.br">contato@hsfinanceira.com.br</a>, e registre um boletim de ocorrência.</p><p>Também não ligamos pedindo dados pessoais, senhas ou códigos de transação.</p></div></div>
       </div>
       <div class="acc__it">
-        <button class="acc__q" aria-expanded="false">Quais os requisitos para o Cartão Hoje?
+        <h3 class="acc__h"><button class="acc__q" aria-expanded="false">Quais os requisitos para o Cartão Hoje?
           <svg class="acc__pm" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-        </button>
+        </button></h3>
         <div class="acc__a"><div><p>Ter mais de 21 anos e renda superior a um salário mínimo. O pedido é feito no app Hoje Cartão com nome, CPF, data de nascimento e renda; se aprovado nessa etapa, você envia o documento de identificação e informa o endereço. A resposta sai em poucos minutos e, com a proposta aprovada, o cartão virtual já pode ser ativado.</p><p>Se o cadastro for reprovado, uma nova análise pode ser pedida após 90 dias.</p></div></div>
       </div>
-      <div class="acc__it">
-        <button class="acc__q" aria-expanded="false">Meus investimentos na HS têm garantia do FGC?
+      <div class="acc__it" id="consignado">
+        <h3 class="acc__h"><button class="acc__q" aria-expanded="false">Como funciona o consignado INSS da HS?
           <svg class="acc__pm" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-        </button>
+        </button></h3>
+        <div class="acc__a"><div><p>É o empréstimo para aposentados e pensionistas do INSS com parcelas fixas descontadas direto do benefício, em até 84 vezes conforme a idade, para quem tem a partir de 22 anos. A contratação é feita nas lojas taQi ou com um correspondente bancário, sem boleto, e está sujeita a análise de crédito.</p></div></div>
+      </div>
+      <div class="acc__it">
+        <h3 class="acc__h"><button class="acc__q" aria-expanded="false">Meus investimentos na HS têm garantia do FGC?
+          <svg class="acc__pm" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button></h3>
         <div class="acc__a"><div><p>Sim. As aplicações em LC e CDB são cobertas pelo Fundo Garantidor de Crédito em até R$ 250.000,00 por CPF e por instituição, conforme o regulamento do FGC.</p></div></div>
       </div>
       <div class="acc__it" id="renegociacao">
-        <button class="acc__q" aria-expanded="false">Estou com parcelas atrasadas. Como renegocio?
+        <h3 class="acc__h"><button class="acc__q" aria-expanded="false">Estou com parcelas atrasadas. Como renegocio?
           <svg class="acc__pm" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-        </button>
+        </button></h3>
         <div class="acc__a"><div><p>Fale com a Central de Cobrança pelo WhatsApp (51) 99590-3326, pelo e-mail <a href="mailto:centraldecobranca@herval.com.br">centraldecobranca@herval.com.br</a> ou pelo <a href="https://easycollector.wedoo.com.br/herval/login.aspx">portal de renegociação</a>, onde também sai a 2ª via do boleto. Desconfie de boletos recebidos por terceiros — confira sempre se o beneficiário é a HS Financeira, CNPJ 07.512.441/0001-11.</p></div></div>
       </div>
-      <div class="acc__it">
-        <button class="acc__q" aria-expanded="false">Como faço uma reclamação na Ouvidoria?
+      <div class="acc__it" id="telefones">
+        <h3 class="acc__h"><button class="acc__q" aria-expanded="false">Qual é o telefone da HS Financeira?
           <svg class="acc__pm" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-        </button>
+        </button></h3>
+        <div class="acc__a"><div><p>Nas capitais e regiões metropolitanas, ligue <a href="tel:40202202">4020 2202</a>; nas demais localidades, use o SAC <a href="tel:08006022202">0800 602 2202</a>, que atende de segunda a sexta, das 8h às 20h, e aos sábados, das 8h às 18h. O WhatsApp do SAC é (51) 4042 1377 e a Ouvidoria atende no <a href="tel:08006487070">0800 648 7070</a>. Para investimentos, o WhatsApp da captação é (51) 4042-6468.</p></div></div>
+      </div>
+      <div class="acc__it">
+        <h3 class="acc__h"><button class="acc__q" aria-expanded="false">Como faço uma reclamação na Ouvidoria?
+          <svg class="acc__pm" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button></h3>
         <div class="acc__a"><div><p>A Ouvidoria é a segunda instância: procure primeiro o SAC e, se a solução não atender, ligue para 0800 648 7070 (de segunda a sexta, das 8h às 12h e das 13h30 às 15h) ou escreva para <a href="mailto:contato@hsfinanceira.com.br">contato@hsfinanceira.com.br</a>. Os relatórios semestrais da Ouvidoria estão publicados no portal de governança.</p></div></div>
       </div>
     </div>
@@ -584,7 +644,7 @@
     </div>
 
     <div class="ft__col">
-      <h4>Para você</h4>
+      <h2>Para você</h2>
       <ul>
         <li><a href="https://hsfinanceira.com.br/credito-pessoal/">Crédito Pessoal</a></li>
         <li><a href="https://hsfinanceira.com.br/um-cartao-cheio-de-vantagens-para-quem-vive-o-hoje/">Cartão Hoje</a></li>
@@ -596,7 +656,7 @@
     </div>
 
     <div class="ft__col">
-      <h4>Para empresas</h4>
+      <h2>Para empresas</h2>
       <ul>
         <li><a href="https://hsfinanceira.com.br/linha-pj-completa-sem-burocracia-com-as-melhores-taxas/">Antecipação de recebíveis</a></li>
         <li><a href="https://hsfinanceira.com.br/linhas-de-credito-para-acelerar-as-conquistas-da-sua-empresa/">Crédito para PJ</a></li>
@@ -606,7 +666,7 @@
     </div>
 
     <div class="ft__col">
-      <h4>Institucional</h4>
+      <h2>Institucional</h2>
       <ul>
         <li><a href="https://hsfinanceira.com.br/nossa-historia/">Nossa história</a></li>
         <li><a href="https://hsfinanceira.com.br/governanca/">Governança</a></li>
@@ -619,12 +679,12 @@
     </div>
 
     <div class="ft__col">
-      <h4>Atendimento</h4>
+      <h2>Atendimento</h2>
       <div class="ft__phones">
-        <span class="ft__ph"><em>Capitais e regiões metro.</em><b>4020 2202</b></span>
-        <span class="ft__ph"><em>SAC &mdash; demais localidades</em><b>0800 602 2202</b></span>
-        <span class="ft__ph"><em>Ouvidoria</em><b>0800 648 7070</b></span>
-        <span class="ft__ph"><em>WhatsApp do SAC</em><b>(51) 4042 1377</b></span>
+        <a class="ft__ph" href="tel:40202202"><em>Capitais e regiões metro.</em><b>4020 2202</b></a>
+        <a class="ft__ph" href="tel:08006022202"><em>SAC &mdash; demais localidades</em><b>0800 602 2202</b></a>
+        <a class="ft__ph" href="tel:08006487070"><em>Ouvidoria</em><b>0800 648 7070</b></a>
+        <a class="ft__ph" href="https://api.whatsapp.com/send?phone=555140421377"><em>WhatsApp do SAC</em><b>(51) 4042 1377</b></a>
       </div>
       <ul style="margin-top:18px">
         <li><a href="https://easycollector.wedoo.com.br/herval/login.aspx">Renegociar dívida</a></li>
@@ -649,5 +709,9 @@
 <script src="js/nav.js"></script>
 <script src="js/accordion.js"></script>
 <script src="js/simulador.js"></script>
+<!-- Chat de atendimento (Ubots), o mesmo do site oficial. O widget vem do CDN
+     com defer; js/chat.js espera o DOMContentLoaded para iniciá-lo. -->
+<script src="https://cdn.ubots.com.br/webchat/ubots.min.js" defer></script>
+<script src="js/chat.js"></script>
 </body>
 </html>

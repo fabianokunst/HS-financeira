@@ -15,7 +15,9 @@
   line-height:1.02;letter-spacing:-.025em;font-variant-numeric:tabular-nums;margin:8px 0 2px;
 }
 .sim__big span{font-size:.44em;color:var(--dark-text-soft)}
-.sim__rows{margin-top:22px;padding-top:18px;border-top:1px solid var(--dark-line);display:grid;gap:9px}
+/* Os 16px embaixo eram o padrão do navegador para <dl>; ficam explícitos
+   porque o CSS do chat (Ubots) zera todas as margens com *{margin:0}. */
+.sim__rows{margin:22px 0 16px;padding-top:18px;border-top:1px solid var(--dark-line);display:grid;gap:9px}
 .sim__row{display:flex;justify-content:space-between;gap:16px;font-size:13.5px}
 .sim__row dt{color:var(--dark-text-soft)}
 .sim__row dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums}

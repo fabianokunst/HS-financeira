@@ -1,0 +1,12 @@
+/* Chat de atendimento (Ubots). O CSS do widget vem do CDN (link no <head>);
+   aqui só a cor da marca e as camadas em relação ao cabeçalho fixo. */
+
+/* Balão do botão, borda do status e botão do formulário: azul Ubots → marca. */
+#ubots-button-icon-outer,.ubots-icon-status-border{fill:var(--brand)}
+.ubots-form-footer button{background-color:var(--brand);color:var(--on-brand)}
+.ubots-form-footer button:hover{background-color:var(--brand-deep)}
+
+/* O cabeçalho é sticky com z-index 50: o botão fica por baixo dele (o menu
+   mobile aberto o cobre) e a janela do chat, por cima. */
+.ubots-webchat-button-message{z-index:40}
+.ubots-chat-box{z-index:60}
