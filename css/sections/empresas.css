@@ -19,7 +19,9 @@
   margin-top:auto;padding-top:10px;font-size:13px;font-weight:700;color:var(--dark-accent);
   font-variant-numeric:tabular-nums;
 }
-.pcard--soon{opacity:.62}
+/* "Em breve": borda tracejada e título apagado, sem opacity (que derrubava o contraste). */
+.pcard--soon{border-style:dashed}
+.pcard--soon h3{color:var(--dark-text-soft)}
 .pcard--soon .pcard__v{color:var(--dark-text-soft)}
 .pj__acts{display:flex;flex-wrap:wrap;gap:11px;margin-top:28px}
 .pj__mail{font-size:13px;color:var(--dark-text-soft);margin-top:16px}

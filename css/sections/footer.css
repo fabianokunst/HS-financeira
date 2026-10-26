@@ -4,7 +4,7 @@
    texto: tons rosados sobre #D9222E ficam abaixo do contraste AA. */
 .ft{background:var(--brand-band);color:#fff;font-size:13.5px}
 .ft__top{display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:34px 26px;padding-block:clamp(40px,5vw,62px) 34px}
-.ft__logo{display:block;width:210px;height:auto;margin:-14px 0 -22px -26px}
+.ft__logo{display:block;width:260px;max-width:none;height:auto;margin:-18px 0 -28px -32px}
 .ft__about{margin-top:16px;line-height:1.6;max-width:34ch}
 .ft h2{font-size:14px;font-weight:800;letter-spacing:0;color:#fff;margin-bottom:14px}
 .ft__col ul{display:grid;gap:9px}

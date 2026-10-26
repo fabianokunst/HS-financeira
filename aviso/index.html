@@ -6,7 +6,6 @@
   <title>Avisos de segurança — HS Financeira</title>
   <meta name="description" content="A HS Financeira não pede pagamento antecipado para liberar crédito. Veja como reconhecer golpes em nome da instituição, quais são os canais oficiais e o que fazer se você foi vítima.">
   <link rel="canonical" href="https://hsfinanceira.com.br/aviso/">
-  <meta name="theme-color" content="#D9222E">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="HS Financeira">
   <meta property="og:url" content="https://hsfinanceira.com.br/aviso/">
@@ -19,44 +18,46 @@
   <meta property="og:locale" content="pt_BR">
   <meta name="twitter:card" content="summary_large_image">
 
+  <!-- Ícones, fontes e CSS comuns: copiados do index.html por tools/paginas.mjs. -->
+  <!-- comum:head -->
+  <meta name="theme-color" content="#D9222E">
   <link rel="icon" href="../assets/favicon/favicon.ico" sizes="32x32">
   <link rel="icon" href="../assets/favicon/favicon-192.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="../assets/favicon/apple-touch-icon.png">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
-
-  <!-- Estilos: a ordem destas linhas é a ordem da cascata.
-       Ao criar um arquivo em css/, registre-o aqui na posição certa. -->
-  <!-- Fundação -->
+  <link rel="stylesheet" href="https://cdn.ubots.com.br/webchat/ubots.min.css">
   <link rel="stylesheet" href="../css/base/tokens.css">
   <link rel="stylesheet" href="../css/base/reset.css">
   <link rel="stylesheet" href="../css/layout/section.css">
-
-  <!-- Componentes reutilizáveis -->
   <link rel="stylesheet" href="../css/components/buttons.css">
-
-  <!-- Seções da página, na ordem em que aparecem -->
+  <link rel="stylesheet" href="../css/components/tag.css">
+  <link rel="stylesheet" href="../css/components/field.css">
+  <link rel="stylesheet" href="../css/components/chips.css">
+  <link rel="stylesheet" href="../css/components/chat.css">
+  <link rel="stylesheet" href="../css/sections/aviso.css">
   <link rel="stylesheet" href="../css/sections/rail.css">
   <link rel="stylesheet" href="../css/sections/header.css">
-  <link rel="stylesheet" href="../css/sections/pagina.css">
-  <link rel="stylesheet" href="../css/sections/aviso-pagina.css">
   <link rel="stylesheet" href="../css/sections/cta-final.css">
   <link rel="stylesheet" href="../css/sections/footer.css">
+  <!-- /comum:head -->
+  <!-- CSS desta página -->
+  <link rel="stylesheet" href="../css/sections/pagina.css">
+  <link rel="stylesheet" href="../css/sections/aviso-pagina.css">
 </head>
 <body>
 
 <!-- ══════════════ TOP RAIL ══════════════ -->
 <div class="rail">
   <div class="wrap rail__in">
-    <span class="rail__item"><span class="rail__k">Capitais</span><span class="rail__v">4020 2202</span></span>
-    <span class="rail__item"><span class="rail__k">SAC</span><span class="rail__v">0800 602 2202</span></span>
-    <span class="rail__item"><span class="rail__k">Ouvidoria</span><span class="rail__v">0800 648 7070</span></span>
+    <a class="rail__item" href="tel:40202202"><span class="rail__k">Capitais</span><span class="rail__v">4020 2202</span></a>
+    <a class="rail__item" href="tel:08006022202"><span class="rail__k">SAC</span><span class="rail__v">0800 602 2202</span></a>
+    <a class="rail__item" href="tel:08006487070"><span class="rail__k">Ouvidoria</span><span class="rail__v">0800 648 7070</span></a>
     <span class="rail__spacer"></span>
     <a class="rail__link" href="https://easycollector.wedoo.com.br/herval/login.aspx">Renegociar dívida</a>
     <a class="rail__link" href="../#governanca">Governança</a>
-    <a class="rail__link" href="./" aria-current="page">Segurança</a>
+    <a class="rail__link" href="../#seguranca">Segurança</a>
   </div>
 </div>
 
@@ -222,7 +223,7 @@
     </div>
 
     <div class="ft__col">
-      <h4>Para você</h4>
+      <h2>Para você</h2>
       <ul>
         <li><a href="https://hsfinanceira.com.br/credito-pessoal/">Crédito Pessoal</a></li>
         <li><a href="https://hsfinanceira.com.br/um-cartao-cheio-de-vantagens-para-quem-vive-o-hoje/">Cartão Hoje</a></li>
@@ -234,7 +235,7 @@
     </div>
 
     <div class="ft__col">
-      <h4>Para empresas</h4>
+      <h2>Para empresas</h2>
       <ul>
         <li><a href="https://hsfinanceira.com.br/linha-pj-completa-sem-burocracia-com-as-melhores-taxas/">Antecipação de recebíveis</a></li>
         <li><a href="https://hsfinanceira.com.br/linhas-de-credito-para-acelerar-as-conquistas-da-sua-empresa/">Crédito para PJ</a></li>
@@ -244,7 +245,7 @@
     </div>
 
     <div class="ft__col">
-      <h4>Institucional</h4>
+      <h2>Institucional</h2>
       <ul>
         <li><a href="https://hsfinanceira.com.br/nossa-historia/">Nossa história</a></li>
         <li><a href="https://hsfinanceira.com.br/governanca/">Governança</a></li>
@@ -259,19 +260,19 @@
     </div>
 
     <div class="ft__col">
-      <h4>Atendimento</h4>
+      <h2>Atendimento</h2>
       <div class="ft__phones">
-        <span class="ft__ph"><em>Capitais e regiões metro.</em><b>4020 2202</b></span>
-        <span class="ft__ph"><em>SAC &mdash; demais localidades</em><b>0800 602 2202</b></span>
-        <span class="ft__ph"><em>Ouvidoria</em><b>0800 648 7070</b></span>
-        <span class="ft__ph"><em>WhatsApp do SAC</em><b>(51) 4042 1377</b></span>
+        <a class="ft__ph" href="tel:40202202"><em>Capitais e regiões metro.</em><b>4020 2202</b></a>
+        <a class="ft__ph" href="tel:08006022202"><em>SAC &mdash; demais localidades</em><b>0800 602 2202</b></a>
+        <a class="ft__ph" href="tel:08006487070"><em>Ouvidoria</em><b>0800 648 7070</b></a>
+        <a class="ft__ph" href="https://api.whatsapp.com/send?phone=555140421377"><em>WhatsApp do SAC</em><b>(51) 4042 1377</b></a>
       </div>
       <ul style="margin-top:18px">
         <li><a href="https://easycollector.wedoo.com.br/herval/login.aspx">Renegociar dívida</a></li>
         <li><a href="https://easycollector.wedoo.com.br/herval/login.aspx">Segunda via de boleto</a></li>
         <li><a href="https://hsfinanceira.com.br/envie-nos-uma-mensagem/">Enviar uma mensagem</a></li>
         <li><a href="https://www.bcb.gov.br/acessoinformacao/perguntasfrequentes-respostas/RelatorioSCR_faq">Informações SCR</a></li>
-        <li><a href="./" aria-current="page">Avisos de segurança</a></li>
+        <li><a href="../aviso/" aria-current="page">Avisos de segurança</a></li>
       </ul>
     </div>
   </div>
@@ -281,9 +282,14 @@
   </div>
 </footer>
 
-<!-- Scripts: sem framework e sem build. A ordem importa —
-     config.js precisa vir antes do nav.js, que usa HS.config. -->
+<!-- Scripts comuns: copiados do index.html por tools/paginas.mjs. -->
+<!-- comum:scripts -->
 <script src="../js/config.js"></script>
+<script src="../js/utils/format.js"></script>
+<script src="../js/aviso.js"></script>
 <script src="../js/nav.js"></script>
+<script src="https://cdn.ubots.com.br/webchat/ubots.min.js" defer></script>
+<script src="../js/chat.js"></script>
+<!-- /comum:scripts -->
 </body>
 </html>
