@@ -5,7 +5,8 @@
   "description": "Site estático da HS Financeira — HTML, CSS e JS puros, sem build, com gerador do arquivo único para compartilhar",
   "scripts": {
     "bundle": "node tools/bundle.mjs",
-    "serve": "python -m http.server 8080"
+    "serve": "python -m http.server 8080",
+    "seo": "node tools/seo-check.mjs"
   },
   "engines": {
     "node": ">=18"

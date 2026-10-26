@@ -6,20 +6,6 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8080"],
       "port": 8080
-    },
-    {
-      "name": "site-chat-tmp",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8093"],
-      "port": 8093,
-      "autoPort": false
-    },
-    {
-      "name": "site-links-tmp",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8094"],
-      "port": 8094,
-      "autoPort": false
     }
   ]
 }
