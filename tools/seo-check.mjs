@@ -93,11 +93,14 @@ function conferirCorpo(html) {
   else ok(`${niveis.length} títulos em ordem, um <h1>`);
 
   const imagens = [...html.matchAll(/<img\b[^>]*>/g)].map((m) => m[0]);
+  /* alt="" é válido em imagem decorativa (ex.: logo dentro de link com aria-label);
+     o que não pode é faltar o atributo. A primeira imagem e a marcada com
+     fetchpriority="high" são as do topo e não devem esperar o lazy. */
   imagens.forEach((img, i) => {
     const nome = img.match(/src="([^"]+)"/)?.[1] ?? "?";
-    if (!/\balt="[^"]+"/.test(img)) erro(`imagem sem alt: ${nome}`);
+    if (!/\balt="/.test(img)) erro(`imagem sem alt: ${nome}`);
     if (!/\bwidth="\d+"/.test(img) || !/\bheight="\d+"/.test(img)) erro(`imagem sem width/height: ${nome}`);
-    if (i > 0 && !/\bloading="lazy"/.test(img)) aviso(`imagem abaixo da dobra sem loading="lazy": ${nome}`);
+    if (i > 0 && !/\bloading="lazy"|\bfetchpriority="high"/.test(img)) aviso(`imagem abaixo da dobra sem loading="lazy": ${nome}`);
   });
   ok(`${imagens.length} imagens com alt, width e height`);
 

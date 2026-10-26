@@ -84,7 +84,7 @@ golpes. A sessão de conteúdo acrescentou os documentos de governança; o FAQ
 | Mudou uma pergunta ou resposta do FAQ | `npm run seo -- --corrigir-faq` (refaz o FAQPage do JSON-LD a partir do FAQ visível) |
 | Mudou produto, prazo, telefone ou horário | atualizar o mesmo dado no JSON-LD do `index.html` e no `llms.txt` |
 | Mudou o conteúdo da página de verdade | atualizar `<lastmod>` no `sitemap.xml` |
-| Mudou a identidade visual | refazer `assets/og/hs-financeira-og.jpg` (1200×630) e `assets/marca/hs-financeira-logo-512.png` |
+| Mudou a identidade visual | refazer `assets/og/hs-financeira-og.jpg` (1200×630) com o logo oficial (`assets/marca/`, sem redesenhar); o JSON-LD usa `assets/marca/hs-financeira-simbolo.png` |
 | Antes de publicar | `npm run seo` — sai com erro se faltar canonical, og:image, alt de imagem, arquivo referenciado, ou se o FAQPage divergir |
 
 ## 5. Próximos passos (fora do código)
