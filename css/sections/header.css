@@ -14,10 +14,10 @@
 .mark__name em{font-style:normal;font-weight:400;color:var(--ink-soft)}
 .mark__sub{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);font-weight:500}
 .nav{display:flex;gap:26px;margin-left:8px}
-.nav a{font-size:14.5px;font-weight:500;color:var(--ink-2);padding-block:6px;border-bottom:2px solid transparent}
+.nav a{font-size:14.5px;font-weight:500;color:var(--ink-2);padding-block:6px;border-bottom:2px solid transparent;white-space:nowrap}
 .nav a:hover{color:var(--brand);border-bottom-color:var(--brand)}
 .hdr__cta{margin-left:auto;display:flex;align-items:center;gap:14px}
-.hdr__ghost{font-size:14px;font-weight:500;color:var(--ink-soft)}
+.hdr__ghost{font-size:14px;font-weight:500;color:var(--ink-soft);white-space:nowrap}
 .hdr__ghost:hover{color:var(--ink)}
 .burger{
   display:none;flex-direction:column;justify-content:center;gap:5px;
@@ -41,6 +41,12 @@
 .mnav a svg{width:15px;height:15px;color:var(--ink-faint)}
 .mnav__foot{padding:18px var(--gut) 22px;display:grid;gap:11px}
 .mnav__foot .btn{width:100%}
+/* Entre o menu mobile e ~1080px a linha não comporta tudo: sai o atalho
+   "Simular crédito" (o hero repete o botão) e os espaços encolhem. */
+@media(max-width:1080px){
+  .hdr__ghost{display:none}
+  .hdr__in,.nav{gap:20px}
+}
 @media(max-width:960px){
   .nav,.hdr__ghost{display:none}
   .burger{display:flex}

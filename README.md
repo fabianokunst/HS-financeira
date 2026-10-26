@@ -151,3 +151,8 @@ o mesmo conteúdo, byte a byte. Fora isso:
   página. Foram sincronizados.
 - Botões, tags, chips e campos estavam declarados no meio do CSS das seções e
   foram isolados em `css/components/`.
+- Entre 961 e 1080px o cabeçalho quebrava em duas linhas (menu e botão
+  "Contratar agora"). Nessa faixa o atalho "Simular crédito" agora some, como
+  já acontecia no mobile, e os espaçamentos encolhem.
+- O chip de prazo aceso ao abrir a página vinha fixo do HTML (18x); agora sai
+  de `HS.config.prazoPadrao`, como o cálculo.
