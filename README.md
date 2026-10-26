@@ -43,7 +43,8 @@ Requer Node 18+, e só para isso — o site nunca depende dele.
 
 ```
 HS-Financeira/
-├── index.html                 # a página inteira: <head>, 14 seções, dados estruturados
+├── index.html                 # a página inteira: <head>, 15 seções, dados estruturados
+├── aviso.html                 # avisos de segurança contra golpes (destino do "Saiba Mais")
 ├── css/
 │   ├── base/
 │   │   ├── tokens.css          # cores, fontes, espaçamento, tema claro/escuro
@@ -52,16 +53,20 @@ HS-Financeira/
 │   │   └── section.css         # casca de seção (.sec, .sec__head, .sec__h2)
 │   ├── components/             # reutilizáveis: buttons, tag, field, chips
 │   └── sections/               # um arquivo por seção, mesmo nome da seção
-│       ├── rail.css  header.css  hero.css  facts.css  produtos.css
+│       ├── aviso.css  rail.css  header.css  hero.css  facts.css  produtos.css
 │       ├── simulador.css  split.css  empresas.css  parceiros.css
-│       └── investimentos.css  governanca.css  ajuda.css  cta-final.css  footer.css
+│       ├── investimentos.css  governanca.css  ajuda.css  cta-final.css  footer.css
+│       └── aviso-pagina.css    # só da aviso.html
 ├── js/
 │   ├── config.js               # taxa do simulador e parâmetros de negócio
 │   ├── utils/format.js         # formatação de números em pt-BR
+│   ├── aviso.js                # fechar a faixa de aviso do topo
 │   ├── nav.js                  # menu mobile
 │   ├── accordion.js            # FAQ
 │   └── simulador.js            # cálculo da parcela
-├── assets/img/                 # as 5 fotos da página
+├── assets/
+│   ├── img/                    # as 5 fotos da página
+│   └── favicon/                # favicon.svg (fonte), favicon.ico e apple-touch-icon.png
 ├── tools/bundle.mjs            # gera o arquivo único (opcional)
 ├── compartilhar/
 │   └── proposta-hs-financeira.html   # o arquivo para enviar ao time (751 KB)
@@ -92,6 +97,18 @@ da página está em JS.
 **Trocar uma foto** — substitua o JPEG em `assets/img/` mantendo o nome (ou
 troque o nome também no `index.html`). Vale recomprimir antes: as imagens são
 ~70% do peso do arquivo único.
+
+**Mudar o aviso contra golpes** — o texto aparece em dois lugares: na faixa do
+topo do `index.html` (seção `AVISO`) e no comunicado da `aviso.html`. Mantenha
+os dois iguais. Ao fechar a faixa no "x", ela fica fechada até o fim da visita
+(`sessionStorage`); numa nova visita volta a aparecer.
+
+**Favicon** — o desenho mora em `assets/favicon/favicon.svg`: a mesma forma
+vermelha da marca do cabeçalho, com o "HS" em contornos (sem depender da fonte)
+e alinhado à grade de 16px para ficar nítido na aba. O `favicon.ico` (16, 32 e
+48px, para navegadores antigos) e o `apple-touch-icon.png` (180px, fundo papel,
+para a tela inicial do iPhone) são exportações dele — se mudar o SVG, exporte
+os dois de novo.
 
 **Adicionar uma pergunta no FAQ** — copie um bloco `.acc__it` na seção `FAQ`. O
 primeiro item tem `is-open` e `aria-expanded="true"`; os demais, não.
