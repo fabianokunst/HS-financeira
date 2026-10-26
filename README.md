@@ -67,9 +67,9 @@ HS-Financeira/
 │   └── chat.js                 # inicia o chat de atendimento (Ubots)
 ├── assets/
 │   ├── img/                    # as 5 fotos da página
-│   ├── favicon/                # favicon.svg (fonte), favicon.ico e apple-touch-icon.png
+│   ├── favicon/                # favicons oficiais do site atual (.ico, 32, 192 e 180px)
 │   ├── og/                     # imagem de compartilhamento (WhatsApp, redes), 1200×630
-│   └── marca/                  # logo 512px usado nos dados estruturados
+│   └── marca/                  # logo oficial (branco, vermelho e símbolo) — não alterar
 ├── robots.txt  sitemap.xml  llms.txt  favicon.ico   # rastreamento, SEO e IA (ver docs/SEO.md)
 ├── docs/SEO.md                 # diagnóstico de SEO, o que foi feito e próximos passos
 ├── tools/bundle.mjs            # gera o arquivo único (opcional)
@@ -109,12 +109,22 @@ topo do `index.html` (seção `AVISO`) e no comunicado da `aviso.html`. Mantenha
 os dois iguais. Ao fechar a faixa no "x", ela fica fechada até o fim da visita
 (`sessionStorage`); numa nova visita volta a aparecer.
 
-**Favicon** — o desenho mora em `assets/favicon/favicon.svg`: a mesma forma
-vermelha da marca do cabeçalho, com o "HS" em contornos (sem depender da fonte)
-e alinhado à grade de 16px para ficar nítido na aba. O `favicon.ico` (16, 32 e
-48px, para navegadores antigos) e o `apple-touch-icon.png` (180px, fundo papel,
-para a tela inicial do iPhone) são exportações dele — se mudar o SVG, exporte
-os dois de novo.
+**Logo e favicon — não alterar** — são os arquivos oficiais do site atual
+(hsfinanceira.com.br), copiados sem nenhuma edição. Não redesenhe, recolora,
+recorte nem vetorize: se precisar de outro tamanho ou versão, peça o arquivo
+original ao marketing.
+
+- `assets/marca/hs-financeira-logo-branco.png` (500×244) — logo branco com
+  "Uma empresa do Grupo Herval", usado no cabeçalho e no rodapé vermelhos. A
+  imagem tem margem transparente; o CSS (`.mark__logo`, `.ft__logo`) compensa
+  com margens negativas, sem tocar no arquivo.
+- `assets/marca/hs-financeira-logo.png` (194×48) — versão vermelha, para fundo
+  escuro ou branco.
+- `assets/marca/hs-financeira-simbolo.png` (400×400) — só o símbolo "HS"; é o
+  logo dos dados estruturados.
+- `assets/favicon/` — `favicon-32.png`, `favicon-192.png` e
+  `apple-touch-icon.png` (180px) são os favicons oficiais; o `favicon.ico` (e a
+  cópia na raiz) só embrulha o PNG de 32px num `.ico`, sem mudar um pixel.
 
 **Adicionar uma pergunta no FAQ** — copie um bloco `.acc__it` na seção `FAQ`. O
 primeiro item tem `is-open` e `aria-expanded="true"`; os demais, não. A pergunta
@@ -131,10 +141,16 @@ FAQ do JSON-LD bate com a página. Detalhes e pendências em
 **Criar uma seção** — adicione o markup no `index.html` entre os comentários de
 seção, crie `css/sections/nova.css` e registre o `<link>` no `<head>`.
 
-**Cores e tipografia** — tudo em [`css/base/tokens.css`](css/base/tokens.css). O
-tema escuro é o mesmo conjunto de tokens redefinido em três blocos
-(`prefers-color-scheme`, `[data-theme="dark"]` e `[data-theme="light"]`); mexer
-só no primeiro deixa o tema inconsistente.
+**Cores e tipografia** — tudo em [`css/base/tokens.css`](css/base/tokens.css),
+seguindo a identidade do site atual: vermelho `#D9222E` nas faixas (cabeçalho e
+rodapé, `--brand-band`), `#D3363B` em botões e destaques (`--brand`), títulos
+em preto, texto em `#5F5C6B`, grafite `#33303E` e fonte Manrope (800 nos
+títulos). Todas as combinações de texto passam no contraste WCAG AA nos dois
+temas — ao criar uma cor nova, confira (texto normal ≥ 4,5:1). O vermelho
+`--brand` sobre o rosado `--brand-wash` não passa em texto pequeno; ali use
+`--brand-deep`. O tema escuro é o mesmo conjunto de tokens redefinido em dois
+blocos (`prefers-color-scheme` e `[data-theme="dark"]`); mexer só no primeiro
+deixa o tema inconsistente. Cabeçalho e rodapé ficam vermelhos nos dois temas.
 
 ---
 
@@ -148,8 +164,9 @@ só no primeiro deixa o tema inconsistente.
 - **JS**: cada arquivo é um IIFE que sai silenciosamente se a seção não existir
   na página, e compartilha estado só pelo namespace `HS` (`HS.config`,
   `HS.format`). Nada de módulos ES, para o site funcionar também em `file://`.
-- **Fontes** (Newsreader e Archivo) vêm do Google Fonts por CDN, inclusive no
-  arquivo único — sem internet, o navegador cai no fallback serif/sans-serif.
+- **Fonte** (Manrope, a mesma do site atual) vem do Google Fonts por CDN,
+  inclusive no arquivo único — sem internet, o navegador cai no fallback
+  sans-serif. A Manrope não tem itálico: o `<i>` dos títulos vira só cor.
 - **Simulador**: Tabela Price (`pmt = pv · i / (1 − (1 + i)⁻ⁿ)`), cálculo 100%
   local, sem envio de dados e sem consulta a CPF, como diz o texto da seção.
 - **Dados estruturados** (schema.org) inline no `<head>`: um `@graph` com a

@@ -64,6 +64,7 @@
 }
 .etapa b{font-size:16px;font-weight:600}
 .etapa p{font-size:14px;color:var(--ink-soft);line-height:1.6}
+.etapa a{color:var(--brand);font-weight:600}
 .etapas--3{grid-template-columns:repeat(3,1fr)}
 @media(max-width:960px){.etapas,.etapas--3{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.etapas,.etapas--3{grid-template-columns:1fr}}
@@ -74,7 +75,7 @@
 .passos li::before{
   content:counter(passo);grid-row:span 2;width:34px;height:34px;
   display:grid;place-items:center;border-radius:50%;
-  background:var(--brand-wash);color:var(--brand);font-weight:700;font-size:14px;
+  background:var(--brand-wash);color:var(--brand-deep);font-weight:700;font-size:14px;
 }
 .passos b{font-size:15.5px;font-weight:600;padding-top:5px}
 .passos p{font-size:14px;color:var(--ink-soft);line-height:1.6}

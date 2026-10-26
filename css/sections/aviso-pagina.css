@@ -9,6 +9,8 @@
   border-left:3px solid var(--brand);border-radius:var(--r);
 }
 .comunicado__ic{width:28px;height:28px;color:var(--brand);grid-row:span 2}
+/* Vermelho padrão sobre o fundo rosado fica em 4,2:1; o tom escuro passa no AA. */
+.comunicado .eyebrow{color:var(--brand-deep)}
 .comunicado__txt{font-size:15.5px;line-height:1.7;color:var(--ink-2);max-width:96ch}
 .comunicado b{color:var(--ink);font-weight:600}
 @media(max-width:620px){
