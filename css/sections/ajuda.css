@@ -1,0 +1,24 @@
+/* FAQ em acordeão */
+
+.faq__grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(24px,4vw,58px);align-items:start}
+.acc{border-top:1px solid var(--ink)}
+.acc__it{border-bottom:1px solid var(--line)}
+.acc__q{
+  width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;
+  padding:19px 0;text-align:left;font-size:16px;font-weight:600;letter-spacing:-.005em;
+}
+.acc__q:hover{color:var(--brand)}
+.acc__pm{flex:0 0 auto;width:18px;height:18px;margin-top:4px;color:var(--ink-faint);transition:transform .22s,color .18s}
+.acc__q[aria-expanded=true]{color:var(--brand)}
+.acc__q[aria-expanded=true] .acc__pm{transform:rotate(45deg);color:var(--brand)}
+.acc__a{overflow:hidden;display:grid;grid-template-rows:0fr;transition:grid-template-rows .26s ease}
+.acc__it.is-open .acc__a{grid-template-rows:1fr}
+.acc__a>div{min-height:0;overflow:hidden}
+.acc__a p{font-size:14.5px;color:var(--ink-soft);line-height:1.62;max-width:66ch;padding-bottom:20px}
+.acc__a p+p{padding-top:10px}
+.acc__a a{color:var(--brand);font-weight:600}
+@media(max-width:840px){.faq__grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){
+  .acc__a{transition:none}
+  *{scroll-behavior:auto!important}
+}

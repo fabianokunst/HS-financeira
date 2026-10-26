@@ -1,0 +1,13 @@
+{
+  "name": "hs-financeira-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site estático da HS Financeira — HTML, CSS e JS puros, sem build, com gerador do arquivo único para compartilhar",
+  "scripts": {
+    "bundle": "node tools/bundle.mjs",
+    "serve": "python -m http.server 8080"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

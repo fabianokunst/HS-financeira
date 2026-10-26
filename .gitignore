@@ -1,0 +1,10 @@
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+
+# Configuração local do Claude Code (hooks de sincronização desta máquina)
+.claude/settings.local.json
+
+# compartilhar/ NÃO é ignorado de propósito: o arquivo único é um entregável,
+# e quem clonar o repositório já encontra a versão pronta para enviar ao time.

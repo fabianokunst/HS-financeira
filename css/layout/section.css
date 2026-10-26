@@ -1,0 +1,10 @@
+/* Casca de seção — espaçamento vertical e cabeçalhos (.sec / .sec__head) */
+
+.sec{padding-block:clamp(52px,7vw,90px)}
+.sec--tight{padding-block:clamp(40px,5vw,64px)}
+.sec--line{border-top:1px solid var(--line)}
+.sec__head{max-width:720px;margin-bottom:clamp(28px,3.4vw,44px)}
+.sec__h2{font-size:clamp(27px,3.4vw,40px);line-height:1.1;letter-spacing:-.018em;margin:12px 0 14px}
+.sec__h2 i{font-style:italic;font-weight:400;color:var(--brand)}
+.sec__head--split{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:22px;max-width:none}
+.sec__head--split .sec__headL{max-width:640px}

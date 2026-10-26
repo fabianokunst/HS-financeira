@@ -1,0 +1,24 @@
+/* Simulador de crédito */
+
+.sim{
+  display:grid;grid-template-columns:1.15fr .85fr;gap:0;
+  border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--paper);
+}
+.sim__form{padding:clamp(26px,3.2vw,38px)}
+.sim__out{
+  padding:clamp(26px,3.2vw,38px);background:var(--dark-ground);color:var(--dark-text);
+  display:flex;flex-direction:column;justify-content:center;gap:4px;
+}
+.sim__k{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dark-text-soft)}
+.sim__big{
+  font-family:Newsreader,serif;font-size:clamp(38px,4.6vw,54px);font-weight:500;
+  line-height:1.02;letter-spacing:-.025em;font-variant-numeric:tabular-nums;margin:8px 0 2px;
+}
+.sim__big span{font-size:.44em;color:var(--dark-text-soft)}
+.sim__rows{margin-top:22px;padding-top:18px;border-top:1px solid var(--dark-line);display:grid;gap:9px}
+.sim__row{display:flex;justify-content:space-between;gap:16px;font-size:13.5px}
+.sim__row dt{color:var(--dark-text-soft)}
+.sim__row dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums}
+.sim__note{margin-top:22px;font-size:11.5px;line-height:1.5;color:var(--dark-text-soft)}
+.sim__cta{margin-top:20px}
+@media(max-width:840px){.sim{grid-template-columns:1fr}}

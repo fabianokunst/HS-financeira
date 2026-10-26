@@ -1,0 +1,28 @@
+/* Faixa escura pessoa jurídica */
+
+.pj{background:var(--dark-ground);color:var(--dark-text)}
+.pj .eyebrow{color:var(--blue)}
+.pj__grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(28px,4.4vw,64px);align-items:center}
+.pj__h2{font-size:clamp(27px,3.4vw,40px);line-height:1.1;letter-spacing:-.018em;margin:12px 0 14px}
+.pj__h2 i{font-style:italic;font-weight:400;color:var(--blue)}
+.pj__lede{font-size:16.5px;color:var(--dark-text-soft);line-height:1.6;max-width:52ch}
+.pj__img{width:100%;aspect-ratio:4/3.1;object-fit:cover;border-radius:var(--r)}
+.pj__cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px}
+.pcard{
+  border:1px solid var(--dark-line);border-radius:var(--r);padding:20px;
+  display:flex;flex-direction:column;gap:7px;transition:border-color .18s,background .18s;
+}
+.pcard:hover{border-color:var(--blue);background:rgba(110,160,245,.05)}
+.pcard b{font-size:15.5px;font-weight:600}
+.pcard p{font-size:13px;color:var(--dark-text-soft);line-height:1.5}
+.pcard__v{
+  margin-top:auto;padding-top:10px;font-size:13px;font-weight:600;color:var(--blue);
+  font-variant-numeric:tabular-nums;
+}
+.pcard--soon{opacity:.62}
+.pcard--soon .pcard__v{color:var(--dark-text-soft)}
+.pj__acts{display:flex;flex-wrap:wrap;gap:11px;margin-top:28px}
+.pj__mail{font-size:13px;color:var(--dark-text-soft);margin-top:16px}
+.pj__mail a{color:var(--dark-text);border-bottom:1px solid var(--dark-line)}
+.pj__mail a:hover{border-bottom-color:var(--blue);color:var(--blue)}
+@media(max-width:900px){.pj__grid{grid-template-columns:1fr}.pj__cards{grid-template-columns:1fr}}
