@@ -375,10 +375,11 @@ Regras que mantêm o SEO:
   No arquivo único de `compartilhar/`, que abre offline, o `bundle.mjs` aponta
   esses links para o site publicado.
 - Links para outros sites (WhatsApp, redes sociais, parceiros, Banco Central…)
-  abrem em nova aba, com `target="_blank" rel="noopener"`, como no site antigo.
-  Não precisa escrever à mão: o `paginas.mjs` acrescenta os atributos em todas
-  as páginas, inclusive no `<main>`, e o `--verificar` acusa os que faltarem.
-  Links para `hsfinanceira.com.br` (páginas e PDFs) continuam na mesma aba.
+  e para PDFs (contratos, políticas, relatórios) abrem em nova aba, com
+  `target="_blank" rel="noopener"`. Não precisa escrever à mão: o
+  `paginas.mjs` acrescenta os atributos em todas as páginas, inclusive no
+  `<main>`, e o `--verificar` acusa os que faltarem. As páginas do próprio
+  site continuam na mesma aba.
 - O [`.htaccess`](.htaccess) (o servidor atual é LiteSpeed, compatível com
   Apache) força `https://hsfinanceira.com.br` sem `www`, tira o `index.html` dos
   endereços e redireciona com 301 o que só existia no WordPress: sitemaps
