@@ -148,9 +148,11 @@ CookieYes): barra na base da tela com os mesmos textos, "Recusar", "Aceitar" e
 o X, que vale como "Recusar". Antes da escolha, e com "Recusar", nada vai
 para o Google; ao recusar, os cookies `_ga` são apagados. A escolha fica no
 `localStorage` (`hs-cookies`) por `cookiesValidadeDias` e pode ser mudada em
-"Preferências de cookies", no rodapé. Em homologação e no `localhost` o banner
-funciona, mas o Analytics só carrega nos domínios de `analyticsDominios`; no
-arquivo único de `compartilhar/` não há banner nem Analytics. Diferença em
+"Preferências de cookies", no rodapé. Em homologação, no `localhost`, aberto
+direto do disco e no arquivo único de `compartilhar/` o banner funciona, mas o
+Analytics só carrega nos domínios de `analyticsDominios`. Para ver o banner de
+novo depois de escolher, apague a chave `hs-cookies` no DevTools ou use
+"Preferências de cookies". Diferença em
 relação ao site atual: lá o banner não bloqueia nada e o Analytics mede todo
 mundo, então os números vão cair depois da troca — passam a contar só quem
 aceita.

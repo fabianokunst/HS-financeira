@@ -1926,9 +1926,9 @@ HS.format = (function () {
    mudada a qualquer momento em "Preferências de cookies", no rodapé.
    Ao recusar, os cookies do Analytics (_ga, _ga_…) são apagados — inclusive
    os que o site antigo gravava sem pedir.
-   Aberto direto do disco (file://, o arquivo de compartilhar/) não há banner
-   nem Analytics. Fora dos domínios de HS.config.analyticsDominios o banner
-   funciona, mas o Analytics não é carregado.
+   Fora dos domínios de HS.config.analyticsDominios — localhost, homologação,
+   o site aberto direto do disco (file://) e o arquivo de compartilhar/ — o
+   banner funciona igual, mas o Analytics não é carregado.
    Enquanto o banner está aberto, HS.cookies.pendente é true; ao escolher,
    dispara o evento "hs:cookies" no document (o aviso contra golpes espera
    por ele para não ficar por baixo da barra). */
@@ -1936,7 +1936,7 @@ HS.format = (function () {
   "use strict";
 
   var banner = document.getElementById("cookies");
-  if (!banner || location.protocol === "file:") return;
+  if (!banner) return;
 
   var cfg = (window.HS && HS.config) || {};
   var CHAVE = "hs-cookies";
