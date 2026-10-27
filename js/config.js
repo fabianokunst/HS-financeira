@@ -11,6 +11,11 @@ HS.config = {
      [data-n] na seção SIMULADOR do index.html). */
   prazoPadrao: 18,
 
+  /* WhatsApp aberto por "Continuar com esta simulação", com valor, prazo e
+     parcela já escritos na mensagem: DDI + DDD + número, só dígitos
+     (hoje o WhatsApp do SAC, (51) 4042 1377). */
+  whatsappSimulacao: "555140421377",
+
   /* Largura, em px, a partir da qual o menu mobile é fechado. */
   breakpointMenu: 960,
 

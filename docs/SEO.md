@@ -28,7 +28,7 @@ Para conferir tudo depois de qualquer mudança: `npm run seo`.
 | Perguntas de marca | sem resposta direta | "HS Financeira é confiável?", "telefone da HS Financeira" estão entre as buscas mais comuns de marca | 3 perguntas novas no FAQ (confiabilidade, telefone, consignado INSS), só com fatos já publicados na página |
 | Telefones | texto solto | no celular não dava para tocar e ligar | links `tel:` na faixa do topo, no rodapé e no FAQ |
 | Imagens | todas carregadas de uma vez | pior LCP (Core Web Vitals, fator de ranqueamento) | foto do topo com `fetchpriority="high"`; as outras com `loading="lazy"` |
-| Links `#` | 30+ links vazios | robôs não seguem; sem ligação interna | a sessão "Verificação de conteúdo" trocou quase todos pelos endereços reais; sobraram 2 (logo e "Continuar com esta simulação") |
+| Links `#` | 30+ links vazios | robôs não seguem; sem ligação interna | a sessão "Verificação de conteúdo" trocou quase todos pelos endereços reais; sobrou 1 (logo); "Continuar com esta simulação" abre o WhatsApp do SAC com a simulação |
 | Link direto para uma pergunta | `#renegociacao` levava ao FAQ fechado | quem chega de busca ou do menu não vê a resposta | o acordeão abre a pergunta indicada no endereço |
 
 ## 2. Google

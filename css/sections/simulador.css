@@ -23,4 +23,5 @@
 .sim__row dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums}
 .sim__note{margin-top:22px;font-size:11.5px;line-height:1.5;color:var(--dark-text-soft)}
 .sim__cta{margin-top:20px}
+.sim__fine{margin-top:10px;font-size:11.5px;line-height:1.5;color:var(--dark-text-soft)}
 @media(max-width:840px){.sim{grid-template-columns:1fr}}

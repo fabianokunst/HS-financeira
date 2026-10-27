@@ -8,6 +8,11 @@
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://hsfinanceira.com.br/">
   <meta name="theme-color" content="#D9222E">
+  <!-- Tema: o site abre sempre claro. Quem ligou o modo escuro no seletor
+       (js/tema.js) recebe o escuro já aqui, antes da primeira pintura, para a
+       página não piscar em branco. Fica numa linha só: tools/paginas.mjs copia
+       esta linha para as páginas internas. -->
+  <script>try{if(localStorage.getItem("hs-tema")==="escuro")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 
   <!-- Compartilhamento (WhatsApp, LinkedIn, Facebook, X). URLs absolutas: os
        robôs dessas redes não resolvem caminhos relativos. -->
@@ -39,9 +44,14 @@
   /* Tokens de design — paleta, tipografia, espaçamento, tema claro/escuro.
      Cores tiradas do site atual (hsfinanceira.com.br): vermelho #D9222E nas faixas
      (cabeçalho e rodapé), #D3363B em botões e destaques, títulos em preto,
-     texto em cinza-arroxeado #5F5C6B e grafite #33303E. Fonte: Manrope. */
+     texto em cinza-arroxeado #5F5C6B e grafite #33303E. Fonte: Manrope.
+
+     O site abre sempre no tema claro, mesmo com o sistema no escuro. O escuro só
+     entra pelo seletor da faixa de telefones (js/tema.js), que põe
+     data-theme="dark" na tag <html>. */
 
   :root{
+    color-scheme:light;
     --font:Manrope,"Segoe UI",system-ui,sans-serif;
     --paper:#FFFFFF;
     --paper-2:#F8F8F8;
@@ -55,6 +65,10 @@
     --brand-deep:#B81C26;
     --brand-band-deep:#B81C26;
     --brand-wash:#FBEBEC;
+    /* Fundo de botões e chips cheios: o vermelho da marca com texto branco nos
+       dois temas (no escuro, --brand clareia por ser cor de texto). */
+    --brand-fill:#D3363B;
+    --brand-fill-deep:#B81C26;
     --line:#E6E6E6;
     --line-strong:#D6D6D6;
     --on-brand:#FFFFFF;
@@ -71,32 +85,8 @@
     --wrap:1180px;
     --gut:clamp(20px,5vw,56px);
   }
-  @media (prefers-color-scheme:dark){
-    :root:not([data-theme="light"]){
-      --paper:#18161D;
-      --paper-2:#211F28;
-      --paper-3:#2B2833;
-      --ink:#F4F3F7;
-      --ink-2:#DEDCE5;
-      --ink-soft:#ABA8B8;
-      --ink-faint:#9794A4;
-      --brand:#FF6B71;
-      --brand-deep:#FF8A8F;
-      --brand-wash:#2E1B20;
-      --line:#2F2C37;
-      --line-strong:#423E4C;
-      --on-brand:#14121A;
-      --dark-ground:#26232E;
-      --dark-ground-2:#1F1C26;
-      --dark-line:#3D3947;
-      --dark-text:#FFFFFF;
-      --dark-text-soft:#C9C6D3;
-      --dark-accent:#FF8A8F;
-      --shadow-sm:0 1px 2px rgba(0,0,0,.4);
-      --shadow-lift:0 12px 32px -12px rgba(0,0,0,.6);
-    }
-  }
   :root[data-theme="dark"]{
+    color-scheme:dark;
     --paper:#18161D;
     --paper-2:#211F28;
     --paper-3:#2B2833;
@@ -109,7 +99,6 @@
     --brand-wash:#2E1B20;
     --line:#2F2C37;
     --line-strong:#423E4C;
-    --on-brand:#14121A;
     --dark-ground:#26232E;
     --dark-ground-2:#1F1C26;
     --dark-line:#3D3947;
@@ -173,8 +162,8 @@
     font-size:15px;font-weight:700;letter-spacing:0;
     transition:background .18s,color .18s,border-color .18s,transform .18s;
   }
-  .btn--solid{background:var(--brand);color:var(--on-brand)}
-  .btn--solid:hover{background:var(--brand-deep)}
+  .btn--solid{background:var(--brand-fill);color:var(--on-brand)}
+  .btn--solid:hover{background:var(--brand-fill-deep)}
   .btn--dark{background:var(--ink-2);color:var(--paper)}
   .btn--dark:hover{background:var(--ink)}
   .btn--line{border:1px solid var(--line-strong);color:var(--ink)}
@@ -224,7 +213,7 @@
     font-size:13px;font-weight:500;font-variant-numeric:tabular-nums;transition:all .16s;
   }
   .chip:hover{border-color:var(--ink-soft)}
-  .chip[aria-pressed=true]{background:var(--brand);color:var(--on-brand);border-color:var(--brand)}
+  .chip[aria-pressed=true]{background:var(--brand-fill);color:var(--on-brand);border-color:var(--brand-fill)}
 
   /* css/components/chat.css */
   /* Chat de atendimento (Ubots). O CSS do widget vem do CDN (link no <head>);
@@ -232,11 +221,11 @@
 
   /* Azul padrão da Ubots → cor da marca: botão flutuante, cabeçalho do painel,
      balões do cliente, botões e ícone de enviar. */
-  #ubots-button-icon-outer,.ubots-icon-status-border,.wc-send svg path{fill:var(--brand)}
-  .wc-header{background-color:var(--brand);color:var(--on-brand)}
-  .wc-message-from-me .wc-message-content{background-color:var(--brand)}
-  .ubots-form-footer button,.wc-card button{background-color:var(--brand);color:var(--on-brand)}
-  .ubots-form-footer button:hover{background-color:var(--brand-deep)}
+  #ubots-button-icon-outer,.ubots-icon-status-border,.wc-send svg path{fill:var(--brand-fill)}
+  .wc-header{background-color:var(--brand-fill);color:var(--on-brand)}
+  .wc-message-from-me .wc-message-content{background-color:var(--brand-fill)}
+  .ubots-form-footer button,.wc-card button{background-color:var(--brand-fill);color:var(--on-brand)}
+  .ubots-form-footer button:hover{background-color:var(--brand-fill-deep)}
 
   /* O widget pede Roboto, que a página não carrega; usa a fonte do site. */
   #ubots-form-div,#ubots-form-div>*,.ubots-form>*,.ubots-reset>*{
@@ -284,8 +273,8 @@
     font-size:14px;font-weight:700;line-height:24px;white-space:nowrap;
     transition:background-color .18s,border-color .18s,color .18s;
   }
-  .ck__btn--aceitar{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
-  .ck__btn--aceitar:hover{background:var(--brand-deep);border-color:var(--brand-deep)}
+  .ck__btn--aceitar{background:var(--brand-fill);border-color:var(--brand-fill);color:var(--on-brand)}
+  .ck__btn--aceitar:hover{background:var(--brand-fill-deep);border-color:var(--brand-fill-deep)}
   .ck__btn--recusar,.ck__btn--salvar{background:transparent;border-color:var(--line-strong);color:var(--ink-2)}
   .ck__btn--recusar:hover,.ck__btn--salvar:hover{border-color:var(--ink-2);background:var(--paper-2)}
   .ck__btn--personalizar{
@@ -496,10 +485,24 @@
   .rail__spacer{margin-left:auto}
   .rail a.rail__link{color:var(--dark-text-soft);font-weight:600}
   .rail a.rail__link:hover{color:#fff}
-  /* Com o menu hambúrguer, os atalhos (Renegociar, Governança, Segurança) vão
-     para ele e a faixa fica numa linha só, só com os telefones. */
+  /* Seletor de tema (js/tema.js): só um ícone no fim da faixa, depois de um
+     fio — lua no tema claro, sol no escuro. 22px de altura, a da linha de
+     texto, para a faixa não crescer. */
+  .rail__tema{
+    display:grid;place-items:center;flex:none;
+    width:28px;height:22px;margin-right:-6px;padding-left:6px;
+    border-left:1px solid var(--dark-line);border-radius:0 var(--r-btn) var(--r-btn) 0;
+    color:var(--dark-text-soft);transition:color .18s;
+  }
+  .rail__tema:hover{color:#fff}
+  .rail__tema svg{width:15px;height:15px}
+  .rail__tema .tema-sol,:root[data-theme="dark"] .rail__tema .tema-lua{display:none}
+  :root[data-theme="dark"] .rail__tema .tema-sol{display:block}
+  /* Com o menu hambúrguer, os atalhos (Renegociar, Governança, Segurança) e o
+     seletor de tema vão para ele e a faixa fica numa linha só, só com os
+     telefones. */
   @media(max-width:960px){
-    .rail__spacer,.rail a.rail__link{display:none}
+    .rail__spacer,.rail a.rail__link,.rail__tema{display:none}
     .rail__in{flex-wrap:nowrap;min-height:36px;padding-block:6px}
   }
   /* No celular cabem dois telefones; a Ouvidoria continua no menu e no rodapé. */
@@ -567,6 +570,24 @@
   .mnav__tel a + a{border-top:1px solid var(--line)}
   .mnav__tel a:hover,.mnav__tel a:active{background:var(--paper-2)}
   .mnav__tel b{font-size:15px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+  /* Seletor de tema do menu (js/tema.js): a faixa de telefones não tem espaço
+     para ele no celular, então ele fica aqui, no fim, como chave liga/desliga. */
+  .mnav__tema{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    margin-top:4px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r-btn);
+    font-size:13px;color:var(--ink-soft);text-align:left;
+  }
+  .mnav__tema:hover,.mnav__tema:active{background:var(--paper-2)}
+  .mnav__chave{
+    position:relative;flex:none;width:36px;height:20px;border-radius:20px;
+    background:var(--line-strong);transition:background-color .2s;
+  }
+  .mnav__chave::before{
+    content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .2s;
+  }
+  .mnav__tema[aria-pressed="true"] .mnav__chave{background:var(--brand-fill)}
+  .mnav__tema[aria-pressed="true"] .mnav__chave::before{transform:translateX(16px)}
   /* Entre o menu mobile e ~1080px a linha não comporta tudo: sai o atalho
      "Simular crédito" (o hero repete o botão) e os espaços encolhem. */
   @media(max-width:1080px){
@@ -594,7 +615,7 @@
   @media(max-width:359px){
     .hdr__agora{display:none}
   }
-  @media(prefers-reduced-motion:reduce){.burger span{transition:none}}
+  @media(prefers-reduced-motion:reduce){.burger span,.mnav__chave,.mnav__chave::before{transition:none}}
 
   /* css/sections/hero.css */
   /* Hero — chamada principal e imagem */
@@ -783,6 +804,7 @@
   .sim__row dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums}
   .sim__note{margin-top:22px;font-size:11.5px;line-height:1.5;color:var(--dark-text-soft)}
   .sim__cta{margin-top:20px}
+  .sim__fine{margin-top:10px;font-size:11.5px;line-height:1.5;color:var(--dark-text-soft)}
   @media(max-width:840px){.sim{grid-template-columns:1fr}}
 
   /* css/sections/split.css */
@@ -1365,6 +1387,11 @@
     <a class="rail__link" href="https://easycollector.wedoo.com.br/herval/login.aspx">Renegociar dívida</a>
     <a class="rail__link" href="#governanca">Governança</a>
     <a class="rail__link" href="#seguranca">Segurança</a>
+    <button class="rail__tema" type="button" data-tema aria-pressed="false" title="Ativar modo escuro">
+      <svg class="tema-lua" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4 8.2 8.2 0 1 0 20 14.6Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+      <svg class="tema-sol" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7"/><path d="M12 2.8v2M12 19.2v2M2.8 12h2M19.2 12h2M5.5 5.5l1.4 1.4M17.1 17.1l1.4 1.4M5.5 18.5l1.4-1.4M17.1 6.9l1.4-1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <span class="sr-only">Modo escuro</span>
+    </button>
   </div>
 </div>
 
@@ -1406,6 +1433,7 @@
         <a href="tel:08006022202"><span>SAC &mdash; demais localidades</span><b>0800 602 2202</b></a>
         <a href="tel:08006487070"><span>Ouvidoria</span><b>0800 648 7070</b></a>
       </div>
+      <button class="mnav__tema" type="button" data-tema aria-pressed="false">Modo escuro<span class="mnav__chave" aria-hidden="true"></span></button>
     </div>
   </nav>
 </header>
@@ -1576,7 +1604,8 @@
           <div class="sim__row"><dt>Total a pagar</dt><dd class="num" id="rTot">R$ 4.262,17</dd></div>
         </dl>
         <p class="sim__note">Simulação com taxa de referência, sem IOF e tarifas. A taxa aprovada, o limite e o Custo Efetivo Total (CET) são definidos após análise de crédito e informados antes da assinatura do contrato.</p>
-        <div class="sim__cta"><a class="btn btn--onDark" href="https://hsfinanceira.com.br/solicitar-credito-pessoal/">Continuar com esta simulação</a></div>
+        <div class="sim__cta"><a class="btn btn--onDark" id="simCta" href="https://api.whatsapp.com/send?phone=555140421377">Continuar com esta simulação</a></div>
+        <p class="sim__fine">Abre o WhatsApp do SAC, (51) 4042 1377, com a simulação já escrita. Você confere a mensagem antes de enviar.</p>
       </div>
     </div>
   </div>
@@ -2036,6 +2065,7 @@
           <div class="ck-tabela">
             <ul><li><span>Cookie</span><span>hs-cookies</span></li><li><span>Duração</span><span>1 ano</span></li><li><span>Descrição</span><span>HS Financeira: guarda a sua escolha de cookies, para o banner não aparecer em toda página.</span></li></ul>
             <ul><li><span>Cookie</span><span>hs-aviso-dia</span></li><li><span>Duração</span><span>1 dia</span></li><li><span>Descrição</span><span>HS Financeira: guarda o dia em que o aviso contra golpes apareceu, para mostrá-lo uma vez por dia.</span></li></ul>
+            <ul><li><span>Cookie</span><span>hs-tema</span></li><li><span>Duração</span><span>Persistente</span></li><li><span>Descrição</span><span>HS Financeira: guarda que você ligou o modo escuro, para manter a cor do site em todas as páginas. Só existe depois de usar o seletor.</span></li></ul>
             <ul><li><span>Cookie</span><span>ui-state, websocket-status, connecting</span></li><li><span>Duração</span><span>Sessão</span></li><li><span>Descrição</span><span>Ubots (chat de atendimento): mantêm a conexão e o estado da janela do chat.</span></li></ul>
           </div>
         </div>
@@ -2099,6 +2129,11 @@ HS.config = {
   /* Prazo pré-selecionado ao abrir a página (precisa existir como chip
      [data-n] na seção SIMULADOR do index.html). */
   prazoPadrao: 18,
+
+  /* WhatsApp aberto por "Continuar com esta simulação", com valor, prazo e
+     parcela já escritos na mensagem: DDI + DDD + número, só dígitos
+     (hoje o WhatsApp do SAC, (51) 4042 1377). */
+  whatsappSimulacao: "555140421377",
 
   /* Largura, em px, a partir da qual o menu mobile é fechado. */
   breakpointMenu: 960,
@@ -2568,6 +2603,57 @@ HS.format = (function () {
   });
 })();
 
+/* js/tema.js */
+/* Modo claro/escuro. O site abre sempre no claro; o seletor discreto da faixa
+   de telefones (no celular e no tablet, a chave "Modo escuro" do menu) liga o
+   escuro com data-theme="dark" na tag <html>. A escolha fica no localStorage
+   ("hs-tema") e vale para todas as páginas; o script inline do <head> a aplica
+   antes da primeira pintura. Voltar ao claro apaga a chave. */
+(function () {
+  "use strict";
+
+  var CHAVE  = "hs-tema";
+  var raiz   = document.documentElement;
+  var botoes = document.querySelectorAll("[data-tema]");
+  if (!botoes.length) return;
+
+  function estaEscuro() {
+    return raiz.getAttribute("data-theme") === "dark";
+  }
+
+  function aplicar(escuro) {
+    if (escuro) raiz.setAttribute("data-theme", "dark");
+    else raiz.removeAttribute("data-theme");
+    botoes.forEach(function (botao) {
+      botao.setAttribute("aria-pressed", escuro ? "true" : "false");
+      /* Só o botão da faixa, que é só ícone, tem dica ao passar o mouse. */
+      if (botao.hasAttribute("title")) botao.title = escuro ? "Voltar ao modo claro" : "Ativar modo escuro";
+    });
+  }
+
+  function guardar(escuro) {
+    try {
+      if (escuro) localStorage.setItem(CHAVE, "escuro");
+      else localStorage.removeItem(CHAVE);
+    } catch (e) { /* segue sem lembrar: vale só para esta página */ }
+  }
+
+  botoes.forEach(function (botao) {
+    botao.addEventListener("click", function () {
+      var escuro = !estaEscuro();
+      aplicar(escuro);
+      guardar(escuro);
+    });
+  });
+
+  /* Outra aba do site trocou o tema: acompanha. */
+  window.addEventListener("storage", function (e) {
+    if (e.key === CHAVE) aplicar(e.newValue === "escuro");
+  });
+
+  aplicar(estaEscuro());
+})();
+
 /* js/links-locais.js */
 /* Site aberto direto do disco (file://, duplo clique no index.html).
    Fora de um servidor, o navegador não abre o index.html de uma pasta: um link
@@ -2638,7 +2724,9 @@ HS.format = (function () {
 /* js/simulador.js */
 /* Simulador de crédito pessoal (seção #simulador).
    Cálculo local, sem envio de dados: parcela pela Tabela Price
-   pmt = pv * i / (1 - (1 + i)^-n). */
+   pmt = pv * i / (1 - (1 + i)^-n).
+   "Continuar com esta simulação" abre o WhatsApp do SAC com a simulação
+   escrita na mensagem; quem envia (ou não) é a pessoa. */
 (function () {
   "use strict";
 
@@ -2655,13 +2743,27 @@ HS.format = (function () {
     taxa:  document.getElementById("rI"),
     total: document.getElementById("rTot")
   };
+  var cta = document.getElementById("simCta");
 
   if (!valor || !parcela) return;   /* seção ausente nesta página */
 
   var prazo = HS.config.prazoPadrao;
 
+  /* Forma de recebimento: chave = data-w do chip, valor = trecho da mensagem. */
+  var recebimento = { pix: "por Pix ou transferência", loja: "em dinheiro na loja taQi" };
+  var acesa = document.querySelector('.chip[data-w][aria-pressed="true"]');
+  var forma = acesa ? acesa.dataset.w : "pix";
+
   function parcelaPrice(pv, i, n) {
     return pv * i / (1 - Math.pow(1 + i, -n));
+  }
+
+  function linkWhatsApp(pv, pmt) {
+    var msg = "Olá! Simulei um Crédito Pessoal no site da HS Financeira: " +
+      fmt.moeda(pv) + " em " + prazo + "x, com parcela estimada de " + fmt.moeda(pmt) +
+      ". Quero receber " + recebimento[forma] + ". Pode me ajudar a seguir com o pedido?";
+    return "https://api.whatsapp.com/send?phone=" + HS.config.whatsappSimulacao +
+      "&text=" + encodeURIComponent(msg);
   }
 
   function render() {
@@ -2677,6 +2779,8 @@ HS.format = (function () {
     linhas.prazo.textContent = prazo + " meses";
     linhas.taxa.textContent  = fmt.percentual(TAXA) + " a.m.";
     linhas.total.textContent = fmt.moeda(pmt * prazo);
+
+    if (cta) cta.href = linkWhatsApp(pv, pmt);
   }
 
   /* Grupo de chips com comportamento de rádio via aria-pressed. */
@@ -2698,8 +2802,11 @@ HS.format = (function () {
     render();
   });
 
-  /* Forma de recebimento: só destaca a escolha, não entra no cálculo. */
-  grupoChips(".chip[data-w]");
+  /* Forma de recebimento: não entra no cálculo, só na mensagem do WhatsApp. */
+  grupoChips(".chip[data-w]", function (chip) {
+    forma = chip.dataset.w;
+    render();
+  });
 
   /* O chip aceso ao abrir a página sai do config, não do HTML. */
   document.querySelectorAll(".chip[data-n]").forEach(function (chip) {

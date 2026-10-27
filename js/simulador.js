@@ -1,6 +1,8 @@
 /* Simulador de crédito pessoal (seção #simulador).
    Cálculo local, sem envio de dados: parcela pela Tabela Price
-   pmt = pv * i / (1 - (1 + i)^-n). */
+   pmt = pv * i / (1 - (1 + i)^-n).
+   "Continuar com esta simulação" abre o WhatsApp do SAC com a simulação
+   escrita na mensagem; quem envia (ou não) é a pessoa. */
 (function () {
   "use strict";
 
@@ -17,13 +19,27 @@
     taxa:  document.getElementById("rI"),
     total: document.getElementById("rTot")
   };
+  var cta = document.getElementById("simCta");
 
   if (!valor || !parcela) return;   /* seção ausente nesta página */
 
   var prazo = HS.config.prazoPadrao;
 
+  /* Forma de recebimento: chave = data-w do chip, valor = trecho da mensagem. */
+  var recebimento = { pix: "por Pix ou transferência", loja: "em dinheiro na loja taQi" };
+  var acesa = document.querySelector('.chip[data-w][aria-pressed="true"]');
+  var forma = acesa ? acesa.dataset.w : "pix";
+
   function parcelaPrice(pv, i, n) {
     return pv * i / (1 - Math.pow(1 + i, -n));
+  }
+
+  function linkWhatsApp(pv, pmt) {
+    var msg = "Olá! Simulei um Crédito Pessoal no site da HS Financeira: " +
+      fmt.moeda(pv) + " em " + prazo + "x, com parcela estimada de " + fmt.moeda(pmt) +
+      ". Quero receber " + recebimento[forma] + ". Pode me ajudar a seguir com o pedido?";
+    return "https://api.whatsapp.com/send?phone=" + HS.config.whatsappSimulacao +
+      "&text=" + encodeURIComponent(msg);
   }
 
   function render() {
@@ -39,6 +55,8 @@
     linhas.prazo.textContent = prazo + " meses";
     linhas.taxa.textContent  = fmt.percentual(TAXA) + " a.m.";
     linhas.total.textContent = fmt.moeda(pmt * prazo);
+
+    if (cta) cta.href = linkWhatsApp(pv, pmt);
   }
 
   /* Grupo de chips com comportamento de rádio via aria-pressed. */
@@ -60,8 +78,11 @@
     render();
   });
 
-  /* Forma de recebimento: só destaca a escolha, não entra no cálculo. */
-  grupoChips(".chip[data-w]");
+  /* Forma de recebimento: não entra no cálculo, só na mensagem do WhatsApp. */
+  grupoChips(".chip[data-w]", function (chip) {
+    forma = chip.dataset.w;
+    render();
+  });
 
   /* O chip aceso ao abrir a página sai do config, não do HTML. */
   document.querySelectorAll(".chip[data-n]").forEach(function (chip) {

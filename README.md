@@ -126,6 +126,10 @@ e o nome bate com o CSS e com a âncora: `HERO` ↔ `css/sections/hero.css` ↔
 valor. Atualize também os números iniciais no `index.html` (`id="pmt"` e
 `id="rTot"`), que aparecem antes do JS rodar.
 
+**Trocar o WhatsApp da simulação** — [`js/config.js`](js/config.js), campo
+`whatsappSimulacao` (DDI + DDD + número, só dígitos). No `index.html`, troque
+também o `href` de `id="simCta"` e o número escrito logo abaixo (`.sim__fine`).
+
 **Mudar texto** — direto no `index.html`, na seção correspondente. Nenhum texto
 da página está em JS.
 
@@ -366,6 +370,9 @@ Regras que mantêm o SEO:
   sans-serif. A Manrope não tem itálico: o `<i>` dos títulos vira só cor.
 - **Simulador**: Tabela Price (`pmt = pv · i / (1 − (1 + i)⁻ⁿ)`), cálculo 100%
   local, sem envio de dados e sem consulta a CPF, como diz o texto da seção.
+  "Continuar com esta simulação" abre o WhatsApp do SAC (`whatsappSimulacao` no
+  `js/config.js`) com valor, prazo, parcela e forma de recebimento já escritos;
+  a pessoa confere e envia. Sem JS, o botão abre o mesmo WhatsApp sem o texto.
 - **Dados estruturados** (schema.org) inline no `<head>`: um `@graph` com a
   empresa (`FinancialService`, canais de atendimento e catálogo de produtos),
   `WebSite`, `WebPage` e `FAQPage`. URLs dele, do canonical, do `og:` e do
