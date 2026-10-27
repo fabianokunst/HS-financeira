@@ -24,8 +24,11 @@ e o time abrir com dois cliques, offline.
 arquivos em `css/`, `js/` ou o próprio `index.html`, e recarregue a página.
 Nada para instalar, nada para compilar.
 
-Para navegar entre as páginas, sirva por HTTP — aberto direto do disco
-(`file://`), um link como `credito-pessoal/` mostra a pasta em vez da página:
+Aberto direto do disco (`file://`), o navegador não abre o `index.html` de uma
+pasta: um link como `credito-pessoal/` mostraria a lista de arquivos. O
+`js/links-locais.js` cuida disso — só em `file://`, ele completa os links
+internos com `index.html`; no ar não faz nada. Para ver o site exatamente como
+no servidor (redirecionamentos, 404), sirva por HTTP:
 
 ```bash
 python -m http.server 8080     # ou: npm run serve
@@ -79,7 +82,7 @@ HS-Financeira/
 ├── js/
 │   ├── config.js               # taxa do simulador e parâmetros de negócio
 │   ├── utils/format.js         # formatação de números em pt-BR
-│   ├── aviso.js                # fechar a faixa de aviso do topo
+│   ├── aviso.js                # cartão de aviso contra golpes, uma vez por dia
 │   ├── nav.js                  # menu mobile
 │   ├── accordion.js            # FAQ
 │   ├── simulador.js            # cálculo da parcela
@@ -127,10 +130,13 @@ origem aqui. `empresas-executivos.jpg` (faixa Para empresas) é do Unsplash, de
 Rodrigo Rodrigues | WOLF ΛRT — https://unsplash.com/photos/dGrDvseyRhs — sob a
 Licença Unsplash (uso comercial livre, crédito não obrigatório).
 
-**Mudar o aviso contra golpes** — o texto aparece em dois lugares: na faixa do
-topo do `index.html` (seção `AVISO`) e no comunicado da `aviso/index.html`. Mantenha
-os dois iguais. O "x" fecha a faixa só na página aberta: nada fica guardado no
-navegador, então ela aparece sempre que o site é aberto ou recarregado.
+**Mudar o aviso contra golpes** — o texto aparece em dois lugares: no cartão
+de aviso do `index.html` (seção `AVISO`) e no comunicado da `aviso/index.html`.
+Mantenha os dois iguais. O cartão fica no canto inferior esquerdo — o direito é
+do botão do chat — (no celular, encostado na base da tela) e aparece **uma vez por dia**:
+na primeira página aberta no dia. A data fica no `localStorage`
+(`hs-aviso-dia`); para ver o cartão de novo no mesmo dia, apague essa chave no
+DevTools.
 
 **Logo e favicon — não alterar** — são os arquivos oficiais do site atual
 (hsfinanceira.com.br), copiados sem nenhuma edição. Não redesenhe, recolora,
@@ -209,7 +215,7 @@ equivalente, agora no visual novo:
 | `/portabilidade-de-credito/` | Portabilidade de crédito |
 | `/cdc-credito-direto-ao-consumidor/` | CDC — Crédito Direto ao Consumidor |
 | `/investimentos/` | Investimentos (LC e CDB) |
-| `/solicitar-credito-pessoal/` | Solicitar Crédito Pessoal (formulário de emprestaqi.com.br, embutido) |
+| `/solicitar-credito-pessoal/` | Solicitar Crédito Pessoal (canais de contratação; o formulário de emprestaqi.com.br saiu porque o domínio não existe mais) |
 | `/solicitacao_credito_pessoal/` | Duplicata antiga da anterior: mesmo conteúdo, `canonical` para ela |
 | `/linhas-de-credito-para-acelerar-as-conquistas-da-sua-empresa/` | CDC PJ |
 | `/linha-pj-completa-sem-burocracia-com-as-melhores-taxas/` | Antecipação de recebíveis |

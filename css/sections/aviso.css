@@ -1,24 +1,59 @@
-/* Faixa de aviso contra golpes, acima da barra de telefones */
+/* Aviso contra golpes: cartão flutuante no canto inferior esquerdo (no celular,
+   painel encostado na base da tela). Começa escondido; o aviso.js abre uma
+   vez por dia adicionando .is-open. O markup é o mesmo em todas as páginas. */
 
 .aviso{
+  position:fixed;z-index:55;
+  /* O canto direito é do botão do chat (Ubots). */
+  left:24px;bottom:24px;
+  width:min(380px,calc(100vw - 48px));
+  max-height:calc(100svh - 48px);overflow-y:auto;overscroll-behavior:contain;
   background:var(--paper);color:var(--ink-2);
-  border-bottom:1px solid var(--line);
-  font-size:12.5px;line-height:1.6;
+  border:1px solid var(--line);border-top:3px solid var(--brand);border-radius:var(--r);
+  box-shadow:var(--shadow-lift);
+  font-size:13px;line-height:1.6;
+  visibility:hidden;opacity:0;transform:translateY(14px);
+  transition:opacity .28s ease,transform .28s ease,visibility 0s linear .28s;
 }
-.aviso__in{position:relative;padding-block:12px}
-.aviso__txt{max-width:132ch;margin-inline:auto;padding-inline:34px;text-align:center;text-wrap:pretty}
-.aviso__k{color:var(--brand);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.aviso.is-open{
+  visibility:visible;opacity:1;transform:none;
+  transition:opacity .28s ease,transform .28s ease;
+}
+/* .wrap dá largura e respiro de página; dentro do cartão não serve. */
+.aviso .aviso__in{position:relative;max-width:none;margin:0;padding:16px 18px 18px}
+.aviso__txt{margin:0;text-wrap:pretty}
+.aviso__k{
+  display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-right:34px;
+  color:var(--brand);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+}
+.aviso__k::before{
+  content:"";flex:0 0 auto;width:18px;height:18px;background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3 4.5 6v6c0 4.5 3.2 7.9 7.5 9 4.3-1.1 7.5-4.5 7.5-9V6L12 3Z'/%3E%3Cpath d='M12 8.5v4.2M12 15.6v.1'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3 4.5 6v6c0 4.5 3.2 7.9 7.5 9 4.3-1.1 7.5-4.5 7.5-9V6L12 3Z'/%3E%3Cpath d='M12 8.5v4.2M12 15.6v.1'/%3E%3C/svg%3E") center/contain no-repeat;
+}
 .aviso b{color:var(--ink);font-weight:600}
-.aviso__more{color:var(--brand);font-weight:700;white-space:nowrap;border-bottom:1px solid transparent}
+.aviso__more{
+  display:block;width:max-content;margin-top:10px;
+  color:var(--brand);font-weight:700;border-bottom:1px solid transparent;
+}
 .aviso__more:hover{border-bottom-color:var(--brand)}
 .aviso__x{
-  position:absolute;top:8px;right:calc(var(--gut) - 8px);
+  position:absolute;top:10px;right:10px;
   width:32px;height:32px;display:grid;place-items:center;
   border-radius:var(--r-btn);color:var(--ink-soft);
 }
 .aviso__x:hover{background:var(--brand-wash);color:var(--ink)}
 .aviso__x svg{width:14px;height:14px}
+
 @media(max-width:620px){
-  .aviso{font-size:12px}
-  .aviso__txt{padding-inline:0 30px;text-align:left}
+  .aviso{
+    left:0;right:0;bottom:0;width:auto;max-height:75svh;
+    border-width:3px 0 0;border-radius:var(--r) var(--r) 0 0;
+    font-size:12.5px;transform:translateY(100%);
+  }
+  .aviso.is-open{transform:none}
+  .aviso .aviso__in{padding:16px var(--gut) calc(18px + env(safe-area-inset-bottom))}
+}
+@media(prefers-reduced-motion:reduce){
+  .aviso,.aviso.is-open{transition:none;transform:none}
 }

@@ -133,9 +133,5 @@
 @media(max-width:860px){.mais{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.mais a{transition:none}.mais a:hover{transform:none}}
 
-/* ── Conteúdo de outro sistema embutido (formulário de solicitação) ── */
-.moldura{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
-.moldura iframe{display:block;width:100%;height:min(1000px,88vh);border:0}
-
 /* ── Post do blog ── */
 .post__meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--ink-faint)}
