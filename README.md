@@ -134,6 +134,10 @@ as imagens são ~70% do peso do arquivo único. Foto de banco de imagens: anote 
 origem aqui. `empresas-executivos.jpg` (faixa Para empresas) é do Unsplash, de
 Rodrigo Rodrigues | WOLF ΛRT — https://unsplash.com/photos/dGrDvseyRhs — sob a
 Licença Unsplash (uso comercial livre, crédito não obrigatório).
+`cartao-hoje.jpg` (seção Cartão Hoje) é a foto do site atual — a mulher com o
+cartão Hoje e o app aberto (`/wp-content/uploads/2022/10/c4f95e0b-…png`) —,
+recomposta em 5:4 com o fundo rosado à esquerda; a anterior, de banco de
+imagens, mostrava um cartão de outro banco.
 
 **Fotos das páginas internas** — as páginas que no site atual têm foto de
 pessoa usam a mesma foto aqui, discreta, no topo do quadro-resumo da abertura

@@ -2,7 +2,8 @@
 
 .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4.4vw,66px);align-items:center}
 .split--flip .split__media{order:2}
-.split__img{width:100%;aspect-ratio:5/4;object-fit:cover;border-radius:var(--r)}
+/* height:auto: sem ele o atributo height do <img> vira altura fixa e anula o 5:4 */
+.split__img{width:100%;height:auto;aspect-ratio:5/4;object-fit:cover;border-radius:var(--r)}
 .blist{display:grid;gap:1px;margin-top:26px;background:var(--line)}
 .blist li{background:var(--paper);padding:15px 0 15px 2px;display:flex;gap:14px;align-items:flex-start}
 .blist b{font-weight:600;font-size:15px}
