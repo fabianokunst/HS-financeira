@@ -384,11 +384,11 @@ Regras que mantêm o SEO:
   endereços e redireciona com 301 o que só existia no WordPress: sitemaps
   (`/wp-sitemap.xml`), feeds, arquivos por data e autor, busca (`?s=`) e os links
   curtos `?p=ID`. Endereços inexistentes caem na `404.html` (`noindex`).
-- **Pendente — formulários:** "Fale conosco" (`/envie-nos-uma-mensagem/`),
-  denúncia identificada e anônima (`/canal-de-etica-e-denuncia/`) e as três
-  solicitações da LGPD (`/lgpd/`) eram formulários do WordPress. O site estático
-  ainda não tem para onde enviá-los: as páginas mostram os canais oficiais e um
-  comentário `PENDENTE` no HTML lista os campos de cada formulário.
+- **Pendente — formulários do canal de ética:** denúncia identificada e anônima
+  (`/canal-de-etica-e-denuncia/`) eram formulários do WordPress que não passam
+  pelo Emarsys; falta a HS dizer quem recebe. A página mostra os canais oficiais
+  e um comentário `PENDENTE` no HTML lista os campos. O Fale Conosco e os
+  pedidos da LGPD já enviam (ver "Formulários").
 - **Conferir com a HS:** o telefone da Cobrança na página do CDC (o site antigo
   dizia 3564-7374; o resto do site diz (51) 3564-8374, que foi o usado); o
   WhatsApp de investimentos sem o 55 (`phone=5140426468`), como no site antigo;
