@@ -3,11 +3,11 @@
 
 /* Azul padrão da Ubots → cor da marca: botão flutuante, cabeçalho do painel,
    balões do cliente, botões e ícone de enviar. */
-#ubots-button-icon-outer,.ubots-icon-status-border,.wc-send svg path{fill:var(--brand)}
-.wc-header{background-color:var(--brand);color:var(--on-brand)}
-.wc-message-from-me .wc-message-content{background-color:var(--brand)}
-.ubots-form-footer button,.wc-card button{background-color:var(--brand);color:var(--on-brand)}
-.ubots-form-footer button:hover{background-color:var(--brand-deep)}
+#ubots-button-icon-outer,.ubots-icon-status-border,.wc-send svg path{fill:var(--brand-fill)}
+.wc-header{background-color:var(--brand-fill);color:var(--on-brand)}
+.wc-message-from-me .wc-message-content{background-color:var(--brand-fill)}
+.ubots-form-footer button,.wc-card button{background-color:var(--brand-fill);color:var(--on-brand)}
+.ubots-form-footer button:hover{background-color:var(--brand-fill-deep)}
 
 /* O widget pede Roboto, que a página não carrega; usa a fonte do site. */
 #ubots-form-div,#ubots-form-div>*,.ubots-form>*,.ubots-reset>*{

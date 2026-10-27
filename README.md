@@ -88,6 +88,7 @@ HS-Financeira/
 │   ├── emarsys.js              # Emarsys (categoria "Publicidade") e os eventos de clique
 │   ├── aviso.js                # cartão de aviso contra golpes, uma vez por dia
 │   ├── nav.js                  # menu mobile
+│   ├── tema.js                 # seletor de modo escuro (o site abre sempre claro)
 │   ├── accordion.js            # FAQ
 │   ├── simulador.js            # cálculo da parcela
 │   └── chat.js                 # inicia o chat de atendimento (Ubots)
@@ -264,10 +265,12 @@ em preto, texto em `#5F5C6B`, grafite `#33303E` e fonte Manrope (800 nos
 títulos). Todas as combinações de texto passam no contraste WCAG AA nos dois
 temas — ao criar uma cor nova, confira (texto normal ≥ 4,5:1). O vermelho
 `--brand` sobre o rosado `--brand-wash` não passa em texto pequeno; ali use
-`--brand-deep`. O tema escuro é o mesmo conjunto de tokens redefinido em dois
-blocos (`prefers-color-scheme` e `[data-theme="dark"]`); mexer só no primeiro
-deixa o tema inconsistente. O cabeçalho é branco (`--paper`, escurece no tema
-escuro) e o rodapé fica vermelho nos dois temas.
+`--brand-deep`. O tema escuro é o mesmo conjunto de tokens redefinido no bloco
+`[data-theme="dark"]`; ali `--brand` clareia (é cor de texto), e por isso os
+fundos cheios — botões, chips, "Aceitar" dos cookies, chat — usam
+`--brand-fill`, que continua o vermelho `#D3363B` com texto branco nos dois
+temas. O cabeçalho é branco (`--paper`, escurece no tema escuro) e o rodapé
+fica vermelho nos dois temas.
 
 ---
 
@@ -345,8 +348,13 @@ Regras que mantêm o SEO:
 
 ## Notas técnicas
 
-- **Tema claro/escuro** acompanha o sistema e pode ser forçado com
-  `data-theme="light"` ou `data-theme="dark"` na tag `<html>`.
+- **Tema claro/escuro**: o site abre sempre claro, mesmo com o sistema no
+  escuro. O escuro é opcional, num seletor discreto — ícone de lua no fim da
+  faixa de telefones no computador; no celular e no tablet, a chave "Modo
+  escuro" no fim do menu. O [`js/tema.js`](js/tema.js) põe
+  `data-theme="dark"` na tag `<html>` e guarda a escolha no localStorage
+  (`hs-tema`, listado nos cookies necessários); uma linha de script no `<head>`
+  aplica o escuro antes da primeira pintura, para não piscar o claro.
 - **Acessibilidade**: menu navegável por teclado (Esc fecha), `aria-expanded` no
   FAQ e no hambúrguer, `aria-pressed` nos chips, `prefers-reduced-motion`
   respeitado nas transições e na rolagem suave.

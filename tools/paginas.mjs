@@ -12,8 +12,9 @@
  * do index.html, que é a fonte da verdade:
  *
  *   - no <head>, entre <!-- comum:head --> e <!-- /comum:head -->:
- *     theme-color, ícones, fontes e o CSS de fundação, componentes e blocos
- *     comuns (tudo menos o CSS das seções que só existem na página inicial);
+ *     theme-color, o script que aplica o tema escuro, ícones, fontes e o CSS
+ *     de fundação, componentes e blocos comuns (tudo menos o CSS das seções
+ *     que só existem na página inicial);
  *   - no <body>, os blocos AVISO, TOP RAIL, HEADER e FOOTER — só os que a
  *     página tiver (a página do aviso, por exemplo, não repete a faixa AVISO) —
  *     e o banner COOKIES, que entra logo depois do rodapé se a página não o tiver;
@@ -95,7 +96,9 @@ function lerComum(index) {
   const head = index.slice(0, index.indexOf("</head>"));
   const corpo = index.slice(index.indexOf("<body"));
 
-  const tagsHead = [...head.matchAll(/^[ \t]*(<meta name="theme-color"[^>]*>|<link [^>]*>)[ \t]*$/gm)]
+  /* Scripts do <head> só os inline de uma linha (o do tema); o JSON-LD é de
+     cada página e começa com <script type=…>. */
+  const tagsHead = [...head.matchAll(/^[ \t]*(<meta name="theme-color"[^>]*>|<link [^>]*>|<script>[^<]*<\/script>)[ \t]*$/gm)]
     .map((m) => m[1])
     .filter((tag) => !/rel="canonical"/.test(tag) && !SO_DA_HOME.test(tag));
 

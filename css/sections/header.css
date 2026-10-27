@@ -56,6 +56,24 @@
 .mnav__tel a + a{border-top:1px solid var(--line)}
 .mnav__tel a:hover,.mnav__tel a:active{background:var(--paper-2)}
 .mnav__tel b{font-size:15px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+/* Seletor de tema do menu (js/tema.js): a faixa de telefones não tem espaço
+   para ele no celular, então ele fica aqui, no fim, como chave liga/desliga. */
+.mnav__tema{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-top:4px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r-btn);
+  font-size:13px;color:var(--ink-soft);text-align:left;
+}
+.mnav__tema:hover,.mnav__tema:active{background:var(--paper-2)}
+.mnav__chave{
+  position:relative;flex:none;width:36px;height:20px;border-radius:20px;
+  background:var(--line-strong);transition:background-color .2s;
+}
+.mnav__chave::before{
+  content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;
+  background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .2s;
+}
+.mnav__tema[aria-pressed="true"] .mnav__chave{background:var(--brand-fill)}
+.mnav__tema[aria-pressed="true"] .mnav__chave::before{transform:translateX(16px)}
 /* Entre o menu mobile e ~1080px a linha não comporta tudo: sai o atalho
    "Simular crédito" (o hero repete o botão) e os espaços encolhem. */
 @media(max-width:1080px){
@@ -83,4 +101,4 @@
 @media(max-width:359px){
   .hdr__agora{display:none}
 }
-@media(prefers-reduced-motion:reduce){.burger span{transition:none}}
+@media(prefers-reduced-motion:reduce){.burger span,.mnav__chave,.mnav__chave::before{transition:none}}

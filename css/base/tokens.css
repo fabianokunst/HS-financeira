@@ -1,9 +1,14 @@
 /* Tokens de design — paleta, tipografia, espaçamento, tema claro/escuro.
    Cores tiradas do site atual (hsfinanceira.com.br): vermelho #D9222E nas faixas
    (cabeçalho e rodapé), #D3363B em botões e destaques, títulos em preto,
-   texto em cinza-arroxeado #5F5C6B e grafite #33303E. Fonte: Manrope. */
+   texto em cinza-arroxeado #5F5C6B e grafite #33303E. Fonte: Manrope.
+
+   O site abre sempre no tema claro, mesmo com o sistema no escuro. O escuro só
+   entra pelo seletor da faixa de telefones (js/tema.js), que põe
+   data-theme="dark" na tag <html>. */
 
 :root{
+  color-scheme:light;
   --font:Manrope,"Segoe UI",system-ui,sans-serif;
   --paper:#FFFFFF;
   --paper-2:#F8F8F8;
@@ -17,6 +22,10 @@
   --brand-deep:#B81C26;
   --brand-band-deep:#B81C26;
   --brand-wash:#FBEBEC;
+  /* Fundo de botões e chips cheios: o vermelho da marca com texto branco nos
+     dois temas (no escuro, --brand clareia por ser cor de texto). */
+  --brand-fill:#D3363B;
+  --brand-fill-deep:#B81C26;
   --line:#E6E6E6;
   --line-strong:#D6D6D6;
   --on-brand:#FFFFFF;
@@ -33,32 +42,8 @@
   --wrap:1180px;
   --gut:clamp(20px,5vw,56px);
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --paper:#18161D;
-    --paper-2:#211F28;
-    --paper-3:#2B2833;
-    --ink:#F4F3F7;
-    --ink-2:#DEDCE5;
-    --ink-soft:#ABA8B8;
-    --ink-faint:#9794A4;
-    --brand:#FF6B71;
-    --brand-deep:#FF8A8F;
-    --brand-wash:#2E1B20;
-    --line:#2F2C37;
-    --line-strong:#423E4C;
-    --on-brand:#14121A;
-    --dark-ground:#26232E;
-    --dark-ground-2:#1F1C26;
-    --dark-line:#3D3947;
-    --dark-text:#FFFFFF;
-    --dark-text-soft:#C9C6D3;
-    --dark-accent:#FF8A8F;
-    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
-    --shadow-lift:0 12px 32px -12px rgba(0,0,0,.6);
-  }
-}
 :root[data-theme="dark"]{
+  color-scheme:dark;
   --paper:#18161D;
   --paper-2:#211F28;
   --paper-3:#2B2833;
@@ -71,7 +56,6 @@
   --brand-wash:#2E1B20;
   --line:#2F2C37;
   --line-strong:#423E4C;
-  --on-brand:#14121A;
   --dark-ground:#26232E;
   --dark-ground-2:#1F1C26;
   --dark-line:#3D3947;

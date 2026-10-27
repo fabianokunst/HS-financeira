@@ -11,10 +11,24 @@
 .rail__spacer{margin-left:auto}
 .rail a.rail__link{color:var(--dark-text-soft);font-weight:600}
 .rail a.rail__link:hover{color:#fff}
-/* Com o menu hambúrguer, os atalhos (Renegociar, Governança, Segurança) vão
-   para ele e a faixa fica numa linha só, só com os telefones. */
+/* Seletor de tema (js/tema.js): só um ícone no fim da faixa, depois de um
+   fio — lua no tema claro, sol no escuro. 22px de altura, a da linha de
+   texto, para a faixa não crescer. */
+.rail__tema{
+  display:grid;place-items:center;flex:none;
+  width:28px;height:22px;margin-right:-6px;padding-left:6px;
+  border-left:1px solid var(--dark-line);border-radius:0 var(--r-btn) var(--r-btn) 0;
+  color:var(--dark-text-soft);transition:color .18s;
+}
+.rail__tema:hover{color:#fff}
+.rail__tema svg{width:15px;height:15px}
+.rail__tema .tema-sol,:root[data-theme="dark"] .rail__tema .tema-lua{display:none}
+:root[data-theme="dark"] .rail__tema .tema-sol{display:block}
+/* Com o menu hambúrguer, os atalhos (Renegociar, Governança, Segurança) e o
+   seletor de tema vão para ele e a faixa fica numa linha só, só com os
+   telefones. */
 @media(max-width:960px){
-  .rail__spacer,.rail a.rail__link{display:none}
+  .rail__spacer,.rail a.rail__link,.rail__tema{display:none}
   .rail__in{flex-wrap:nowrap;min-height:36px;padding-block:6px}
 }
 /* No celular cabem dois telefones; a Ouvidoria continua no menu e no rodapé. */
