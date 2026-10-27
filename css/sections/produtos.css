@@ -1,33 +1,53 @@
-/* Tabela de produtos pessoa física */
+/* Tabela de produtos pessoa física.
+   Cabeçalho e linhas são grades separadas, então todas usam a mesma definição de
+   colunas (--ptab-cols) e nenhuma coluna pode depender do conteúdo (nada de "auto"),
+   senão cada linha calcula larguras diferentes e a tabela desalinha. */
 
-.ptab{border-top:1px solid var(--ink)}
-.ptab__hd{
-  display:grid;grid-template-columns:1.5fr 1.9fr .84fr .96fr auto;
-  gap:22px;padding:11px 0;border-bottom:1px solid var(--line);
-  font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);
+.ptab{
+  --ptab-cols:minmax(0,1.4fr) minmax(0,2.1fr) minmax(0,.95fr) minmax(0,1.05fr) 136px;
+  --ptab-gap:28px;
+  --ptab-pad:14px;
+  /* o recuo interno dá respiro ao fundo do hover; a margem negativa devolve o texto
+     ao alinhamento do título da seção */
+  margin-inline:calc(var(--ptab-pad) * -1);
+  border-top:1px solid var(--ink);
 }
+.ptab__hd,
 .prow{
-  display:grid;grid-template-columns:1.5fr 1.9fr .84fr .96fr auto;
-  gap:22px;align-items:center;
-  padding:19px 0;border-bottom:1px solid var(--line);
+  display:grid;grid-template-columns:var(--ptab-cols);column-gap:var(--ptab-gap);
+  padding-inline:var(--ptab-pad);
+}
+.ptab__hd{
+  padding-block:12px;border-bottom:1px solid var(--line);
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);
+}
+.ptab__hd span:last-child{text-align:right}
+.prow{
+  align-items:center;
+  padding-block:20px;border-bottom:1px solid var(--line);
   position:relative;transition:background .18s;
 }
 .prow:hover{background:var(--paper-2)}
 .prow__name{display:flex;flex-direction:column;gap:3px}
-.prow__name h3{font:inherit;font-size:16.5px;font-weight:600;letter-spacing:-.005em}
-.prow__name em{font-style:normal;font-size:11.5px;color:var(--ink-faint);letter-spacing:.02em}
+.prow__name h3{font:inherit;font-size:16.5px;font-weight:700;letter-spacing:-.005em}
+.prow__name em{font-style:normal;font-size:12px;color:var(--ink-faint)}
 .prow__desc{font-size:14px;color:var(--ink-soft);line-height:1.5}
-.prow__val{font-size:14.5px;font-weight:600;font-variant-numeric:tabular-nums}
-.prow__val small{display:block;font-size:11.5px;font-weight:500;color:var(--ink-faint)}
+.prow__val{font-size:14.5px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.4}
+.prow__val small{display:block;margin-top:2px;font-size:12px;font-weight:500;color:var(--ink-faint)}
 .prow__go{
-  display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;color:var(--brand);
+  justify-self:end;
+  display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:700;color:var(--brand);
   white-space:nowrap;transition:gap .18s;
 }
 .prow:hover .prow__go{gap:11px}
+@media(max-width:1060px){
+  .ptab{--ptab-cols:minmax(0,1.3fr) minmax(0,1.9fr) minmax(0,1fr) minmax(0,1.1fr) 124px;--ptab-gap:20px;--ptab-pad:10px}
+}
 @media(max-width:900px){
+  .ptab{margin-inline:0}
   .ptab__hd{display:none}
   .prow{grid-template-columns:1fr 1fr;gap:10px 18px;padding:20px 0}
   .prow__name{grid-column:1/-1}
   .prow__desc{grid-column:1/-1;margin-bottom:4px}
-  .prow__go{grid-column:1/-1;margin-top:6px}
+  .prow__go{grid-column:1/-1;justify-self:start;margin-top:6px}
 }
