@@ -115,21 +115,23 @@
       return mensagem;
     }
 
+    /* Leva o foco ao primeiro campo com erro, na ordem da página. */
+    function focarPrimeiroErro() {
+      var alvo = form.querySelector("[aria-invalid=true]");
+      if (alvo && alvo.tagName === "FIELDSET") alvo = alvo.querySelector("input");
+      if (alvo) alvo.focus();
+      return !!alvo;
+    }
+
     function conferirTudo() {
-      var primeiro = null;
       Object.keys(regras).forEach(function (nome) {
-        var campo = form.elements[nome];
-        if (campo && conferir(campo) && !primeiro) primeiro = campo;
+        if (form.elements[nome]) conferir(form.elements[nome]);
       });
       [["formulario", "Escolha o que deseja fazer."],
        ["nome_social", "Responda se conquistou o nome social ou mudou de sobrenome."]].forEach(function (par) {
         var fieldset = grupo(par[0]);
-        if (!fieldset) return;
-        var marcado = fieldset.querySelector("input:checked");
-        marcar(fieldset, marcado ? "" : par[1]);
-        if (!marcado && !primeiro) primeiro = fieldset.querySelector("input");
+        if (fieldset) marcar(fieldset, fieldset.querySelector("input:checked") ? "" : par[1]);
       });
-      return primeiro;
     }
 
     form.addEventListener("focusout", function (e) {
@@ -162,6 +164,8 @@
       var vale = !!tipo && nomeSocial.getAttribute("data-so").split(" ").indexOf(tipo.value) >= 0;
       nomeSocial.hidden = !vale;
       nomeSocial.disabled = !vale;
+      /* Um erro de antes não pode travar o envio de um pedido sem a pergunta. */
+      if (!vale && nomeSocial.hasAttribute("aria-invalid")) marcar(nomeSocial, "");
     }
 
     form.addEventListener("change", function (e) {
@@ -173,6 +177,8 @@
       }
     });
     ajustarNomeSocial();
+    /* Ao voltar para a página, o navegador pode repor a opção escolhida antes. */
+    window.addEventListener("pageshow", ajustarNomeSocial);
 
     function avisar(html) {
       aviso.innerHTML = html;
@@ -181,8 +187,11 @@
 
     function falhou(mensagem) {
       var email = form.getAttribute("data-email");
-      avisar((mensagem ? escapar(mensagem) : "Não foi possível enviar agora. Verifique a sua conexão e tente de novo.")
-        + " Se preferir, escreva para <a href=\"mailto:" + email + "\">" + email + "</a>.");
+      var link = "<a href=\"mailto:" + email + "\">" + email + "</a>";
+      mensagem = mensagem || "Não foi possível enviar agora. Verifique a sua conexão e tente de novo.";
+      avisar(mensagem.indexOf(email) >= 0
+        ? escapar(mensagem).replace(email, link)
+        : escapar(mensagem) + " Se preferir, escreva para " + link + ".");
     }
 
     function escapar(texto) {
@@ -195,10 +204,9 @@
       tentou = true;
       avisar("");
 
-      var primeiro = conferirTudo();
-      if (primeiro) {
+      conferirTudo();
+      if (focarPrimeiroErro()) {
         avisar(CONFIRA);
-        primeiro.focus();
         return;
       }
 
@@ -226,21 +234,19 @@
             confirmacao.focus();
             return;
           }
+          /* Erros que o PHP achou e o navegador não: marcados nos campos. */
           if (r.erros) {
-            var foco = null;
             Object.keys(r.erros).forEach(function (nome) {
               var alvo = form.elements[nome];
-              if (!alvo) return;
-              if (!alvo.tagName || alvo.type === "radio") alvo = grupo(nome);
-              if (!alvo) return;
-              marcar(alvo, r.erros[nome]);
-              if (!foco) foco = alvo.tagName === "FIELDSET" ? alvo.querySelector("input") : alvo;
+              if (alvo && (!alvo.tagName || alvo.type === "radio")) alvo = grupo(nome);
+              if (alvo) marcar(alvo, r.erros[nome]);
             });
-            avisar(CONFIRA);
-            if (foco) foco.focus();
-            return;
+            if (focarPrimeiroErro()) {
+              avisar(CONFIRA);
+              return;
+            }
           }
-          falhou(r.mensagem);
+          falhou(r.mensagem || (r.erros && r.erros[Object.keys(r.erros)[0]]));
         })
         .catch(function () { falhou(""); })
         .then(function () {
