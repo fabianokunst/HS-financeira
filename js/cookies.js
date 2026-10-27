@@ -40,8 +40,14 @@
   }
 
   function carregarAnalytics() {
-    if (carregado || !cfg.analyticsId) return;
+    if (!cfg.analyticsId) return;
     if ((cfg.analyticsDominios || []).indexOf(location.hostname) === -1) return;
+    /* Quem recusou e aceitou de novo nesta mesma página volta a ser medido. */
+    window["ga-disable-" + cfg.analyticsId] = false;
+    if (carregado) {
+      gtag("consent", "update", { analytics_storage: "granted" });
+      return;
+    }
     carregado = true;
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () { dataLayer.push(arguments); };
@@ -84,8 +90,13 @@
     if (escolha === "aceito") {
       carregarAnalytics();
     } else {
-      /* Quem aceitou e mudou de ideia nesta mesma página para de ser medido já. */
-      if (carregado) gtag("consent", "update", { analytics_storage: "denied" });
+      /* Quem aceitou e mudou de ideia nesta mesma página para de ser medido
+         já. Só o "denied" não basta: o Analytics continuaria mandando pings
+         sem cookie; a trava ga-disable- corta qualquer envio. */
+      if (carregado) {
+        gtag("consent", "update", { analytics_storage: "denied" });
+        window["ga-disable-" + cfg.analyticsId] = true;
+      }
       apagarCookiesAnalytics();
     }
     if (origemDoFoco) { origemDoFoco.focus(); origemDoFoco = null; }

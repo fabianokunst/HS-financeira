@@ -146,7 +146,9 @@ carregado **depois do "Aceitar"** no banner (seção `COOKIES`, copiada para tod
 as páginas pelo `npm run paginas`). O banner é réplica do site atual (plugin
 CookieYes): barra na base da tela com os mesmos textos, "Recusar", "Aceitar" e
 o X, que vale como "Recusar". Antes da escolha, e com "Recusar", nada vai
-para o Google; ao recusar, os cookies `_ga` são apagados. A escolha fica no
+para o Google; ao recusar, os cookies `_ga` são apagados e, se o Analytics já
+estava rodando na página (quem aceitou e mudou de ideia pelo rodapé), ele para
+de enviar na hora, sem esperar recarregar. A escolha fica no
 `localStorage` (`hs-cookies`) por `cookiesValidadeDias` e pode ser mudada em
 "Preferências de cookies", no rodapé. Em homologação, no `localhost`, aberto
 direto do disco e no arquivo único de `compartilhar/` o banner funciona, mas o
