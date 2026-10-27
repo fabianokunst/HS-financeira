@@ -121,8 +121,11 @@ valor. Atualize também os números iniciais no `index.html` (`id="pmt"` e
 da página está em JS.
 
 **Trocar uma foto** — substitua o JPEG em `assets/img/` mantendo o nome (ou
-troque o nome também no `index.html`). Vale recomprimir antes: as imagens são
-~70% do peso do arquivo único.
+troque o nome também no `index.html` e no `sitemap.xml`). Vale recomprimir antes:
+as imagens são ~70% do peso do arquivo único. Foto de banco de imagens: anote a
+origem aqui. `empresas-executivos.jpg` (faixa Para empresas) é do Unsplash, de
+Rodrigo Rodrigues | WOLF ΛRT — https://unsplash.com/photos/dGrDvseyRhs — sob a
+Licença Unsplash (uso comercial livre, crédito não obrigatório).
 
 **Mudar o aviso contra golpes** — o texto aparece em dois lugares: na faixa do
 topo do `index.html` (seção `AVISO`) e no comunicado da `aviso/index.html`. Mantenha
