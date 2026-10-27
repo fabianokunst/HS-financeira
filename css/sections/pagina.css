@@ -20,9 +20,22 @@
 .pg__grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(32px,5vw,72px);align-items:end}
 @media(max-width:900px){.pg__grid{grid-template-columns:1fr;align-items:start}}
 .resumo{
+  --resumo-pad:clamp(20px,2.4vw,28px);
   border:1px solid var(--line);border-radius:var(--r);background:var(--paper-2);
-  padding:clamp(20px,2.4vw,28px);
+  padding:var(--resumo-pad);
 }
+/* Foto discreta no topo do quadro: a mesma pessoa da página no site atual,
+   recortada (fundo transparente) sobre o rosado da marca e colada nas bordas.
+   Os arquivos ficam em assets/img/paginas/, com a pessoa na base de uma tela 768×320. */
+.pg__grid:has(.resumo__foto){align-items:start} /* com a foto o quadro fica mais alto que o texto: alinhar pela base empurraria o título para baixo */
+.resumo__foto{
+  width:calc(100% + 2 * var(--resumo-pad));max-width:none;height:clamp(120px,11vw,140px);
+  margin:calc(-1 * var(--resumo-pad)) calc(-1 * var(--resumo-pad)) 20px;
+  object-fit:contain;object-position:50% 100%;
+  background:var(--brand-wash);border-radius:calc(var(--r) - 1px) calc(var(--r) - 1px) 0 0;
+}
+/* Foto que já tem forma própria (Nossa história): sem o fundo, centralizada */
+.resumo__foto--livre{background:none;object-position:50% 50%}
 .resumo dl{margin:0;display:grid;gap:14px}
 .resumo dl>div{display:grid;gap:2px;padding-bottom:14px;border-bottom:1px solid var(--line)}
 .resumo dl>div:last-child{padding-bottom:0;border-bottom:0}

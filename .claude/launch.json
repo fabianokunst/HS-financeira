@@ -42,6 +42,17 @@
       ],
       "port": 8098,
       "autoPort": false
+    },
+    {
+      "name": "fotos",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8099"
+      ],
+      "port": 8099,
+      "autoPort": false
     }
   ]
 }
