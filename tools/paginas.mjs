@@ -26,8 +26,8 @@
  * páginas que existem aqui (https://hsfinanceira.com.br/credito-pessoal/)
  * viram relativos, para o site navegar entre as próprias páginas também em
  * homologação. JSON-LD, canonical e og:url continuam absolutos. Em todas as
- * páginas, inclusive no <main>, os links para outros sites e para PDFs
- * ganham target="_blank" rel="noopener" e abrem em nova aba.
+ * páginas, inclusive no <main>, os links para outros sites e para documentos
+ * (PDFs e imagens) ganham target="_blank" rel="noopener" e abrem em nova aba.
  *
  * O --verificar também confere o básico de SEO de cada página: canonical e
  * og:url iguais ao endereço da pasta, <title>, description, um único <h1> e a
@@ -151,9 +151,10 @@ function relativizarIndex(index, enderecosLocais) {
   return index.slice(0, inicioCorpo) + corpo;
 }
 
-/* Links do corpo para outros sites e para PDFs (de qualquer site) abrem em
-   nova aba; o rel="noopener" impede que a aba nova controle esta pelo
-   window.opener. As páginas de hsfinanceira.com.br seguem na mesma aba. */
+/* Links do corpo para outros sites e para documentos — PDFs e imagens, como a
+   tabela de tarifas, de qualquer site — abrem em nova aba; o rel="noopener"
+   impede que a aba nova controle esta pelo window.opener. As páginas de
+   hsfinanceira.com.br seguem na mesma aba. */
 function abrirEmNovaAba(html) {
   const inicioCorpo = html.indexOf("<body");
   if (inicioCorpo === -1) return html;
@@ -161,8 +162,8 @@ function abrirEmNovaAba(html) {
     const href = tag.match(/\shref="([^"]*)"/);
     if (!href) return tag;
     const externo = /^https?:\/\//.test(href[1]) && !/^https?:\/\/(?:www\.)?hsfinanceira\.com\.br(?:[/?#]|$)/.test(href[1]);
-    const pdf = /\.pdf(?:[?#]|$)/i.test(href[1]);
-    if (!externo && !pdf) return tag;
+    const documento = /\.(?:pdf|png|jpe?g|webp|gif|svg)(?:[?#]|$)/i.test(href[1]);
+    if (!externo && !documento) return tag;
     let novos = "";
     if (/\starget="/.test(tag)) tag = tag.replace(/\starget="[^"]*"/, ' target="_blank"');
     else novos += ' target="_blank"';
@@ -251,7 +252,7 @@ async function executar() {
   const problemas = [];
 
   if (index !== indexOriginal) {
-    desatualizadas.push("index.html (links absolutos para páginas locais, ou externos e PDFs sem nova aba)");
+    desatualizadas.push("index.html (links absolutos para páginas locais, ou externos e documentos sem nova aba)");
     if (!VERIFICAR) await writeFile(join(RAIZ, "index.html"), index, "utf8");
   }
 

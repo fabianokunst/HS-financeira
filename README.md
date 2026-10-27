@@ -375,7 +375,8 @@ Regras que mantêm o SEO:
   No arquivo único de `compartilhar/`, que abre offline, o `bundle.mjs` aponta
   esses links para o site publicado.
 - Links para outros sites (WhatsApp, redes sociais, parceiros, Banco Central…)
-  e para PDFs (contratos, políticas, relatórios) abrem em nova aba, com
+  e para documentos — PDFs (contratos, políticas, relatórios) e imagens, como
+  a tabela de tarifas do Cartão Hoje — abrem em nova aba, com
   `target="_blank" rel="noopener"`. Não precisa escrever à mão: o
   `paginas.mjs` acrescenta os atributos em todas as páginas, inclusive no
   `<main>`, e o `--verificar` acusa os que faltarem. As páginas do próprio
