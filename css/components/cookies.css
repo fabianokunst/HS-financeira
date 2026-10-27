@@ -1,66 +1,171 @@
-/* Banner de consentimento de cookies (LGPD): réplica do banner do site
-   oficial (plugin CookieYes) — barra de ponta a ponta na base da tela, por
-   cima de tudo (inclusive do botão do chat), com as medidas, cores e botões de
-   lá. No celular os botões empilham, com o "Aceitar" em cima. O cartão de
-   golpes só abre depois da escolha (js/aviso.js). Começa com [hidden]; o
-   js/cookies.js mostra enquanto não há escolha. */
+/* Banner de consentimento de cookies (LGPD), no formato do CookieYes do site
+   oficial: barra de ponta a ponta na base da tela, por cima de tudo
+   (inclusive do botão do chat), com os mesmos textos. Nas telas largas o
+   conteúdo fica na largura do site. No celular os botões empilham, com o
+   "Aceitar" em cima. O cartão de golpes só abre depois da escolha
+   (js/aviso.js). Começa com [hidden]; o js/cookies.js mostra enquanto não há
+   escolha. */
 
 .ck{
   position:fixed;z-index:70;
   left:0;right:0;bottom:0;
-  padding:16.5px 24px;
+  padding:20px max(24px,calc((100% - var(--wrap)) / 2 + var(--gut)));
   background:var(--paper);color:var(--ink-soft);
-  border:1px solid var(--line);
-  box-shadow:0 -1px 10px 0 rgba(172,171,171,.3);
+  border-top:1px solid var(--line);
+  box-shadow:0 -8px 28px -12px rgba(51,48,62,.22);
   font-size:14px;line-height:24px;
 }
 .ck[hidden]{display:none}
-.ck__h{margin-bottom:12px;font-size:18px;font-weight:700}
-.ck__grupo{display:flex;justify-content:space-between;align-items:center}
-.ck__txt p{margin-bottom:14.4px}
+.ck__h{margin-bottom:6px;color:var(--ink);font-size:17px;font-weight:700}
+.ck__grupo{display:flex;justify-content:space-between;align-items:center;gap:32px}
+.ck__txt{max-width:70ch}
+.ck__txt p{margin-bottom:4px}
 .ck__txt p:last-child{margin-bottom:0}
-.ck__txt b{font-weight:700}
-.ck__acts{display:flex;justify-content:center;align-items:center;margin-left:15px}
-/* Borda da cor do fundo, como no oficial (lá é branca sobre branco). */
+.ck__txt b{color:var(--ink-2);font-weight:700}
+.ck__acts{display:flex;align-items:center;gap:10px;flex:none}
+
+/* Hierarquia: "Aceitar" cheio, na cor da marca; "Recusar" só com contorno,
+   mas do mesmo tamanho e no mesmo nível — recusar tem de ser tão fácil quanto
+   aceitar (guia de cookies da ANPD); "Personalizar" como link. */
 .ck__btn{
-  padding:8px 27px;margin-right:8px;
-  border:2px solid var(--paper);border-radius:2px;
-  color:#fff;font-size:14px;font-weight:500;line-height:24px;white-space:nowrap;
+  padding:9px 24px;
+  border:1px solid transparent;border-radius:var(--r-btn);
+  font-size:14px;font-weight:700;line-height:24px;white-space:nowrap;
+  transition:background-color .18s,border-color .18s,color .18s;
 }
-.ck__btn:last-child{margin-right:0}
-.ck__btn:hover{opacity:.8}
-.ck__btn--recusar{background:#D8343C}
-.ck__btn--aceitar{background:#38343C}
+.ck__btn--aceitar{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.ck__btn--aceitar:hover{background:var(--brand-deep);border-color:var(--brand-deep)}
+.ck__btn--recusar,.ck__btn--salvar{background:transparent;border-color:var(--line-strong);color:var(--ink-2)}
+.ck__btn--recusar:hover,.ck__btn--salvar:hover{border-color:var(--ink-2);background:var(--paper-2)}
+.ck__btn--personalizar{
+  padding-inline:8px;background:none;color:var(--ink-soft);font-weight:600;
+  text-decoration:underline;text-underline-offset:3px;
+}
+.ck__btn--personalizar:hover{color:var(--ink)}
 .ck__x{
-  position:absolute;top:5px;right:9px;
-  width:24px;height:24px;display:grid;place-items:center;
-  color:#828EA2;
+  position:absolute;top:8px;right:8px;
+  width:32px;height:32px;display:grid;place-items:center;
+  border-radius:var(--r-btn);color:var(--ink-faint);
 }
-.ck__x svg{width:9px;height:9px}
+.ck__x:hover{background:var(--paper-2);color:var(--ink)}
+.ck__x svg{width:10px;height:10px}
 
 @media(max-width:768px){
   .ck__grupo{display:block}
-  .ck__acts{justify-content:flex-start;margin:10px 0 0}
-  .ck__btn{flex:auto;max-width:100%;margin-top:10px;white-space:normal}
+  .ck__acts{margin-top:14px}
+  .ck__btn--recusar,.ck__btn--aceitar{flex:1;white-space:normal}
 }
 @media(max-width:576px){
-  .ck{padding:16.5px 0 calc(16.5px + env(safe-area-inset-bottom))}
-  .ck__h,.ck__txt,.ck__acts{padding:0 28px}
+  .ck{padding:18px 24px calc(14px + env(safe-area-inset-bottom))}
+  .ck__h{padding-right:28px}
   .ck__txt{max-height:40vh;overflow-y:auto}
-  .ck__acts{flex-direction:column}
-  .ck__btn{width:100%;padding:8px;margin-right:0}
+  .ck__acts{flex-direction:column;align-items:stretch;gap:8px}
+  .ck__btn{width:100%}
   .ck__btn--aceitar{order:1}
   .ck__btn--recusar{order:2}
-}
-@media(max-width:425px){
-  .ck__h,.ck__txt,.ck__acts{padding:0 24px}
-  .ck__btn--aceitar{margin-top:16px}
+  .ck__btn--personalizar{order:3}
 }
 @media(max-width:352px){
+  .ck{padding-inline:16px}
   .ck__h{font-size:16px}
-  .ck__txt,.ck__btn{font-size:12px}
+  .ck__txt,.ck__btn{font-size:12.5px}
 }
 @media(max-height:480px){
   .ck{max-height:100vh;overflow-y:auto}
   .ck__txt{max-height:none;overflow-y:visible}
+}
+
+/* Painel "Personalizar": réplica do centro de preferências do CookieYes
+   (modo popup), com a relação das ferramentas por categoria. É um <dialog>:
+   abre por cima de tudo, prende o foco e fecha com Esc. */
+.ck-pref{
+  width:845px;max-width:calc(100% - 16px);max-height:79vh;
+  margin:auto;padding:0;border:0;border-radius:var(--r);
+  background:var(--paper);color:var(--ink-soft);
+  box-shadow:0 32px 68px rgba(0,0,0,.3);
+  font-size:14px;line-height:24px;
+}
+.ck-pref[open]{display:flex;flex-direction:column}
+.ck-pref::backdrop{background:rgba(0,0,0,.4)}
+.ck-pref__topo{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 24px;border-bottom:1px solid var(--line);
+}
+.ck-pref__h{color:var(--ink);font-size:18px;font-weight:700;line-height:24px}
+.ck-pref__x{width:32px;height:32px;flex:none;display:grid;place-items:center;border-radius:var(--r-btn);color:var(--ink-faint)}
+.ck-pref__x:hover{background:var(--paper-2);color:var(--ink)}
+.ck-pref__x svg{width:10px;height:10px}
+.ck-pref__corpo{flex:1;overflow:auto;padding:0 24px}
+.ck-pref__intro{padding:12px 0;border-bottom:1px solid var(--line)}
+.ck-pref__intro p{margin-bottom:14.4px}
+.ck-pref__intro p:last-child{margin-bottom:0}
+.ck-cats{margin-bottom:10px}
+.ck-cat{border-bottom:1px solid var(--line)}
+.ck-cat:last-child{border-bottom:0}
+.ck-cat__item{display:flex;margin-top:10px}
+.ck-cat__seta{position:relative;flex:none;margin-right:22px}
+.ck-cat__seta::before{
+  content:"";position:absolute;top:8px;width:6px;height:6px;
+  border-right:1.4px solid;border-bottom:1.4px solid;
+  transform:rotate(-45deg);transition:transform .2s ease-in-out;
+}
+.ck-cat.is-aberta .ck-cat__seta::before{transform:rotate(45deg)}
+.ck-cat__info{width:100%}
+.ck-cat__cab{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.ck-cat__btn{color:var(--ink);font-size:16px;font-weight:700;line-height:24px;text-align:left}
+.ck-cat__sempre{color:#008000;font-weight:600}
+.ck-cat__des{margin:10px 0 16px}
+.ck-cat__lista{padding:0 22px;margin-bottom:16px}
+.ck-cat__lista[hidden]{display:none}
+.ck-tabela{background:var(--paper-2);border-radius:6px}
+.ck-tabela ul{padding:15px 10px;border-bottom:1px solid var(--line);font-size:12px;line-height:24px}
+.ck-tabela ul:last-child{border-bottom:0}
+.ck-tabela li{display:flex;padding:3px 0}
+.ck-tabela li:first-child{padding-top:0}
+.ck-tabela li span:first-child{width:100px;flex:none;font-weight:600}
+.ck-tabela li span:last-child{flex:1;margin-left:8px;overflow-wrap:anywhere}
+/* Chave liga/desliga: cinza desligada, na cor da marca ligada. */
+.ck-chave{display:flex}
+.ck-chave input{
+  -webkit-appearance:none;appearance:none;position:relative;
+  width:44px;height:24px;margin:0;border-radius:50px;
+  background:#D0D5D2;cursor:pointer;
+}
+.ck-chave input::before{
+  content:"";position:absolute;left:2px;bottom:2px;
+  width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .4s;
+}
+.ck-chave input:checked{background:var(--brand)}
+.ck-chave input:checked::before{transform:translateX(20px)}
+.ck-pref__acoes{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;
+  padding:20px 24px;border-top:1px solid var(--line);
+}
+.ck-pref__acoes .ck__btn{flex:auto;max-width:100%}
+
+@media(max-width:576px){
+  .ck-pref{max-width:100%;max-height:100%;border-radius:0}
+  .ck-pref__acoes{flex-direction:column;padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+  .ck-pref__acoes{gap:8px}
+  .ck-pref__acoes .ck__btn{width:100%}
+  .ck-pref__acoes .ck__btn--aceitar{order:1}
+  .ck-pref__acoes .ck__btn--salvar{order:2}
+  .ck-pref__acoes .ck__btn--recusar{order:3}
+  .ck-cat__lista{padding-right:0}
+}
+@media(max-width:425px){
+  .ck-cat__seta{margin-right:15px}
+  .ck-cat__lista{padding:0 0 0 15px}
+  .ck-chave input{width:38px;height:21px}
+  .ck-chave input::before{width:17px;height:17px}
+  .ck-chave input:checked::before{transform:translateX(17px)}
+}
+@media(max-width:352px){
+  .ck-pref__h{font-size:16px}
+  .ck-pref__topo{padding:16px 24px}
+  .ck-pref__intro,.ck-cat__des,.ck-cat__sempre{font-size:12px}
+  .ck-cat__btn{font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){
+  .ck-cat__seta::before,.ck-chave input::before{transition:none}
 }

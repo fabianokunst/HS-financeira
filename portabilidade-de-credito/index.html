@@ -284,8 +284,11 @@
 <!-- ══════════════ COOKIES ══════════════ -->
 <div class="ck" id="cookies" role="region" aria-labelledby="ck-titulo" hidden>
   <!-- Consentimento de cookies (LGPD): réplica do banner do site oficial
-       (plugin CookieYes), com os mesmos textos e botões. Escondido até o
-       js/cookies.js decidir; sem JavaScript não há banner nem Google Analytics. -->
+       (plugin CookieYes), com os mesmos textos e botões, mais o painel
+       "Personalizar" com a relação das ferramentas por categoria. Escondido
+       até o js/cookies.js decidir; sem JavaScript não há banner nem nenhuma
+       ferramenta de terceiros. Ao incluir ou tirar uma ferramenta, atualize a
+       relação no painel e a cookiesVersao do js/config.js. -->
   <button class="ck__x" type="button" data-cookies="fechar" aria-label="Fechar">
     <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1l8 8M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
   </button>
@@ -296,17 +299,95 @@
       <p>Usamos cookies para aprimorar sua experiência de navegação, veicular anúncios ou conteúdos personalizados e analisar nosso tráfego. Ao clicar em <b>"Aceitar"</b>, você concorda com o uso de cookies.</p>
     </div>
     <div class="ck__acts">
+      <button class="ck__btn ck__btn--personalizar" type="button" data-cookies="personalizar">Personalizar</button>
       <button class="ck__btn ck__btn--recusar" type="button" data-cookies="recusar">Recusar</button>
       <button class="ck__btn ck__btn--aceitar" type="button" data-cookies="aceitar">Aceitar</button>
     </div>
   </div>
 </div>
 
+<dialog class="ck-pref" id="cookies-pref" aria-labelledby="ck-pref-titulo">
+  <div class="ck-pref__topo">
+    <p class="ck-pref__h" id="ck-pref-titulo" role="heading" aria-level="2">Personalizar preferências de consentimento</p>
+    <button class="ck-pref__x" type="button" data-cookies="voltar" aria-label="Fechar">
+      <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1l8 8M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="ck-pref__corpo">
+    <div class="ck-pref__intro">
+      <p>Usamos cookies para o site funcionar, para entender como ele é usado e para oferecer conteúdos e campanhas relevantes para você. Os necessários ficam sempre ativos; os demais só são ativados com o seu consentimento. Abra cada categoria para ver as ferramentas, e mude a sua escolha quando quiser em "Preferências de cookies", no rodapé.</p>
+    </div>
+    <div class="ck-cats">
+      <div class="ck-cat">
+        <div class="ck-cat__item">
+          <span class="ck-cat__seta" aria-hidden="true"></span>
+          <div class="ck-cat__info">
+            <div class="ck-cat__cab">
+              <button class="ck-cat__btn" type="button" data-cookies="detalhes" aria-expanded="false" aria-controls="ck-lista-necessarios">Necessários</button>
+              <span class="ck-cat__sempre">Sempre ativo</span>
+            </div>
+            <p class="ck-cat__des">Os cookies necessários são essenciais para as funções básicas do site, como guardar as suas preferências de consentimento e manter o chat de atendimento. Eles não guardam dados pessoais identificáveis.</p>
+          </div>
+        </div>
+        <div class="ck-cat__lista" id="ck-lista-necessarios" hidden>
+          <div class="ck-tabela">
+            <ul><li><span>Cookie</span><span>hs-cookies</span></li><li><span>Duração</span><span>1 ano</span></li><li><span>Descrição</span><span>HS Financeira: guarda a sua escolha de cookies, para o banner não aparecer em toda página.</span></li></ul>
+            <ul><li><span>Cookie</span><span>hs-aviso-dia</span></li><li><span>Duração</span><span>1 dia</span></li><li><span>Descrição</span><span>HS Financeira: guarda o dia em que o aviso contra golpes apareceu, para mostrá-lo uma vez por dia.</span></li></ul>
+            <ul><li><span>Cookie</span><span>ui-state, websocket-status, connecting</span></li><li><span>Duração</span><span>Sessão</span></li><li><span>Descrição</span><span>Ubots (chat de atendimento): mantêm a conexão e o estado da janela do chat.</span></li></ul>
+          </div>
+        </div>
+      </div>
+      <div class="ck-cat">
+        <div class="ck-cat__item">
+          <span class="ck-cat__seta" aria-hidden="true"></span>
+          <div class="ck-cat__info">
+            <div class="ck-cat__cab">
+              <button class="ck-cat__btn" type="button" data-cookies="detalhes" aria-expanded="false" aria-controls="ck-lista-analiticos">Analíticos</button>
+              <span class="ck-chave"><input type="checkbox" data-categoria="analiticos" aria-label="Permitir cookies analíticos"></span>
+            </div>
+            <p class="ck-cat__des">Os cookies analíticos são usados para entender como os visitantes interagem com o site. Eles ajudam a fornecer informações sobre métricas como número de visitantes, taxa de rejeição e origem do tráfego.</p>
+          </div>
+        </div>
+        <div class="ck-cat__lista" id="ck-lista-analiticos" hidden>
+          <div class="ck-tabela">
+            <ul><li><span>Cookie</span><span>_ga</span></li><li><span>Duração</span><span>2 anos</span></li><li><span>Descrição</span><span>Google Analytics: distingue um visitante do outro, para contar visitas.</span></li></ul>
+            <ul><li><span>Cookie</span><span>_ga_K19JZS99WR</span></li><li><span>Duração</span><span>2 anos</span></li><li><span>Descrição</span><span>Google Analytics: guarda o estado da sessão, para contar páginas vistas e tempo de visita.</span></li></ul>
+          </div>
+        </div>
+      </div>
+      <div class="ck-cat">
+        <div class="ck-cat__item">
+          <span class="ck-cat__seta" aria-hidden="true"></span>
+          <div class="ck-cat__info">
+            <div class="ck-cat__cab">
+              <button class="ck-cat__btn" type="button" data-cookies="detalhes" aria-expanded="false" aria-controls="ck-lista-publicidade">Publicidade</button>
+              <span class="ck-chave"><input type="checkbox" data-categoria="publicidade" aria-label="Permitir cookies de publicidade"></span>
+            </div>
+            <p class="ck-cat__des">Os cookies de publicidade são usados para oferecer conteúdos e campanhas personalizados com base nas páginas que você visitou e para analisar a eficácia dessas campanhas. Com esta categoria ativa, o nome e o e-mail informados ao abrir o chat também são enviados ao Emarsys.</p>
+          </div>
+        </div>
+        <div class="ck-cat__lista" id="ck-lista-publicidade" hidden>
+          <div class="ck-tabela">
+            <ul><li><span>Cookie</span><span>scarab.visitor</span></li><li><span>Duração</span><span>Sessão</span></li><li><span>Descrição</span><span>Emarsys (SAP): identifica o visitante para personalizar conteúdos e registrar os cliques no menu, no rodapé e nas redes sociais.</span></li></ul>
+            <ul><li><span>Cookie</span><span>wps-*</span></li><li><span>Duração</span><span>Persistente</span></li><li><span>Descrição</span><span>Emarsys (SAP): exibe campanhas no próprio site.</span></li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ck-pref__acoes">
+    <button class="ck__btn ck__btn--recusar" type="button" data-cookies="recusar">Recusar</button>
+    <button class="ck__btn ck__btn--salvar" type="button" data-cookies="salvar">Salvar minhas preferências</button>
+    <button class="ck__btn ck__btn--aceitar" type="button" data-cookies="aceitar">Aceitar</button>
+  </div>
+</dialog>
+
 <!-- Scripts comuns: copiados do index.html por tools/paginas.mjs. -->
 <!-- comum:scripts -->
 <script src="../js/config.js"></script>
 <script src="../js/utils/format.js"></script>
 <script src="../js/cookies.js"></script>
+<script src="../js/emarsys.js"></script>
 <script src="../js/aviso.js"></script>
 <script src="../js/nav.js"></script>
 <script src="../js/links-locais.js"></script>
