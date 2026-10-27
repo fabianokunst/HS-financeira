@@ -12,6 +12,7 @@
   if (!formularios.length) return;
 
   var aberto = Date.now();
+  var CONFIRA = "Confira os campos marcados.";
 
   function digitos(valor) { return valor.replace(/\D/g, ""); }
 
@@ -95,6 +96,8 @@
       caixa.hidden = !mensagem;
       if (mensagem) alvo.setAttribute("aria-invalid", "true");
       else alvo.removeAttribute("aria-invalid");
+      /* Corrigido o último campo, sai o aviso de conferir. */
+      if (!mensagem && aviso.textContent === CONFIRA && !form.querySelector("[aria-invalid=true]")) avisar("");
     }
 
     /* Grupo de opções (tipo de pedido, nome social): o erro fica no fieldset. */
@@ -194,7 +197,7 @@
 
       var primeiro = conferirTudo();
       if (primeiro) {
-        avisar("Confira os campos marcados.");
+        avisar(CONFIRA);
         primeiro.focus();
         return;
       }
@@ -233,7 +236,7 @@
               marcar(alvo, r.erros[nome]);
               if (!foco) foco = alvo.tagName === "FIELDSET" ? alvo.querySelector("input") : alvo;
             });
-            avisar("Confira os campos marcados.");
+            avisar(CONFIRA);
             if (foco) foco.focus();
             return;
           }

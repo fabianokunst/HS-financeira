@@ -46,6 +46,7 @@
   <!-- /comum:head -->
   <!-- CSS desta página -->
   <link rel="stylesheet" href="../css/sections/pagina.css">
+  <link rel="stylesheet" href="../css/components/formulario.css">
 
   <script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[
@@ -239,16 +240,82 @@
     <div class="sec__head">
       <p class="eyebrow is-neutral">Escolha uma das opções</p>
       <h2 class="sec__h2">O que <i>deseja fazer?</i></h2>
-      <p class="lede">Escreva para o encarregado pelo e-mail <b>lgpd@hsfinanceira.com.br</b> dizendo o que deseja fazer, com seu nome completo, um telefone de contato com DDD e uma descrição detalhada do pedido.</p>
+      <p class="lede">Escolha uma das opções e preencha os seus dados. Se nenhuma delas atender ao seu pedido, escreva para o encarregado pelo e-mail <b>lgpd@hsfinanceira.com.br</b>.</p>
     </div>
-    <!-- PENDENTE: formulário "Quero que vocês excluam meus dados." do site antigo (popup) — texto: "Você pode excluir, bloquear ou deixar seus dados anônimos, caso julgue que eles são desnecessários para a gente. Em alguns casos não é possível realizar a exclusão." — campos (todos obrigatórios): Qual seu CPF?, Qual seu nome?, Qual seu sobrenome?, Conquistou o nome social ou mudou de sobrenome por qualquer motivo? (Sim/Não), Telefone de contato com DDD, Digite seu e-mail, Descrição detalhada; botão "Enviar Solicitação". Precisa de um destino para os envios antes de voltar. -->
-    <!-- PENDENTE: formulário "Quero me opor ao tratamento de alguns dados." do site antigo (popup) — texto: "Você pode se opor ou revogar o consentimento dos dados pessoais que nos forneceu para nosso legítimo interesse ou em qualquer outro tipo de tratamento. Assim, não os usaremos mais, a menos que tenhamos motivos legais, contratuais ou regulatórios." — campos (todos obrigatórios): Qual seu CPF?, Qual seu nome?, Qual seu sobrenome?, Conquistou o nome social ou mudou de sobrenome por qualquer motivo? (Sim/Não), Telefone de contato com DDD, Digite seu e-mail, Descrição detalhada; botão "Enviar Solicitação". Precisa de um destino para os envios antes de voltar. -->
-    <!-- PENDENTE: formulário "Realizar uma denúncia de tratamento irregular de dados." do site antigo (popup) — campos (todos obrigatórios): Qual seu CPF?, Qual seu nome?, Qual seu sobrenome?, Digite seu e-mail, Telefone de contato com DDD, Descrição detalhada; botão "Enviar Solicitação". Precisa de um destino para os envios antes de voltar. -->
-    <ul class="mais">
-      <li><a href="mailto:lgpd@hsfinanceira.com.br?subject=LGPD%20-%20Exclus%C3%A3o%20de%20dados"><b>Quero que vocês excluam meus dados</b><span>Você pode excluir, bloquear ou deixar seus dados anônimos, caso julgue que eles são desnecessários para nós. Em alguns casos não é possível realizar a exclusão.</span></a></li>
-      <li><a href="mailto:lgpd@hsfinanceira.com.br?subject=LGPD%20-%20Oposi%C3%A7%C3%A3o%20ao%20tratamento%20de%20dados"><b>Quero me opor ao tratamento de alguns dados</b><span>Você pode se opor ou revogar o consentimento dos dados que nos forneceu. Assim, não os usaremos mais, a menos que tenhamos motivos legais, contratuais ou regulatórios.</span></a></li>
-      <li><a href="mailto:lgpd@hsfinanceira.com.br?subject=LGPD%20-%20Den%C3%BAncia%20de%20tratamento%20irregular%20de%20dados"><b>Realizar uma denúncia de tratamento irregular de dados</b><span>Relate o tratamento irregular dos seus dados pessoais, com uma descrição detalhada do que aconteceu.</span></a></li>
-    </ul>
+    <!-- Os três popups do site atual (Elementor 7c3b0235, 56fb7039 e 4d241371)
+         num formulário só: a opção escolhida diz o tipo de pedido. Cada um vai
+         ao seu formulário do Emarsys (f=1414, 1415 e 1416) e por e-mail a
+         lgpd@, pelo api/formulario.php. -->
+    <form class="form form--lgpd" action="../api/formulario.php" method="post" data-formulario data-ok="lgpd-ok" data-email="lgpd@hsfinanceira.com.br" aria-label="Solicitação sobre os seus dados pessoais">
+      <fieldset class="opcoes" id="lgpd-tipo">
+        <legend class="sr-only">O que deseja fazer?</legend>
+        <label class="opcao">
+          <input type="radio" name="formulario" value="lgpd-exclusao" required>
+          <b>Quero que vocês excluam meus dados</b>
+          <span>Você pode excluir, bloquear ou deixar seus dados anônimos, caso julgue que eles são desnecessários para nós. Em alguns casos não é possível realizar a exclusão.</span>
+        </label>
+        <label class="opcao">
+          <input type="radio" name="formulario" value="lgpd-oposicao">
+          <b>Quero me opor ao tratamento de alguns dados</b>
+          <span>Você pode se opor ou revogar o consentimento dos dados pessoais que nos forneceu para nosso legítimo interesse ou em qualquer outro tipo de tratamento. Assim, não os usaremos mais, a menos que tenhamos motivos legais, contratuais ou regulatórios.</span>
+        </label>
+        <label class="opcao">
+          <input type="radio" name="formulario" value="lgpd-denuncia">
+          <b>Realizar uma denúncia de tratamento irregular de dados</b>
+          <span>Relate o tratamento irregular dos seus dados pessoais, com uma descrição detalhada do que aconteceu.</span>
+        </label>
+      </fieldset>
+      <div class="form__dados">
+        <div class="form__grade">
+          <div class="form__campo">
+            <label class="form__lb" for="lgpd-nome">Qual seu nome?</label>
+            <input class="form__in" id="lgpd-nome" name="nome" type="text" autocomplete="given-name" placeholder="Nome" maxlength="60" required>
+          </div>
+          <div class="form__campo">
+            <label class="form__lb" for="lgpd-sobrenome">Qual seu sobrenome?</label>
+            <input class="form__in" id="lgpd-sobrenome" name="sobrenome" type="text" autocomplete="family-name" placeholder="Sobrenome" maxlength="60" required>
+          </div>
+          <fieldset class="form__grupo form__campo--largo" id="lgpd-nome-social" data-so="lgpd-exclusao lgpd-oposicao">
+            <legend class="form__lb">Conquistou o nome social ou mudou de sobrenome por qualquer motivo?</legend>
+            <div class="form__radios">
+              <label class="form__radio"><input type="radio" name="nome_social" value="Sim" required> Sim</label>
+              <label class="form__radio"><input type="radio" name="nome_social" value="Não"> Não</label>
+            </div>
+          </fieldset>
+          <div class="form__campo">
+            <label class="form__lb" for="lgpd-cpf">Qual seu CPF?</label>
+            <input class="form__in" id="lgpd-cpf" name="cpf" type="text" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14" required>
+          </div>
+          <div class="form__campo">
+            <label class="form__lb" for="lgpd-telefone">Telefone de contato com DDD</label>
+            <input class="form__in" id="lgpd-telefone" name="telefone" type="tel" autocomplete="tel-national" placeholder="11 0000-0000" maxlength="20" required>
+          </div>
+          <div class="form__campo form__campo--largo">
+            <label class="form__lb" for="lgpd-email">Digite seu e-mail</label>
+            <input class="form__in" id="lgpd-email" name="email" type="email" autocomplete="email" placeholder="exemplo@gmail.com" maxlength="255" required>
+          </div>
+          <div class="form__campo form__campo--largo">
+            <label class="form__lb" for="lgpd-mensagem">Descrição detalhada</label>
+            <textarea class="form__in" id="lgpd-mensagem" name="mensagem" rows="6" maxlength="1000" required></textarea>
+            <span class="form__conta" aria-hidden="true">0/1000</span>
+          </div>
+        </div>
+        <div class="form__armadilha" aria-hidden="true">
+          <label for="lgpd-recado">Não preencha este campo</label>
+          <input id="lgpd-recado" name="recado" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="form__fim">
+          <button class="btn btn--solid btn--lg" type="submit">Enviar solicitação</button>
+          <p class="form__nota">Todos os campos são obrigatórios.</p>
+        </div>
+        <p class="form__aviso" role="alert" hidden></p>
+      </div>
+    </form>
+    <div class="form__ok" id="lgpd-ok" role="status" tabindex="-1" hidden>
+      <h3>Solicitação enviada.</h3>
+      <p>Recebemos a sua solicitação. O número do seu protocolo é <b data-protocolo></b>.</p>
+      <p>A instituição tem o prazo de até 15 dias para retornar as solicitações realizadas por este canal. Se tiver dúvidas, escreva para o encarregado: <a href="mailto:lgpd@hsfinanceira.com.br">lgpd@hsfinanceira.com.br</a>.</p>
+    </div>
   </div>
 </section>
 
@@ -473,5 +540,6 @@
 <script src="https://cdn.ubots.com.br/webchat/ubots.min.js" defer></script>
 <script src="../js/chat.js"></script>
 <!-- /comum:scripts -->
+<script src="../js/formulario.js"></script>
 </body>
 </html>

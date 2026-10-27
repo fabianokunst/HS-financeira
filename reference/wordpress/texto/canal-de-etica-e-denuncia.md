@@ -1,0 +1,2 @@
+## Canal de ética e denúncia
+Em conformidade aos normativos emitidos pelo Banco Central do Brasil, a HS Financeira disponibiliza este canal de comunicação por meio do qual funcionários, colaboradores, clientes, usuários, parceiros ou fornecedores podem reportar, sem a necessidade de se identificarem, situações com indícios de ilicitude, de qualquer natureza, relacionadas às atividades da instituição. A manifestação pode ser feita preenchendo o formulário abaixo. Caso você não queira se identificar, basta acessar a opção “Realizar denúncia anônima”.

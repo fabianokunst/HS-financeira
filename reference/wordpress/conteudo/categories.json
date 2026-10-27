@@ -1,0 +1,47 @@
+[
+ {
+  "id": 1,
+  "count": 3,
+  "description": "",
+  "link": "https://hsfinanceira.com.br/category/categoria/",
+  "name": "Categoria",
+  "slug": "categoria",
+  "taxonomy": "category",
+  "parent": 0,
+  "meta": [],
+  "_links": {
+   "self": [
+    {
+     "href": "https://hsfinanceira.com.br/wp-json/wp/v2/categories/1",
+     "targetHints": {
+      "allow": [
+       "GET"
+      ]
+     }
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://hsfinanceira.com.br/wp-json/wp/v2/categories"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://hsfinanceira.com.br/wp-json/wp/v2/taxonomies/category"
+    }
+   ],
+   "wp:post_type": [
+    {
+     "href": "https://hsfinanceira.com.br/wp-json/wp/v2/posts?categories=1"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ }
+]
