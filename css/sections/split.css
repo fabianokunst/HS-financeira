@@ -13,9 +13,12 @@
   background:var(--brand-wash);color:var(--brand-deep);
   display:grid;place-items:center;font-size:11px;font-weight:700;
 }
-.split__apps{margin-top:16px;font-size:13.5px;color:var(--ink-soft)}
-.split__apps a{color:var(--brand);font-weight:600;border-bottom:1px solid transparent}
-.split__apps a:hover{border-bottom-color:var(--brand)}
+/* Botão do site do cartão com o link das condições ao lado, discreto; abaixo, os selos das lojas */
+.split__acts{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;margin-top:28px}
+.split__cond{font-size:13.5px;color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--line-strong)}
+.split__cond:hover{color:var(--ink);text-decoration-color:currentColor}
+.split__k{margin-top:24px;font-size:13.5px;font-weight:600;color:var(--ink-soft)}
+.split__lojas{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
 @media(max-width:840px){
   .split{grid-template-columns:1fr;gap:26px}
   .split--flip .split__media{order:0}
