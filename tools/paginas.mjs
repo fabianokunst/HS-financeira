@@ -176,7 +176,7 @@ function montar(pagina, html, comum, enderecosLocais) {
 
 /* ── Conferência de SEO ── */
 
-function conferirSeo(pagina, html, sitemap) {
+function conferirSeo(pagina, html, sitemap, enderecosLocais) {
   const problemas = [];
   const url = SITE + enderecoDe(pagina);
   const valor = (re) => (html.match(re) || [])[1];
@@ -184,15 +184,18 @@ function conferirSeo(pagina, html, sitemap) {
     if (!/<meta name="robots" content="noindex/.test(html)) problemas.push("404 sem robots noindex");
     return problemas;
   }
-  if (valor(/<link rel="canonical" href="([^"]*)"/) !== url) problemas.push(`canonical diferente de ${url}`);
-  if (valor(/<meta property="og:url" content="([^"]*)"/) !== url) problemas.push(`og:url diferente de ${url}`);
+  // O canonical pode apontar para outra página do site quando o endereço é uma
+  // duplicata mantida só para não quebrar links (ex.: solicitacao_credito_pessoal/).
+  const canonical = valor(/<link rel="canonical" href="([^"]*)"/);
+  const duplicata = canonical !== url && canonical?.startsWith(SITE) && enderecosLocais.has(canonical.slice(SITE.length));
+  if (canonical !== url && !duplicata) problemas.push(`canonical diferente de ${url}`);
+  if (valor(/<meta property="og:url" content="([^"]*)"/) !== canonical) problemas.push("og:url diferente do canonical");
   if (!valor(/<title>([^<]+)<\/title>/)) problemas.push("sem <title>");
   const descricao = valor(/<meta name="description" content="([^"]+)"/);
   if (!descricao) problemas.push("sem meta description");
   else if (descricao.length > 160) problemas.push(`meta description com ${descricao.length} caracteres (o Google corta perto de 155)`);
   const h1 = (html.match(/<h1[\s>]/g) || []).length;
   if (h1 !== 1) problemas.push(`${h1} <h1> (deve ter exatamente um)`);
-  const canonical = valor(/<link rel="canonical" href="([^"]*)"/);
   if (sitemap !== null && canonical === url && !sitemap.includes(`<loc>${url}</loc>`)) problemas.push("fora do sitemap.xml");
   return problemas;
 }
@@ -219,7 +222,7 @@ async function executar() {
   for (const pagina of paginas.sort()) {
     const original = await ler(pagina);
     const { html, avisos } = montar(pagina, original, comum, enderecosLocais);
-    for (const a of [...avisos, ...conferirSeo(pagina, html, sitemap)]) problemas.push(`${pagina}: ${a}`);
+    for (const a of [...avisos, ...conferirSeo(pagina, html, sitemap, enderecosLocais)]) problemas.push(`${pagina}: ${a}`);
     if (html !== original) {
       desatualizadas.push(pagina);
       if (!VERIFICAR) await writeFile(join(RAIZ, pagina), html, "utf8");

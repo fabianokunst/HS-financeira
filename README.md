@@ -254,6 +254,11 @@ Regras que mantêm o SEO:
   comentário `PENDENTE` no HTML lista os campos de cada formulário.
 - **Pendente — documentos:** os PDFs e imagens linkados continuam em
   `/wp-content/uploads/…` (ver "Para publicar").
+- **Conferir com a HS:** o telefone da Cobrança na página do CDC (o site antigo
+  dizia 3564-7374; o resto do site diz (51) 3564-8374, que foi o usado); o
+  WhatsApp de investimentos sem o 55 (`phone=5140426468`), como no site antigo;
+  e os comentários `Conferir` em `governanca/` e `divulgacao-de-resultados/`,
+  onde o site antigo ligava dois períodos diferentes ao mesmo PDF.
 
 ---
 

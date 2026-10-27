@@ -20,6 +20,27 @@
 
   <!-- Ícones, fontes e CSS comuns: copiados do index.html por tools/paginas.mjs. -->
   <!-- comum:head -->
+  <meta name="theme-color" content="#D9222E">
+  <link rel="icon" href="../assets/favicon/favicon.ico" sizes="32x32">
+  <link rel="icon" href="../assets/favicon/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="../assets/favicon/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdn.ubots.com.br/webchat/ubots.min.css">
+  <link rel="stylesheet" href="../css/base/tokens.css">
+  <link rel="stylesheet" href="../css/base/reset.css">
+  <link rel="stylesheet" href="../css/layout/section.css">
+  <link rel="stylesheet" href="../css/components/buttons.css">
+  <link rel="stylesheet" href="../css/components/tag.css">
+  <link rel="stylesheet" href="../css/components/field.css">
+  <link rel="stylesheet" href="../css/components/chips.css">
+  <link rel="stylesheet" href="../css/components/chat.css">
+  <link rel="stylesheet" href="../css/sections/aviso.css">
+  <link rel="stylesheet" href="../css/sections/rail.css">
+  <link rel="stylesheet" href="../css/sections/header.css">
+  <link rel="stylesheet" href="../css/sections/cta-final.css">
+  <link rel="stylesheet" href="../css/sections/footer.css">
   <!-- /comum:head -->
   <!-- CSS desta página -->
   <link rel="stylesheet" href="../css/sections/pagina.css">
@@ -38,10 +59,63 @@
 <body>
 
 <!-- ══════════════ AVISO ══════════════ -->
+<div class="aviso" id="aviso" role="region" aria-label="Aviso de segurança">
+  <div class="wrap aviso__in">
+    <p class="aviso__txt"><strong class="aviso__k">Atenção:</strong> A <b>HS Financeira S/A CFI</b> não solicita pagamento antecipado de boletos bancários, ou o envio de valores através de transferências ou PIX, para a liberação de operações de empréstimos ou financiamentos. Também alertamos que qualquer pagamento realizado para a instituição, sempre será direcionado para o CNPJ <b class="num">(07.512.441/0001-11)</b> da <b>HS Financeira S/A CFI</b>. Não solicitamos pagamentos em nome da <b>HS Financeira S/A CFI</b>, direcionados à conta de pessoas físicas. Não possuímos agentes atuando em nome da Instituição através de redes sociais, ofertando investimentos ou empréstimos. Nossos canais de atendimento oficiais são apenas os que estão informados nesta página. <a class="aviso__more" href="../aviso/">Saiba Mais.</a></p>
+    <button class="aviso__x" type="button" aria-label="Fechar aviso">
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3.5 3.5 9 9m0-9-9 9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</div>
 
 <!-- ══════════════ TOP RAIL ══════════════ -->
+<div class="rail">
+  <div class="wrap rail__in">
+    <a class="rail__item" href="tel:40202202"><span class="rail__k">Capitais</span><span class="rail__v">4020 2202</span></a>
+    <a class="rail__item" href="tel:08006022202"><span class="rail__k">SAC</span><span class="rail__v">0800 602 2202</span></a>
+    <a class="rail__item" href="tel:08006487070"><span class="rail__k">Ouvidoria</span><span class="rail__v">0800 648 7070</span></a>
+    <span class="rail__spacer"></span>
+    <a class="rail__link" href="https://easycollector.wedoo.com.br/herval/login.aspx">Renegociar dívida</a>
+    <a class="rail__link" href="../#governanca">Governança</a>
+    <a class="rail__link" href="../#seguranca">Segurança</a>
+  </div>
+</div>
 
 <!-- ══════════════ HEADER ══════════════ -->
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a class="mark" href="../" aria-label="HS Financeira — página inicial">
+      <img class="mark__logo" src="../assets/marca/hs-financeira-logo-branco.png" alt="" width="500" height="244">
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="../#para-voce">Para você</a>
+      <a href="../#para-empresas">Para empresas</a>
+      <a href="../#investimentos">Investimentos</a>
+      <a href="../#parceiros">Parceiros</a>
+      <a href="../#ajuda">Ajuda</a>
+    </nav>
+    <div class="hdr__cta">
+      <a class="hdr__ghost" href="../#simulador">Simular crédito</a>
+      <a class="btn btn--solid" href="../#para-voce">Contratar agora</a>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="mnav" aria-label="Abrir menu de navegação">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="Navegação" hidden>
+    <a href="../#para-voce">Para você <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="../#para-empresas">Para empresas <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="../#investimentos">Investimentos <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="../#parceiros">Parceiros <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="../#governanca">Governança <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="../#ajuda">Ajuda <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="https://easycollector.wedoo.com.br/herval/login.aspx">Renegociar dívida <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <div class="mnav__foot">
+      <a class="btn btn--solid" href="../#simulador">Simular crédito</a>
+      <a class="btn btn--line" href="tel:08006022202">Ligar para o SAC 0800 602 2202</a>
+    </div>
+  </nav>
+</header>
 
 <main>
 <article>
@@ -116,9 +190,86 @@
 </main>
 
 <!-- ══════════════ FOOTER ══════════════ -->
+<footer class="ft">
+  <div class="wrap ft__top">
+    <div class="ft__col ft__brand">
+      <img class="ft__logo" src="../assets/marca/hs-financeira-logo-branco.png" alt="HS Financeira — Uma empresa do Grupo Herval" width="500" height="244" loading="lazy" decoding="async">
+      <p class="ft__about">Financeira gaúcha desde 2005, parte das empresas do Grupo Herval, com crédito, cartão e investimentos para pessoas e empresas.</p>
+      <div class="ft__soc">
+        <a href="https://www.instagram.com/hsfinanceira/" aria-label="Instagram da HS Financeira"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="3.9" stroke="currentColor" stroke-width="1.7"/><circle cx="17" cy="7" r="1.2" fill="currentColor"/></svg></a>
+        <a href="https://br.linkedin.com/company/hs-financeira-s-a---cfi" aria-label="LinkedIn da HS Financeira"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 9.5v9M5 5.6v.1M10 18.5v-9M10 13c0-2 1.3-3.5 3.3-3.5S17 11 17 13.4v5.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
+        <a href="https://www.facebook.com/hsfinanceiracfi/" aria-label="Facebook da HS Financeira"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 8.5h2.3M14.5 8.5c0-2 .9-3 2.8-3M14.5 8.5V20M11 12h6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
+      </div>
+    </div>
+
+    <div class="ft__col">
+      <h2>Para você</h2>
+      <ul>
+        <li><a href="../credito-pessoal/">Crédito Pessoal</a></li>
+        <li><a href="../um-cartao-cheio-de-vantagens-para-quem-vive-o-hoje/">Cartão Hoje</a></li>
+        <li><a href="../emprestimo-com-a-menor-taxa-do-mercado/">Consignado INSS</a></li>
+        <li><a href="../portabilidade-de-credito/">Portabilidade de crédito</a></li>
+        <li><a href="../cdc-credito-direto-ao-consumidor/">CDC nas lojas</a></li>
+        <li><a href="../investimentos/">Investimentos LC e CDB</a></li>
+      </ul>
+    </div>
+
+    <div class="ft__col">
+      <h2>Para empresas</h2>
+      <ul>
+        <li><a href="../linha-pj-completa-sem-burocracia-com-as-melhores-taxas/">Antecipação de recebíveis</a></li>
+        <li><a href="../linhas-de-credito-para-acelerar-as-conquistas-da-sua-empresa/">Crédito para PJ</a></li>
+        <li><a href="../#para-empresas">Antecipação de cartão (em breve)</a></li>
+        <li><a href="../#para-empresas">Capital de giro (em breve)</a></li>
+      </ul>
+    </div>
+
+    <div class="ft__col">
+      <h2>Institucional</h2>
+      <ul>
+        <li><a href="../nossa-historia/">Nossa história</a></li>
+        <li><a href="../governanca/">Governança</a></li>
+        <li><a href="../divulgacao-de-resultados/">Divulgação de resultados</a></li>
+        <li><a href="../canal-de-etica-e-denuncia/">Canal de Ética e Denúncia</a></li>
+        <li><a href="../lgpd/">LGPD</a></li>
+        <li><a href="../politicas-de-privacidade-e-transparencia/">Privacidade e transparência</a></li>
+        <li><a href="../cadastro-positivo-2/">Cadastro Positivo</a></li>
+        <li><a href="https://hsfinanceira.gupy.io/">Trabalhe conosco</a></li>
+        <li><a href="https://portalhsfinanceira.com.br/login/index.php">Educação corporativa</a></li>
+      </ul>
+    </div>
+
+    <div class="ft__col">
+      <h2>Atendimento</h2>
+      <div class="ft__phones">
+        <a class="ft__ph" href="tel:40202202"><em>Capitais e regiões metro.</em><b>4020 2202</b></a>
+        <a class="ft__ph" href="tel:08006022202"><em>SAC &mdash; demais localidades</em><b>0800 602 2202</b></a>
+        <a class="ft__ph" href="tel:08006487070"><em>Ouvidoria</em><b>0800 648 7070</b></a>
+        <a class="ft__ph" href="https://api.whatsapp.com/send?phone=555140421377"><em>WhatsApp do SAC</em><b>(51) 4042 1377</b></a>
+      </div>
+      <ul style="margin-top:18px">
+        <li><a href="https://easycollector.wedoo.com.br/herval/login.aspx">Renegociar dívida</a></li>
+        <li><a href="https://easycollector.wedoo.com.br/herval/login.aspx">Segunda via de boleto</a></li>
+        <li><a href="../envie-nos-uma-mensagem/">Enviar uma mensagem</a></li>
+        <li><a href="https://www.bcb.gov.br/acessoinformacao/perguntasfrequentes-respostas/RelatorioSCR_faq">Informações SCR</a></li>
+        <li><a href="../aviso/">Avisos de segurança</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap ft__legal">
+    <p><b>HS Financeira S/A &mdash; Crédito, Financiamento e Investimento.</b> CNPJ 07.512.441/0001-11. Rodovia BR-116, nº 7070, 1º andar, sala 14, Portal da Serra, Dois Irmãos/RS, CEP 93950-000. Instituição autorizada a funcionar pelo Banco Central do Brasil. As condições apresentadas estão sujeitas a análise de crédito e podem variar conforme o perfil do cliente; o Custo Efetivo Total (CET) é informado antes da contratação. Não realizamos cobrança antecipada para liberação de crédito e não temos agentes ofertando investimentos ou empréstimos em redes sociais.</p>
+  </div>
+</footer>
 
 <!-- Scripts comuns: copiados do index.html por tools/paginas.mjs. -->
 <!-- comum:scripts -->
+<script src="../js/config.js"></script>
+<script src="../js/utils/format.js"></script>
+<script src="../js/aviso.js"></script>
+<script src="../js/nav.js"></script>
+<script src="https://cdn.ubots.com.br/webchat/ubots.min.js" defer></script>
+<script src="../js/chat.js"></script>
 <!-- /comum:scripts -->
 </body>
 </html>
