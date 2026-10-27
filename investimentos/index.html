@@ -33,6 +33,7 @@
   <link rel="stylesheet" href="../css/base/reset.css">
   <link rel="stylesheet" href="../css/layout/section.css">
   <link rel="stylesheet" href="../css/components/buttons.css">
+  <link rel="stylesheet" href="../css/components/lojas.css">
   <link rel="stylesheet" href="../css/components/tag.css">
   <link rel="stylesheet" href="../css/components/field.css">
   <link rel="stylesheet" href="../css/components/chips.css">
@@ -96,15 +97,88 @@
     <a class="mark" href="../" aria-label="HS Financeira — página inicial">
       <img class="mark__logo" src="../assets/marca/hs-financeira-logo.png" alt="" width="194" height="48">
     </a>
+    <!-- Os mesmos menus do site atual (hsfinanceira.com.br), com os mesmos
+         itens: todo conteúdo que lá se acha pelo menu se acha aqui também.
+         O menu do celular (.mnav, logo abaixo) repete os mesmos links:
+         ao mudar um, mude o outro. -->
     <nav class="nav" aria-label="Principal">
-      <a href="../#para-voce">Para você</a>
-      <a href="../#para-empresas">Para empresas</a>
-      <a href="../#investimentos">Investimentos</a>
-      <a href="../#parceiros">Parceiros</a>
-      <a href="../#ajuda">Ajuda</a>
+      <ul class="nav__list">
+        <li class="nav__item">
+          <button class="nav__btn" type="button" aria-expanded="false" aria-controls="nav-voce">Para você<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav__panel" id="nav-voce">
+            <ul class="nav__links">
+              <li><a href="../credito-pessoal/">Crédito Pessoal</a></li>
+              <li><a href="../um-cartao-cheio-de-vantagens-para-quem-vive-o-hoje/">Cartão Hoje</a></li>
+              <li><a href="../cdc-credito-direto-ao-consumidor/">CDC nas lojas taQi e iPlace</a></li>
+              <li><a href="../emprestimo-com-a-menor-taxa-do-mercado/">Empréstimo Consignado INSS</a></li>
+              <li><a href="../portabilidade-de-credito/">Portabilidade de crédito</a></li>
+              <li><a href="../investimentos/" aria-current="page">Investimentos</a></li>
+            </ul>
+            <a class="nav__acao" href="../#simulador">Simular crédito<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </li>
+        <li class="nav__item">
+          <button class="nav__btn" type="button" aria-expanded="false" aria-controls="nav-empresas">Para empresas<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav__panel" id="nav-empresas">
+            <ul class="nav__links">
+              <li><a href="../linha-pj-completa-sem-burocracia-com-as-melhores-taxas/">Antecipação de recebíveis e notas fiscais</a></li>
+              <li><a href="../linhas-de-credito-para-acelerar-as-conquistas-da-sua-empresa/">Crédito para PJ</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav__item">
+          <button class="nav__btn" type="button" aria-expanded="false" aria-controls="nav-parceiros">Parceiros<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav__panel" id="nav-parceiros">
+            <ul class="nav__links">
+              <li><a href="../nossos-parceiros-iplace/">iPlace</a></li>
+              <li><a href="../nossos-parceiros-lojas-taqi/">taQi</a></li>
+              <li><a href="../nossos-parceiros-hs-corretora-de-seguros/">Herval Corretora</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav__item">
+          <button class="nav__btn" type="button" aria-expanded="false" aria-controls="nav-ajuda">Ajuda<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav__panel" id="nav-ajuda">
+            <ul class="nav__links">
+              <li><a href="../#ajuda">Perguntas frequentes</a></li>
+              <li><a href="../envie-nos-uma-mensagem/">Contato</a></li>
+              <li><a href="https://easycollector.wedoo.com.br/herval/login.aspx" target="_blank" rel="noopener">Regularização de dívidas<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+              <li><a href="../cadastro-positivo-2/">Cadastro Positivo</a></li>
+              <li><a href="../canal-de-etica-e-denuncia/">Canal de Ética e Denúncia</a></li>
+              <li><a href="../aviso/">Avisos de segurança</a></li>
+              <li><a href="https://www.bcb.gov.br/acessoinformacao/perguntasfrequentes-respostas/RelatorioSCR_faq" target="_blank" rel="noopener">Informações SCR<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+              <li><a href="https://hsfinanceira.gupy.io/" target="_blank" rel="noopener">Trabalhe conosco<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav__item">
+          <button class="nav__btn" type="button" aria-expanded="false" aria-controls="nav-governanca">Governança<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav__panel nav__panel--duplo" id="nav-governanca">
+            <div>
+              <p class="nav__k">Institucional</p>
+              <ul class="nav__links">
+                <li><a href="../governanca/">Governança</a></li>
+                <li><a href="../divulgacao-de-resultados/">Divulgação de resultados</a></li>
+                <li><a href="../lgpd/">LGPD</a></li>
+                <li><a href="../politicas-de-privacidade-e-transparencia/">Privacidade e Transparência</a></li>
+                <li><a href="../nossa-historia/">Nossa história</a></li>
+                <li><a href="https://portalhsfinanceira.com.br/login/index.php" target="_blank" rel="noopener">Educação Corporativa<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+              </ul>
+            </div>
+            <div>
+              <p class="nav__k">Documentos</p>
+              <ul class="nav__links">
+                <li><a href="../divulgacao-de-resultados/#demonstracoes">Demonstrações financeiras</a></li>
+                <li><a href="../governanca/#relatorios">Relatórios de Ouvidoria e de Risco</a></li>
+                <li><a href="../governanca/#codigo-e-politicas">Código de Ética e políticas</a></li>
+                <li><a href="../governanca/#tarifas-e-contratos">Tarifas e contratos</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
     </nav>
     <div class="hdr__cta">
-      <a class="hdr__ghost" href="../#simulador">Simular crédito</a>
       <a class="btn btn--solid" href="../#para-voce">Contratar<span class="hdr__agora"> agora</span></a>
       <button class="burger" id="burger" aria-expanded="false" aria-controls="mnav" aria-label="Abrir menu de navegação">
         <span></span><span></span><span></span>
@@ -112,13 +186,74 @@
     </div>
   </div>
   <nav class="mnav" id="mnav" aria-label="Navegação" hidden>
-    <a href="../#para-voce">Para você <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a href="../#para-empresas">Para empresas <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a href="../#investimentos">Investimentos <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a href="../#parceiros">Parceiros <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a href="../#governanca">Governança <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a href="../#seguranca">Segurança <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a href="../#ajuda">Ajuda <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <div class="mnav__grupo">
+      <button class="mnav__btn" type="button" aria-expanded="false" aria-controls="mnav-voce">Para você <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="mnav__sub" id="mnav-voce" hidden>
+        <ul>
+          <li><a href="../credito-pessoal/">Crédito Pessoal</a></li>
+          <li><a href="../um-cartao-cheio-de-vantagens-para-quem-vive-o-hoje/">Cartão Hoje</a></li>
+          <li><a href="../cdc-credito-direto-ao-consumidor/">CDC nas lojas taQi e iPlace</a></li>
+          <li><a href="../emprestimo-com-a-menor-taxa-do-mercado/">Empréstimo Consignado INSS</a></li>
+          <li><a href="../portabilidade-de-credito/">Portabilidade de crédito</a></li>
+          <li><a href="../investimentos/" aria-current="page">Investimentos</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mnav__grupo">
+      <button class="mnav__btn" type="button" aria-expanded="false" aria-controls="mnav-empresas">Para empresas <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="mnav__sub" id="mnav-empresas" hidden>
+        <ul>
+          <li><a href="../linha-pj-completa-sem-burocracia-com-as-melhores-taxas/">Antecipação de recebíveis e notas fiscais</a></li>
+          <li><a href="../linhas-de-credito-para-acelerar-as-conquistas-da-sua-empresa/">Crédito para PJ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mnav__grupo">
+      <button class="mnav__btn" type="button" aria-expanded="false" aria-controls="mnav-parceiros">Parceiros <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="mnav__sub" id="mnav-parceiros" hidden>
+        <ul>
+          <li><a href="../nossos-parceiros-iplace/">iPlace</a></li>
+          <li><a href="../nossos-parceiros-lojas-taqi/">taQi</a></li>
+          <li><a href="../nossos-parceiros-hs-corretora-de-seguros/">Herval Corretora</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mnav__grupo">
+      <button class="mnav__btn" type="button" aria-expanded="false" aria-controls="mnav-ajuda">Ajuda <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="mnav__sub" id="mnav-ajuda" hidden>
+        <ul>
+          <li><a href="../#ajuda">Perguntas frequentes</a></li>
+          <li><a href="../envie-nos-uma-mensagem/">Contato</a></li>
+          <li><a href="https://easycollector.wedoo.com.br/herval/login.aspx" target="_blank" rel="noopener">Regularização de dívidas<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="../cadastro-positivo-2/">Cadastro Positivo</a></li>
+          <li><a href="../canal-de-etica-e-denuncia/">Canal de Ética e Denúncia</a></li>
+          <li><a href="../aviso/">Avisos de segurança</a></li>
+          <li><a href="https://www.bcb.gov.br/acessoinformacao/perguntasfrequentes-respostas/RelatorioSCR_faq" target="_blank" rel="noopener">Informações SCR<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="https://hsfinanceira.gupy.io/" target="_blank" rel="noopener">Trabalhe conosco<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mnav__grupo">
+      <button class="mnav__btn" type="button" aria-expanded="false" aria-controls="mnav-governanca">Governança <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="mnav__sub" id="mnav-governanca" hidden>
+        <p class="mnav__subk">Institucional</p>
+        <ul>
+          <li><a href="../governanca/">Governança</a></li>
+          <li><a href="../divulgacao-de-resultados/">Divulgação de resultados</a></li>
+          <li><a href="../lgpd/">LGPD</a></li>
+          <li><a href="../politicas-de-privacidade-e-transparencia/">Privacidade e Transparência</a></li>
+          <li><a href="../nossa-historia/">Nossa história</a></li>
+          <li><a href="https://portalhsfinanceira.com.br/login/index.php" target="_blank" rel="noopener">Educação Corporativa<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        </ul>
+        <p class="mnav__subk">Documentos</p>
+        <ul>
+          <li><a href="../divulgacao-de-resultados/#demonstracoes">Demonstrações financeiras</a></li>
+          <li><a href="../governanca/#relatorios">Relatórios de Ouvidoria e de Risco</a></li>
+          <li><a href="../governanca/#codigo-e-politicas">Código de Ética e políticas</a></li>
+          <li><a href="../governanca/#tarifas-e-contratos">Tarifas e contratos</a></li>
+        </ul>
+      </div>
+    </div>
     <a href="https://easycollector.wedoo.com.br/herval/login.aspx" target="_blank" rel="noopener">Renegociar dívida <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     <div class="mnav__foot">
       <a class="btn btn--solid" href="../#simulador">Simular crédito</a>

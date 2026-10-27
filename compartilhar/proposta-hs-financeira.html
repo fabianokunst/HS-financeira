@@ -554,15 +554,66 @@
      13px à direita). */
   .mark{display:flex;align-items:center;flex:0 0 auto}
   .mark__logo{display:block;width:194px;max-width:none;height:auto;margin:0 -13px 0 -7px}
-  .nav{display:flex;gap:26px;margin-left:8px}
-  .nav a{font-size:15px;font-weight:700;color:var(--ink-2);padding-block:6px;border-bottom:2px solid transparent;white-space:nowrap}
-  .nav a:hover{color:var(--brand);border-bottom-color:var(--brand)}
+  /* Menus suspensos (js/nav.js): cada item ocupa a altura toda da barra, para
+     o painel abrir colado na base do cabeçalho e o mouse descer até ele sem
+     sair do item. */
+  .nav{align-self:stretch;margin-left:8px}
+  .nav__list{display:flex;gap:26px;height:100%}
+  .nav__item{position:relative;display:flex;align-items:center}
+  .nav__btn{
+    display:flex;align-items:center;gap:5px;
+    font-size:15px;font-weight:700;color:var(--ink-2);white-space:nowrap;
+    padding-block:6px;border-bottom:2px solid transparent;
+  }
+  .nav__btn svg{width:14px;height:14px;color:var(--ink-faint);transition:transform .18s ease}
+  .nav__btn:hover,.nav__btn[aria-expanded="true"]{color:var(--brand)}
+  .nav__btn[aria-expanded="true"] svg{transform:rotate(180deg);color:currentColor}
+  /* O menu da página aberta fica marcado (o aria-current vem do npm run paginas). */
+  .nav__item:has([aria-current="page"]) > .nav__btn{color:var(--brand);border-bottom-color:var(--brand)}
+  .nav__panel{
+    display:none;position:absolute;top:calc(100% + 1px);left:-14px;z-index:2;
+    min-width:250px;padding:8px;
+    background:var(--paper);border:1px solid var(--line);border-top:0;
+    border-radius:0 0 var(--r) var(--r);box-shadow:var(--shadow-lift);
+    animation:nav-abre .16s ease;
+  }
+  /* Ponte invisível sobre a borda do cabeçalho: o mouse não "sai" do item. */
+  .nav__panel::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:3px}
+  .nav__btn[aria-expanded="true"] + .nav__panel{display:block}
+  /* Governança tem duas colunas e é o último item: abre alinhada à direita
+     para não passar da tela em telas de 961–1100px. */
+  .nav__panel--duplo{left:auto;right:-14px;gap:0 6px;grid-template-columns:repeat(2,max-content)}
+  .nav__btn[aria-expanded="true"] + .nav__panel--duplo{display:grid}
+  /* Sem JavaScript, os painéis abrem com o mouse ou o foco do teclado. */
+  .nav:not(.is-pronto) .nav__item:is(:hover,:focus-within) > .nav__panel{display:block}
+  .nav:not(.is-pronto) .nav__item:is(:hover,:focus-within) > .nav__panel--duplo{display:grid}
+  .nav__k{
+    padding:8px 12px 4px;
+    font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);
+  }
+  .nav__links{display:grid}
+  .nav__links a{
+    display:flex;align-items:center;gap:8px;
+    padding:9px 12px;border-radius:var(--r-btn);
+    font-size:14.5px;font-weight:600;color:var(--ink-2);white-space:nowrap;
+  }
+  .nav__links a:hover{background:var(--paper-2);color:var(--brand)}
+  .nav__links a[aria-current="page"]{background:var(--brand-wash);color:var(--brand)}
+  /* Seta dos links que saem do site (abrem em nova aba). */
+  .nav__links svg,.mnav__sub svg{width:12px;height:12px;flex:none;color:var(--ink-faint)}
+  /* Atalho para o simulador da página inicial, no pé do painel "Para você". */
+  .nav__acao{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    margin:6px 0 0;padding:11px 12px 6px;border-top:1px solid var(--line);
+    font-size:14.5px;font-weight:700;color:var(--brand);white-space:nowrap;
+  }
+  .nav__acao svg{width:15px;height:15px;flex:none}
+  .nav__acao:hover{text-decoration:underline;text-underline-offset:3px}
+  @keyframes nav-abre{from{opacity:0;transform:translateY(-4px)}}
   .hdr__cta{margin-left:auto;display:flex;align-items:center;gap:14px}
   /* block, e não o inline-flex do .btn, para o " agora" seguir no texto com o
      espaço normal entre palavras (como item flex ganharia o gap de 9px). */
   .hdr__cta .btn{display:block;white-space:nowrap}
-  .hdr__ghost{font-size:15px;font-weight:700;color:var(--brand);white-space:nowrap;border-bottom:2px solid transparent;padding-block:6px}
-  .hdr__ghost:hover{border-bottom-color:var(--brand)}
   .burger{
     display:none;flex-direction:column;justify-content:center;gap:5px;
     flex:0 0 auto;width:42px;height:42px;align-items:center;
@@ -585,6 +636,28 @@
   }
   .mnav > a:hover,.mnav > a:active{background:var(--paper-2);color:var(--brand)}
   .mnav > a svg{width:15px;height:15px;color:var(--ink-faint)}
+  /* Os mesmos menus do cabeçalho, em sanfona. */
+  .mnav__btn{
+    display:flex;align-items:center;justify-content:space-between;width:100%;
+    padding:15px var(--gut);border-bottom:1px solid var(--line);
+    font-size:16px;font-weight:600;text-align:left;
+  }
+  .mnav__btn:hover,.mnav__btn:active,.mnav__btn[aria-expanded="true"]{color:var(--brand)}
+  .mnav__btn:hover,.mnav__btn:active{background:var(--paper-2)}
+  .mnav__btn svg{width:15px;height:15px;color:var(--ink-faint);transition:transform .18s ease}
+  .mnav__btn[aria-expanded="true"] svg{transform:rotate(180deg);color:currentColor}
+  .mnav__sub{padding:6px 0 10px;background:var(--paper-2);border-bottom:1px solid var(--line)}
+  .mnav__sub a{
+    display:flex;align-items:center;gap:8px;
+    padding:11px var(--gut) 11px calc(var(--gut) + 14px);
+    font-size:15px;color:var(--ink-2);
+  }
+  .mnav__sub a:hover,.mnav__sub a:active{color:var(--brand)}
+  .mnav__sub a[aria-current="page"]{color:var(--brand);font-weight:700}
+  .mnav__subk{
+    padding:10px var(--gut) 2px calc(var(--gut) + 14px);
+    font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);
+  }
   .mnav__foot{padding:18px var(--gut) 22px;display:grid;gap:11px}
   .mnav__foot .btn{width:100%}
   .mnav__k{
@@ -617,14 +690,20 @@
   }
   .mnav__tema[aria-pressed="true"] .mnav__chave{background:var(--brand-fill)}
   .mnav__tema[aria-pressed="true"] .mnav__chave::before{transform:translateX(16px)}
-  /* Entre o menu mobile e ~1080px a linha não comporta tudo: sai o atalho
-     "Simular crédito" (o hero repete o botão) e os espaços encolhem. */
-  @media(max-width:1080px){
-    .hdr__ghost{display:none}
-    .hdr__in,.nav{gap:20px}
+  /* Os cinco menus do site atual mais o botão ocupam ~970px: abaixo de
+     ~1100px (medido com a barra de rolagem do Windows) os espaços encolhem. */
+  @media(max-width:1100px){
+    .hdr__in,.nav__list{gap:20px}
+  }
+  /* Abaixo de ~1060px ainda não cabe: o botão vira só "Contratar" e os
+     espaços encolhem mais, até o menu mobile assumir em 960px. */
+  @media(max-width:1060px){
+    .hdr__in,.nav__list{gap:15px}
+    .nav__btn{gap:3px}
+    .hdr__cta .hdr__agora{display:none}
   }
   @media(max-width:960px){
-    .nav,.hdr__ghost{display:none}
+    .nav{display:none}
     .burger{display:flex}
     .hdr__in{gap:14px;min-height:68px}
     .hdr__cta{gap:10px}
@@ -644,7 +723,10 @@
   @media(max-width:359px){
     .hdr__agora{display:none}
   }
-  @media(prefers-reduced-motion:reduce){.burger span,.mnav__chave,.mnav__chave::before{transition:none}}
+  @media(prefers-reduced-motion:reduce){
+    .burger span,.mnav__chave,.mnav__chave::before,.nav__btn svg,.mnav__btn svg{transition:none}
+    .nav__panel{animation:none}
+  }
 
   /* css/sections/hero.css */
   /* Hero — chamada principal e imagem */
@@ -1433,15 +1515,88 @@
     <a class="mark" href="#" aria-label="HS Financeira — página inicial">
       <img class="mark__logo" src="data:image/png;base64,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" alt="" width="194" height="48">
     </a>
+    <!-- Os mesmos menus do site atual (hsfinanceira.com.br), com os mesmos
+         itens: todo conteúdo que lá se acha pelo menu se acha aqui também.
+         O menu do celular (.mnav, logo abaixo) repete os mesmos links:
+         ao mudar um, mude o outro. -->
     <nav class="nav" aria-label="Principal">
-      <a href="#para-voce">Para você</a>
-      <a href="#para-empresas">Para empresas</a>
-      <a href="#investimentos">Investimentos</a>
-      <a href="#parceiros">Parceiros</a>
-      <a href="#ajuda">Ajuda</a>
+      <ul class="nav__list">
+        <li class="nav__item">
+          <button class="nav__btn" type="button" aria-expanded="false" aria-controls="nav-voce">Para você<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav__panel" id="nav-voce">
+            <ul class="nav__links">
+              <li><a href="https://hsfinanceira.com.br/credito-pessoal/">Crédito Pessoal</a></li>
+              <li><a href="https://hsfinanceira.com.br/um-cartao-cheio-de-vantagens-para-quem-vive-o-hoje/">Cartão Hoje</a></li>
+              <li><a href="https://hsfinanceira.com.br/cdc-credito-direto-ao-consumidor/">CDC nas lojas taQi e iPlace</a></li>
+              <li><a href="https://hsfinanceira.com.br/emprestimo-com-a-menor-taxa-do-mercado/">Empréstimo Consignado INSS</a></li>
+              <li><a href="https://hsfinanceira.com.br/portabilidade-de-credito/">Portabilidade de crédito</a></li>
+              <li><a href="https://hsfinanceira.com.br/investimentos/">Investimentos</a></li>
+            </ul>
+            <a class="nav__acao" href="#simulador">Simular crédito<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </li>
+        <li class="nav__item">
+          <button class="nav__btn" type="button" aria-expanded="false" aria-controls="nav-empresas">Para empresas<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav__panel" id="nav-empresas">
+            <ul class="nav__links">
+              <li><a href="https://hsfinanceira.com.br/linha-pj-completa-sem-burocracia-com-as-melhores-taxas/">Antecipação de recebíveis e notas fiscais</a></li>
+              <li><a href="https://hsfinanceira.com.br/linhas-de-credito-para-acelerar-as-conquistas-da-sua-empresa/">Crédito para PJ</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav__item">
+          <button class="nav__btn" type="button" aria-expanded="false" aria-controls="nav-parceiros">Parceiros<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav__panel" id="nav-parceiros">
+            <ul class="nav__links">
+              <li><a href="https://hsfinanceira.com.br/nossos-parceiros-iplace/">iPlace</a></li>
+              <li><a href="https://hsfinanceira.com.br/nossos-parceiros-lojas-taqi/">taQi</a></li>
+              <li><a href="https://hsfinanceira.com.br/nossos-parceiros-hs-corretora-de-seguros/">Herval Corretora</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav__item">
+          <button class="nav__btn" type="button" aria-expanded="false" aria-controls="nav-ajuda">Ajuda<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav__panel" id="nav-ajuda">
+            <ul class="nav__links">
+              <li><a href="#ajuda">Perguntas frequentes</a></li>
+              <li><a href="https://hsfinanceira.com.br/envie-nos-uma-mensagem/">Contato</a></li>
+              <li><a href="https://easycollector.wedoo.com.br/herval/login.aspx" target="_blank" rel="noopener">Regularização de dívidas<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+              <li><a href="https://hsfinanceira.com.br/cadastro-positivo-2/">Cadastro Positivo</a></li>
+              <li><a href="https://hsfinanceira.com.br/canal-de-etica-e-denuncia/">Canal de Ética e Denúncia</a></li>
+              <li><a href="https://hsfinanceira.com.br/aviso/">Avisos de segurança</a></li>
+              <li><a href="https://www.bcb.gov.br/acessoinformacao/perguntasfrequentes-respostas/RelatorioSCR_faq" target="_blank" rel="noopener">Informações SCR<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+              <li><a href="https://hsfinanceira.gupy.io/" target="_blank" rel="noopener">Trabalhe conosco<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav__item">
+          <button class="nav__btn" type="button" aria-expanded="false" aria-controls="nav-governanca">Governança<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav__panel nav__panel--duplo" id="nav-governanca">
+            <div>
+              <p class="nav__k">Institucional</p>
+              <ul class="nav__links">
+                <li><a href="https://hsfinanceira.com.br/governanca/">Governança</a></li>
+                <li><a href="https://hsfinanceira.com.br/divulgacao-de-resultados/">Divulgação de resultados</a></li>
+                <li><a href="https://hsfinanceira.com.br/lgpd/">LGPD</a></li>
+                <li><a href="https://hsfinanceira.com.br/politicas-de-privacidade-e-transparencia/">Privacidade e Transparência</a></li>
+                <li><a href="https://hsfinanceira.com.br/nossa-historia/">Nossa história</a></li>
+                <li><a href="https://portalhsfinanceira.com.br/login/index.php" target="_blank" rel="noopener">Educação Corporativa<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+              </ul>
+            </div>
+            <div>
+              <p class="nav__k">Documentos</p>
+              <ul class="nav__links">
+                <li><a href="https://hsfinanceira.com.br/divulgacao-de-resultados/#demonstracoes">Demonstrações financeiras</a></li>
+                <li><a href="https://hsfinanceira.com.br/governanca/#relatorios">Relatórios de Ouvidoria e de Risco</a></li>
+                <li><a href="https://hsfinanceira.com.br/governanca/#codigo-e-politicas">Código de Ética e políticas</a></li>
+                <li><a href="https://hsfinanceira.com.br/governanca/#tarifas-e-contratos">Tarifas e contratos</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
     </nav>
     <div class="hdr__cta">
-      <a class="hdr__ghost" href="#simulador">Simular crédito</a>
       <a class="btn btn--solid" href="#para-voce">Contratar<span class="hdr__agora"> agora</span></a>
       <button class="burger" id="burger" aria-expanded="false" aria-controls="mnav" aria-label="Abrir menu de navegação">
         <span></span><span></span><span></span>
@@ -1449,13 +1604,74 @@
     </div>
   </div>
   <nav class="mnav" id="mnav" aria-label="Navegação" hidden>
-    <a href="#para-voce">Para você <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a href="#para-empresas">Para empresas <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a href="#investimentos">Investimentos <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a href="#parceiros">Parceiros <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a href="#governanca">Governança <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a href="#seguranca">Segurança <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a href="#ajuda">Ajuda <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <div class="mnav__grupo">
+      <button class="mnav__btn" type="button" aria-expanded="false" aria-controls="mnav-voce">Para você <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="mnav__sub" id="mnav-voce" hidden>
+        <ul>
+          <li><a href="https://hsfinanceira.com.br/credito-pessoal/">Crédito Pessoal</a></li>
+          <li><a href="https://hsfinanceira.com.br/um-cartao-cheio-de-vantagens-para-quem-vive-o-hoje/">Cartão Hoje</a></li>
+          <li><a href="https://hsfinanceira.com.br/cdc-credito-direto-ao-consumidor/">CDC nas lojas taQi e iPlace</a></li>
+          <li><a href="https://hsfinanceira.com.br/emprestimo-com-a-menor-taxa-do-mercado/">Empréstimo Consignado INSS</a></li>
+          <li><a href="https://hsfinanceira.com.br/portabilidade-de-credito/">Portabilidade de crédito</a></li>
+          <li><a href="https://hsfinanceira.com.br/investimentos/">Investimentos</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mnav__grupo">
+      <button class="mnav__btn" type="button" aria-expanded="false" aria-controls="mnav-empresas">Para empresas <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="mnav__sub" id="mnav-empresas" hidden>
+        <ul>
+          <li><a href="https://hsfinanceira.com.br/linha-pj-completa-sem-burocracia-com-as-melhores-taxas/">Antecipação de recebíveis e notas fiscais</a></li>
+          <li><a href="https://hsfinanceira.com.br/linhas-de-credito-para-acelerar-as-conquistas-da-sua-empresa/">Crédito para PJ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mnav__grupo">
+      <button class="mnav__btn" type="button" aria-expanded="false" aria-controls="mnav-parceiros">Parceiros <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="mnav__sub" id="mnav-parceiros" hidden>
+        <ul>
+          <li><a href="https://hsfinanceira.com.br/nossos-parceiros-iplace/">iPlace</a></li>
+          <li><a href="https://hsfinanceira.com.br/nossos-parceiros-lojas-taqi/">taQi</a></li>
+          <li><a href="https://hsfinanceira.com.br/nossos-parceiros-hs-corretora-de-seguros/">Herval Corretora</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mnav__grupo">
+      <button class="mnav__btn" type="button" aria-expanded="false" aria-controls="mnav-ajuda">Ajuda <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="mnav__sub" id="mnav-ajuda" hidden>
+        <ul>
+          <li><a href="#ajuda">Perguntas frequentes</a></li>
+          <li><a href="https://hsfinanceira.com.br/envie-nos-uma-mensagem/">Contato</a></li>
+          <li><a href="https://easycollector.wedoo.com.br/herval/login.aspx" target="_blank" rel="noopener">Regularização de dívidas<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="https://hsfinanceira.com.br/cadastro-positivo-2/">Cadastro Positivo</a></li>
+          <li><a href="https://hsfinanceira.com.br/canal-de-etica-e-denuncia/">Canal de Ética e Denúncia</a></li>
+          <li><a href="https://hsfinanceira.com.br/aviso/">Avisos de segurança</a></li>
+          <li><a href="https://www.bcb.gov.br/acessoinformacao/perguntasfrequentes-respostas/RelatorioSCR_faq" target="_blank" rel="noopener">Informações SCR<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="https://hsfinanceira.gupy.io/" target="_blank" rel="noopener">Trabalhe conosco<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mnav__grupo">
+      <button class="mnav__btn" type="button" aria-expanded="false" aria-controls="mnav-governanca">Governança <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="mnav__sub" id="mnav-governanca" hidden>
+        <p class="mnav__subk">Institucional</p>
+        <ul>
+          <li><a href="https://hsfinanceira.com.br/governanca/">Governança</a></li>
+          <li><a href="https://hsfinanceira.com.br/divulgacao-de-resultados/">Divulgação de resultados</a></li>
+          <li><a href="https://hsfinanceira.com.br/lgpd/">LGPD</a></li>
+          <li><a href="https://hsfinanceira.com.br/politicas-de-privacidade-e-transparencia/">Privacidade e Transparência</a></li>
+          <li><a href="https://hsfinanceira.com.br/nossa-historia/">Nossa história</a></li>
+          <li><a href="https://portalhsfinanceira.com.br/login/index.php" target="_blank" rel="noopener">Educação Corporativa<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        </ul>
+        <p class="mnav__subk">Documentos</p>
+        <ul>
+          <li><a href="https://hsfinanceira.com.br/divulgacao-de-resultados/#demonstracoes">Demonstrações financeiras</a></li>
+          <li><a href="https://hsfinanceira.com.br/governanca/#relatorios">Relatórios de Ouvidoria e de Risco</a></li>
+          <li><a href="https://hsfinanceira.com.br/governanca/#codigo-e-politicas">Código de Ética e políticas</a></li>
+          <li><a href="https://hsfinanceira.com.br/governanca/#tarifas-e-contratos">Tarifas e contratos</a></li>
+        </ul>
+      </div>
+    </div>
     <a href="https://easycollector.wedoo.com.br/herval/login.aspx" target="_blank" rel="noopener">Renegociar dívida <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     <div class="mnav__foot">
       <a class="btn btn--solid" href="#simulador">Simular crédito</a>
@@ -2609,13 +2825,79 @@ HS.format = (function () {
 })();
 
 /* js/nav.js */
-/* Menu de navegação mobile (botão hambúrguer do cabeçalho). */
+/* Menus do cabeçalho: os suspensos do computador (.nav) e o menu mobile
+   do botão hambúrguer (.mnav), com os mesmos grupos em sanfona. */
 (function () {
   "use strict";
 
+  /* ── Menus suspensos (computador) ── */
+
+  var nav = document.querySelector(".nav");
+  var botoes = nav ? [].slice.call(nav.querySelectorAll(".nav__btn")) : [];
+  /* Com mouse, abre ao passar por cima; no toque e no teclado, no clique. */
+  var comMouse = window.matchMedia("(hover: hover) and (pointer: fine)");
+  var timer = null;
+
+  function expandir(botao, aberto) {
+    botao.setAttribute("aria-expanded", aberto ? "true" : "false");
+    if (!aberto) botao.removeAttribute("data-hover");
+  }
+
+  function fecharTodos(exceto) {
+    botoes.forEach(function (b) { if (b !== exceto) expandir(b, false); });
+  }
+
+  function aberto(botao) {
+    return botao.getAttribute("aria-expanded") === "true";
+  }
+
+  if (nav) {
+    /* Daqui em diante quem abre os painéis é o script, não o :hover do CSS. */
+    nav.classList.add("is-pronto");
+
+    botoes.forEach(function (botao) {
+      var item = botao.parentNode;
+
+      botao.addEventListener("click", function () {
+        /* Já aberto pelo mouse: o clique confirma, não fecha. */
+        if (botao.hasAttribute("data-hover")) { botao.removeAttribute("data-hover"); return; }
+        var abrir = !aberto(botao);
+        fecharTodos(botao);
+        expandir(botao, abrir);
+      });
+
+      item.addEventListener("pointerenter", function (e) {
+        if (e.pointerType !== "mouse" || !comMouse.matches) return;
+        clearTimeout(timer);
+        if (aberto(botao)) return;
+        fecharTodos(botao);
+        expandir(botao, true);
+        botao.setAttribute("data-hover", "");
+      });
+
+      item.addEventListener("pointerleave", function (e) {
+        if (e.pointerType !== "mouse" || !comMouse.matches) return;
+        clearTimeout(timer);
+        timer = setTimeout(function () { expandir(botao, false); }, 180);
+      });
+
+      /* Tab para fora do item fecha o painel. */
+      item.addEventListener("focusout", function (e) {
+        if (!item.contains(e.relatedTarget)) expandir(botao, false);
+      });
+    });
+
+    /* Clique fora fecha; clique num link também (os de âncora, como
+       "Perguntas frequentes", não trocam de página). */
+    document.addEventListener("click", function (e) {
+      if (!nav.contains(e.target) || e.target.closest(".nav__links a")) fecharTodos();
+    });
+  }
+
+  /* ── Menu mobile ── */
+
   var burger = document.getElementById("burger");
   var menu   = document.getElementById("mnav");
-  if (!burger || !menu) return;
 
   function abrir(aberto) {
     burger.setAttribute("aria-expanded", aberto ? "true" : "false");
@@ -2624,24 +2906,43 @@ HS.format = (function () {
   }
 
   function estaAberto() {
-    return burger.getAttribute("aria-expanded") === "true";
+    return burger && burger.getAttribute("aria-expanded") === "true";
   }
 
-  burger.addEventListener("click", function () { abrir(!estaAberto()); });
+  if (burger && menu) {
+    burger.addEventListener("click", function () { abrir(!estaAberto()); });
 
-  menu.querySelectorAll("a").forEach(function (link) {
-    link.addEventListener("click", function () { abrir(false); });
-  });
+    menu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () { abrir(false); });
+    });
+
+    menu.querySelectorAll(".mnav__btn").forEach(function (botao) {
+      var sub = document.getElementById(botao.getAttribute("aria-controls"));
+      if (!sub) return;
+      function mostrar(aberto) {
+        botao.setAttribute("aria-expanded", aberto ? "true" : "false");
+        sub.hidden = !aberto;
+      }
+      botao.addEventListener("click", function () { mostrar(sub.hidden); });
+      /* Nas páginas internas, o grupo da página aberta já vem aberto. */
+      if (sub.querySelector('[aria-current="page"]')) mostrar(true);
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > HS.config.breakpointMenu) abrir(false);
+    });
+  }
 
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && estaAberto()) {
+    if (e.key !== "Escape") return;
+    var botao = botoes.filter(aberto)[0];
+    if (botao) {
+      expandir(botao, false);
+      botao.focus();
+    } else if (estaAberto()) {
       abrir(false);
       burger.focus();
     }
-  });
-
-  window.addEventListener("resize", function () {
-    if (window.innerWidth > HS.config.breakpointMenu) abrir(false);
   });
 })();
 

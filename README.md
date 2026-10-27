@@ -90,7 +90,7 @@ HS-Financeira/
 │   ├── cookies.js              # banner de consentimento por categoria (LGPD) e Google Analytics 4
 │   ├── emarsys.js              # Emarsys (categoria "Publicidade") e os eventos de clique
 │   ├── aviso.js                # cartão de aviso contra golpes, uma vez por dia
-│   ├── nav.js                  # menu mobile
+│   ├── nav.js                  # menus suspensos do cabeçalho e menu mobile
 │   ├── tema.js                 # seletor de modo escuro (o site abre sempre claro)
 │   ├── accordion.js            # FAQ
 │   ├── simulador.js            # cálculo da parcela
@@ -137,6 +137,18 @@ também o `href` de `id="simCta"` e o número escrito logo abaixo (`.sim__fine`)
 
 **Mudar texto** — direto no `index.html`, na seção correspondente. Nenhum texto
 da página está em JS.
+
+**Mudar o menu** — o cabeçalho tem os mesmos menus suspensos do site atual
+(Para você, Para empresas, Parceiros, Ajuda e Governança), com todos os itens
+de lá: quem achava um conteúdo pelo menu do site antigo acha no mesmo lugar
+aqui. Só "Cotação" ficou de fora, porque no site atual o link dá página não
+encontrada. Além deles, há Portabilidade de crédito, Perguntas frequentes,
+Avisos de segurança, Nossa história e, em Governança, atalhos para as
+demonstrações financeiras e os relatórios (âncoras das páginas, e não PDFs,
+para não ficarem desatualizados). Os links estão duas vezes no bloco `HEADER`
+do `index.html`: nos painéis do computador (`.nav`) e no menu do celular
+(`.mnav`, em sanfona) — mude os dois e rode `npm run paginas`, que copia o
+cabeçalho para todas as páginas e marca o item da página aberta.
 
 **Trocar uma foto** — substitua o JPEG em `assets/img/` mantendo o nome (ou
 troque o nome também no `index.html` e no `sitemap.xml`). Vale recomprimir antes:

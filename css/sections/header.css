@@ -11,15 +11,66 @@
    13px à direita). */
 .mark{display:flex;align-items:center;flex:0 0 auto}
 .mark__logo{display:block;width:194px;max-width:none;height:auto;margin:0 -13px 0 -7px}
-.nav{display:flex;gap:26px;margin-left:8px}
-.nav a{font-size:15px;font-weight:700;color:var(--ink-2);padding-block:6px;border-bottom:2px solid transparent;white-space:nowrap}
-.nav a:hover{color:var(--brand);border-bottom-color:var(--brand)}
+/* Menus suspensos (js/nav.js): cada item ocupa a altura toda da barra, para
+   o painel abrir colado na base do cabeçalho e o mouse descer até ele sem
+   sair do item. */
+.nav{align-self:stretch;margin-left:8px}
+.nav__list{display:flex;gap:26px;height:100%}
+.nav__item{position:relative;display:flex;align-items:center}
+.nav__btn{
+  display:flex;align-items:center;gap:5px;
+  font-size:15px;font-weight:700;color:var(--ink-2);white-space:nowrap;
+  padding-block:6px;border-bottom:2px solid transparent;
+}
+.nav__btn svg{width:14px;height:14px;color:var(--ink-faint);transition:transform .18s ease}
+.nav__btn:hover,.nav__btn[aria-expanded="true"]{color:var(--brand)}
+.nav__btn[aria-expanded="true"] svg{transform:rotate(180deg);color:currentColor}
+/* O menu da página aberta fica marcado (o aria-current vem do npm run paginas). */
+.nav__item:has([aria-current="page"]) > .nav__btn{color:var(--brand);border-bottom-color:var(--brand)}
+.nav__panel{
+  display:none;position:absolute;top:calc(100% + 1px);left:-14px;z-index:2;
+  min-width:250px;padding:8px;
+  background:var(--paper);border:1px solid var(--line);border-top:0;
+  border-radius:0 0 var(--r) var(--r);box-shadow:var(--shadow-lift);
+  animation:nav-abre .16s ease;
+}
+/* Ponte invisível sobre a borda do cabeçalho: o mouse não "sai" do item. */
+.nav__panel::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:3px}
+.nav__btn[aria-expanded="true"] + .nav__panel{display:block}
+/* Governança tem duas colunas e é o último item: abre alinhada à direita
+   para não passar da tela em telas de 961–1100px. */
+.nav__panel--duplo{left:auto;right:-14px;gap:0 6px;grid-template-columns:repeat(2,max-content)}
+.nav__btn[aria-expanded="true"] + .nav__panel--duplo{display:grid}
+/* Sem JavaScript, os painéis abrem com o mouse ou o foco do teclado. */
+.nav:not(.is-pronto) .nav__item:is(:hover,:focus-within) > .nav__panel{display:block}
+.nav:not(.is-pronto) .nav__item:is(:hover,:focus-within) > .nav__panel--duplo{display:grid}
+.nav__k{
+  padding:8px 12px 4px;
+  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);
+}
+.nav__links{display:grid}
+.nav__links a{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 12px;border-radius:var(--r-btn);
+  font-size:14.5px;font-weight:600;color:var(--ink-2);white-space:nowrap;
+}
+.nav__links a:hover{background:var(--paper-2);color:var(--brand)}
+.nav__links a[aria-current="page"]{background:var(--brand-wash);color:var(--brand)}
+/* Seta dos links que saem do site (abrem em nova aba). */
+.nav__links svg,.mnav__sub svg{width:12px;height:12px;flex:none;color:var(--ink-faint)}
+/* Atalho para o simulador da página inicial, no pé do painel "Para você". */
+.nav__acao{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin:6px 0 0;padding:11px 12px 6px;border-top:1px solid var(--line);
+  font-size:14.5px;font-weight:700;color:var(--brand);white-space:nowrap;
+}
+.nav__acao svg{width:15px;height:15px;flex:none}
+.nav__acao:hover{text-decoration:underline;text-underline-offset:3px}
+@keyframes nav-abre{from{opacity:0;transform:translateY(-4px)}}
 .hdr__cta{margin-left:auto;display:flex;align-items:center;gap:14px}
 /* block, e não o inline-flex do .btn, para o " agora" seguir no texto com o
    espaço normal entre palavras (como item flex ganharia o gap de 9px). */
 .hdr__cta .btn{display:block;white-space:nowrap}
-.hdr__ghost{font-size:15px;font-weight:700;color:var(--brand);white-space:nowrap;border-bottom:2px solid transparent;padding-block:6px}
-.hdr__ghost:hover{border-bottom-color:var(--brand)}
 .burger{
   display:none;flex-direction:column;justify-content:center;gap:5px;
   flex:0 0 auto;width:42px;height:42px;align-items:center;
@@ -42,6 +93,28 @@
 }
 .mnav > a:hover,.mnav > a:active{background:var(--paper-2);color:var(--brand)}
 .mnav > a svg{width:15px;height:15px;color:var(--ink-faint)}
+/* Os mesmos menus do cabeçalho, em sanfona. */
+.mnav__btn{
+  display:flex;align-items:center;justify-content:space-between;width:100%;
+  padding:15px var(--gut);border-bottom:1px solid var(--line);
+  font-size:16px;font-weight:600;text-align:left;
+}
+.mnav__btn:hover,.mnav__btn:active,.mnav__btn[aria-expanded="true"]{color:var(--brand)}
+.mnav__btn:hover,.mnav__btn:active{background:var(--paper-2)}
+.mnav__btn svg{width:15px;height:15px;color:var(--ink-faint);transition:transform .18s ease}
+.mnav__btn[aria-expanded="true"] svg{transform:rotate(180deg);color:currentColor}
+.mnav__sub{padding:6px 0 10px;background:var(--paper-2);border-bottom:1px solid var(--line)}
+.mnav__sub a{
+  display:flex;align-items:center;gap:8px;
+  padding:11px var(--gut) 11px calc(var(--gut) + 14px);
+  font-size:15px;color:var(--ink-2);
+}
+.mnav__sub a:hover,.mnav__sub a:active{color:var(--brand)}
+.mnav__sub a[aria-current="page"]{color:var(--brand);font-weight:700}
+.mnav__subk{
+  padding:10px var(--gut) 2px calc(var(--gut) + 14px);
+  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);
+}
 .mnav__foot{padding:18px var(--gut) 22px;display:grid;gap:11px}
 .mnav__foot .btn{width:100%}
 .mnav__k{
@@ -74,14 +147,20 @@
 }
 .mnav__tema[aria-pressed="true"] .mnav__chave{background:var(--brand-fill)}
 .mnav__tema[aria-pressed="true"] .mnav__chave::before{transform:translateX(16px)}
-/* Entre o menu mobile e ~1080px a linha não comporta tudo: sai o atalho
-   "Simular crédito" (o hero repete o botão) e os espaços encolhem. */
-@media(max-width:1080px){
-  .hdr__ghost{display:none}
-  .hdr__in,.nav{gap:20px}
+/* Os cinco menus do site atual mais o botão ocupam ~970px: abaixo de
+   ~1100px (medido com a barra de rolagem do Windows) os espaços encolhem. */
+@media(max-width:1100px){
+  .hdr__in,.nav__list{gap:20px}
+}
+/* Abaixo de ~1060px ainda não cabe: o botão vira só "Contratar" e os
+   espaços encolhem mais, até o menu mobile assumir em 960px. */
+@media(max-width:1060px){
+  .hdr__in,.nav__list{gap:15px}
+  .nav__btn{gap:3px}
+  .hdr__cta .hdr__agora{display:none}
 }
 @media(max-width:960px){
-  .nav,.hdr__ghost{display:none}
+  .nav{display:none}
   .burger{display:flex}
   .hdr__in{gap:14px;min-height:68px}
   .hdr__cta{gap:10px}
@@ -101,4 +180,7 @@
 @media(max-width:359px){
   .hdr__agora{display:none}
 }
-@media(prefers-reduced-motion:reduce){.burger span,.mnav__chave,.mnav__chave::before{transition:none}}
+@media(prefers-reduced-motion:reduce){
+  .burger span,.mnav__chave,.mnav__chave::before,.nav__btn svg,.mnav__btn svg{transition:none}
+  .nav__panel{animation:none}
+}
