@@ -20,6 +20,17 @@
         "8095"
       ],
       "port": 8095
+    },
+    {
+      "name": "cookies",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8097"
+      ],
+      "port": 8097,
+      "autoPort": false
     }
   ]
 }
