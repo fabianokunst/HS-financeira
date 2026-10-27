@@ -11,3 +11,14 @@
 .rail__spacer{margin-left:auto}
 .rail a.rail__link{color:var(--dark-text-soft);font-weight:600}
 .rail a.rail__link:hover{color:#fff}
+/* Com o menu hambúrguer, os atalhos (Renegociar, Governança, Segurança) vão
+   para ele e a faixa fica numa linha só, só com os telefones. */
+@media(max-width:960px){
+  .rail__spacer,.rail a.rail__link{display:none}
+  .rail__in{flex-wrap:nowrap;min-height:36px;padding-block:6px}
+}
+/* No celular cabem dois telefones; a Ouvidoria continua no menu e no rodapé. */
+@media(max-width:620px){
+  .rail__item--ouv{display:none}
+  .rail__in{justify-content:space-between;gap:12px}
+}

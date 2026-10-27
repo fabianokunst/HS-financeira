@@ -496,6 +496,17 @@
   .rail__spacer{margin-left:auto}
   .rail a.rail__link{color:var(--dark-text-soft);font-weight:600}
   .rail a.rail__link:hover{color:#fff}
+  /* Com o menu hambúrguer, os atalhos (Renegociar, Governança, Segurança) vão
+     para ele e a faixa fica numa linha só, só com os telefones. */
+  @media(max-width:960px){
+    .rail__spacer,.rail a.rail__link{display:none}
+    .rail__in{flex-wrap:nowrap;min-height:36px;padding-block:6px}
+  }
+  /* No celular cabem dois telefones; a Ouvidoria continua no menu e no rodapé. */
+  @media(max-width:620px){
+    .rail__item--ouv{display:none}
+    .rail__in{justify-content:space-between;gap:12px}
+  }
 
   /* css/sections/header.css */
   /* Cabeçalho fixo, marca, navegação e menu mobile */
@@ -515,11 +526,14 @@
   .nav a{font-size:15px;font-weight:700;color:var(--ink-2);padding-block:6px;border-bottom:2px solid transparent;white-space:nowrap}
   .nav a:hover{color:var(--brand);border-bottom-color:var(--brand)}
   .hdr__cta{margin-left:auto;display:flex;align-items:center;gap:14px}
+  /* block, e não o inline-flex do .btn, para o " agora" seguir no texto com o
+     espaço normal entre palavras (como item flex ganharia o gap de 9px). */
+  .hdr__cta .btn{display:block;white-space:nowrap}
   .hdr__ghost{font-size:15px;font-weight:700;color:var(--brand);white-space:nowrap;border-bottom:2px solid transparent;padding-block:6px}
   .hdr__ghost:hover{border-bottom-color:var(--brand)}
   .burger{
     display:none;flex-direction:column;justify-content:center;gap:5px;
-    width:42px;height:42px;align-items:center;
+    flex:0 0 auto;width:42px;height:42px;align-items:center;
     border:1px solid var(--line-strong);border-radius:var(--r-btn);
   }
   .burger span{
@@ -529,17 +543,30 @@
   .burger[aria-expanded=true] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
   .burger[aria-expanded=true] span:nth-child(2){opacity:0}
   .burger[aria-expanded=true] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-  .mnav{background:var(--paper);color:var(--ink);max-height:calc(100svh - 118px);overflow-y:auto}
+  /* 104px = faixa de telefones (36) + cabeçalho do tablet (68) */
+  .mnav{background:var(--paper);color:var(--ink);max-height:calc(100svh - 104px);overflow-y:auto;overscroll-behavior:contain}
   .mnav :focus-visible{outline-color:var(--brand)}
-  .mnav a{
+  .mnav > a{
     display:flex;align-items:center;justify-content:space-between;
     padding:15px var(--gut);border-bottom:1px solid var(--line);
     font-size:16px;font-weight:600;
   }
-  .mnav a:hover,.mnav a:active{background:var(--paper-2);color:var(--brand)}
-  .mnav a svg{width:15px;height:15px;color:var(--ink-faint)}
+  .mnav > a:hover,.mnav > a:active{background:var(--paper-2);color:var(--brand)}
+  .mnav > a svg{width:15px;height:15px;color:var(--ink-faint)}
   .mnav__foot{padding:18px var(--gut) 22px;display:grid;gap:11px}
   .mnav__foot .btn{width:100%}
+  .mnav__k{
+    margin:8px 0 -3px;
+    font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);
+  }
+  .mnav__tel{display:grid;border:1px solid var(--line);border-radius:var(--r-btn)}
+  .mnav__tel a{
+    display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+    padding:12px 14px;font-size:13px;color:var(--ink-soft);
+  }
+  .mnav__tel a + a{border-top:1px solid var(--line)}
+  .mnav__tel a:hover,.mnav__tel a:active{background:var(--paper-2)}
+  .mnav__tel b{font-size:15px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
   /* Entre o menu mobile e ~1080px a linha não comporta tudo: sai o atalho
      "Simular crédito" (o hero repete o botão) e os espaços encolhem. */
   @media(max-width:1080px){
@@ -550,11 +577,22 @@
     .nav,.hdr__ghost{display:none}
     .burger{display:flex}
     .hdr__in{gap:14px;min-height:68px}
+    .hdr__cta{gap:10px}
     .mark__logo{width:144px;margin:0 -10px 0 -5px}
   }
   @media(min-width:961px){.mnav{display:none}}
-  @media(max-width:430px){
-    .hdr__cta .btn--solid{padding:11px 14px;font-size:13.5px}
+  /* Celular: barra de 60px, logo um pouco menor (mesmo PNG, só redimensionado)
+     e botão compacto numa linha só. */
+  @media(max-width:620px){
+    .hdr__in{gap:12px;min-height:60px}
+    .mark__logo{width:124px;margin:0 -8px 0 -4px}
+    .hdr__cta .btn--solid{padding:10px 14px;font-size:14px}
+    .burger{width:40px;height:40px}
+    .mnav{max-height:calc(100svh - 96px)}
+  }
+  /* Abaixo de 360px "Contratar agora" não cabe ao lado do logo e do menu. */
+  @media(max-width:359px){
+    .hdr__agora{display:none}
   }
   @media(prefers-reduced-motion:reduce){.burger span{transition:none}}
 
@@ -1321,7 +1359,7 @@
   <div class="wrap rail__in">
     <a class="rail__item" href="tel:40202202"><span class="rail__k">Capitais</span><span class="rail__v">4020 2202</span></a>
     <a class="rail__item" href="tel:08006022202"><span class="rail__k">SAC</span><span class="rail__v">0800 602 2202</span></a>
-    <a class="rail__item" href="tel:08006487070"><span class="rail__k">Ouvidoria</span><span class="rail__v">0800 648 7070</span></a>
+    <a class="rail__item rail__item--ouv" href="tel:08006487070"><span class="rail__k">Ouvidoria</span><span class="rail__v">0800 648 7070</span></a>
     <span class="rail__spacer"></span>
     <a class="rail__link" href="https://easycollector.wedoo.com.br/herval/login.aspx">Renegociar dívida</a>
     <a class="rail__link" href="#governanca">Governança</a>
@@ -1344,7 +1382,7 @@
     </nav>
     <div class="hdr__cta">
       <a class="hdr__ghost" href="#simulador">Simular crédito</a>
-      <a class="btn btn--solid" href="#para-voce">Contratar agora</a>
+      <a class="btn btn--solid" href="#para-voce">Contratar<span class="hdr__agora"> agora</span></a>
       <button class="burger" id="burger" aria-expanded="false" aria-controls="mnav" aria-label="Abrir menu de navegação">
         <span></span><span></span><span></span>
       </button>
@@ -1356,11 +1394,17 @@
     <a href="#investimentos">Investimentos <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     <a href="#parceiros">Parceiros <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     <a href="#governanca">Governança <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="#seguranca">Segurança <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     <a href="#ajuda">Ajuda <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     <a href="https://easycollector.wedoo.com.br/herval/login.aspx">Renegociar dívida <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     <div class="mnav__foot">
       <a class="btn btn--solid" href="#simulador">Simular crédito</a>
-      <a class="btn btn--line" href="tel:08006022202">Ligar para o SAC 0800 602 2202</a>
+      <p class="mnav__k">Central de atendimento</p>
+      <div class="mnav__tel">
+        <a href="tel:40202202"><span>Capitais e regiões metro.</span><b>4020 2202</b></a>
+        <a href="tel:08006022202"><span>SAC &mdash; demais localidades</span><b>0800 602 2202</b></a>
+        <a href="tel:08006487070"><span>Ouvidoria</span><b>0800 648 7070</b></a>
+      </div>
     </div>
   </nav>
 </header>

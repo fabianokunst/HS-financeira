@@ -15,11 +15,14 @@
 .nav a{font-size:15px;font-weight:700;color:var(--ink-2);padding-block:6px;border-bottom:2px solid transparent;white-space:nowrap}
 .nav a:hover{color:var(--brand);border-bottom-color:var(--brand)}
 .hdr__cta{margin-left:auto;display:flex;align-items:center;gap:14px}
+/* block, e não o inline-flex do .btn, para o " agora" seguir no texto com o
+   espaço normal entre palavras (como item flex ganharia o gap de 9px). */
+.hdr__cta .btn{display:block;white-space:nowrap}
 .hdr__ghost{font-size:15px;font-weight:700;color:var(--brand);white-space:nowrap;border-bottom:2px solid transparent;padding-block:6px}
 .hdr__ghost:hover{border-bottom-color:var(--brand)}
 .burger{
   display:none;flex-direction:column;justify-content:center;gap:5px;
-  width:42px;height:42px;align-items:center;
+  flex:0 0 auto;width:42px;height:42px;align-items:center;
   border:1px solid var(--line-strong);border-radius:var(--r-btn);
 }
 .burger span{
@@ -29,17 +32,30 @@
 .burger[aria-expanded=true] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 .burger[aria-expanded=true] span:nth-child(2){opacity:0}
 .burger[aria-expanded=true] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-.mnav{background:var(--paper);color:var(--ink);max-height:calc(100svh - 118px);overflow-y:auto}
+/* 104px = faixa de telefones (36) + cabeçalho do tablet (68) */
+.mnav{background:var(--paper);color:var(--ink);max-height:calc(100svh - 104px);overflow-y:auto;overscroll-behavior:contain}
 .mnav :focus-visible{outline-color:var(--brand)}
-.mnav a{
+.mnav > a{
   display:flex;align-items:center;justify-content:space-between;
   padding:15px var(--gut);border-bottom:1px solid var(--line);
   font-size:16px;font-weight:600;
 }
-.mnav a:hover,.mnav a:active{background:var(--paper-2);color:var(--brand)}
-.mnav a svg{width:15px;height:15px;color:var(--ink-faint)}
+.mnav > a:hover,.mnav > a:active{background:var(--paper-2);color:var(--brand)}
+.mnav > a svg{width:15px;height:15px;color:var(--ink-faint)}
 .mnav__foot{padding:18px var(--gut) 22px;display:grid;gap:11px}
 .mnav__foot .btn{width:100%}
+.mnav__k{
+  margin:8px 0 -3px;
+  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);
+}
+.mnav__tel{display:grid;border:1px solid var(--line);border-radius:var(--r-btn)}
+.mnav__tel a{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  padding:12px 14px;font-size:13px;color:var(--ink-soft);
+}
+.mnav__tel a + a{border-top:1px solid var(--line)}
+.mnav__tel a:hover,.mnav__tel a:active{background:var(--paper-2)}
+.mnav__tel b{font-size:15px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
 /* Entre o menu mobile e ~1080px a linha não comporta tudo: sai o atalho
    "Simular crédito" (o hero repete o botão) e os espaços encolhem. */
 @media(max-width:1080px){
@@ -50,10 +66,21 @@
   .nav,.hdr__ghost{display:none}
   .burger{display:flex}
   .hdr__in{gap:14px;min-height:68px}
+  .hdr__cta{gap:10px}
   .mark__logo{width:144px;margin:0 -10px 0 -5px}
 }
 @media(min-width:961px){.mnav{display:none}}
-@media(max-width:430px){
-  .hdr__cta .btn--solid{padding:11px 14px;font-size:13.5px}
+/* Celular: barra de 60px, logo um pouco menor (mesmo PNG, só redimensionado)
+   e botão compacto numa linha só. */
+@media(max-width:620px){
+  .hdr__in{gap:12px;min-height:60px}
+  .mark__logo{width:124px;margin:0 -8px 0 -4px}
+  .hdr__cta .btn--solid{padding:10px 14px;font-size:14px}
+  .burger{width:40px;height:40px}
+  .mnav{max-height:calc(100svh - 96px)}
+}
+/* Abaixo de 360px "Contratar agora" não cabe ao lado do logo e do menu. */
+@media(max-width:359px){
+  .hdr__agora{display:none}
 }
 @media(prefers-reduced-motion:reduce){.burger span{transition:none}}
