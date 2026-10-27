@@ -47,6 +47,7 @@
   <!-- CSS desta página -->
   <link rel="stylesheet" href="../css/sections/pagina.css">
   <link rel="stylesheet" href="../css/sections/ajuda.css">
+  <link rel="stylesheet" href="../css/components/formulario.css">
 
   <script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[
@@ -145,7 +146,7 @@
         <h1 class="pg__h1">Envie-nos uma <i>mensagem</i></h1>
         <p class="lede">Fale com a HS Financeira pelo canal que preferir: SAC, WhatsApp, chat, e-mail ou Ouvidoria. Aqui você também encontra o portal para renegociar sua dívida e emitir a 2ª via do boleto, além das respostas para as dúvidas mais frequentes.</p>
         <div class="pg__acts">
-          <a class="btn btn--solid" href="mailto:contato@hsfinanceira.com.br">Escrever para a HS</a>
+          <a class="btn btn--solid" href="#fale-conosco">Escrever para a HS</a>
           <a class="btn btn--line" href="#duvidas">Dúvidas frequentes</a>
         </div>
       </div>
@@ -208,14 +209,63 @@
 <!-- ══════════════ FALE CONOSCO ══════════════ -->
 <section class="sec sec--line" id="fale-conosco">
   <div class="wrap pg__duo">
-    <div class="sec__head">
-      <p class="eyebrow is-neutral">Fale conosco</p>
-      <h2 class="sec__h2">Escreva <i>para a gente.</i></h2>
+    <div>
+      <div class="sec__head">
+        <p class="eyebrow is-neutral">Fale conosco</p>
+        <h2 class="sec__h2">Escreva <i>para a gente.</i></h2>
+      </div>
+      <div class="texto">
+        <p>Preencha o formulário com a sua mensagem. Se preferir, escreva para o e-mail <a href="mailto:contato@hsfinanceira.com.br">contato@hsfinanceira.com.br</a>, informando seu nome completo e um telefone para contato.</p>
+        <p>Ou fale com o SAC pelo WhatsApp <a href="https://api.whatsapp.com/send?phone=555140421377">(51) 4042 1377</a> ou pelo telefone <a href="tel:08006022202">0800 602 2202</a>.</p>
+      </div>
     </div>
-    <div class="texto">
-      <!-- PENDENTE: formulário "Fale conosco" do site antigo — campos: Nome* (texto, "Nome completo"), CPF (número), Telefone (tel), E-mail* (e-mail), Mensagem (texto longo); botão "Enviar mensagem". A página tinha uma segunda versão do mesmo formulário, com todos os campos obrigatórios: Nome*, Sobrenome*, CPF*, Telefone*, E-mail*, Mensagem*. Precisa de um destino para os envios antes de voltar. -->
-      <p>Envie a sua mensagem para o e-mail <a href="mailto:contato@hsfinanceira.com.br">contato@hsfinanceira.com.br</a>, informando seu nome completo e um telefone para contato.</p>
-      <p>Se preferir, fale com o SAC pelo WhatsApp <a href="https://api.whatsapp.com/send?phone=555140421377">(51) 4042 1377</a> ou pelo telefone <a href="tel:08006022202">0800 602 2202</a>.</p>
+    <div>
+      <!-- Formulário "Fale conosco" do site atual (Elementor d745192): vai ao
+           Emarsys (f=1413) e por e-mail a contato@, pelo api/formulario.php. -->
+      <form class="form" action="../api/formulario.php" method="post" data-formulario data-ok="fc-ok" data-email="contato@hsfinanceira.com.br" aria-label="Fale conosco">
+        <input type="hidden" name="formulario" value="fale-conosco">
+        <div class="form__grade">
+          <div class="form__campo">
+            <label class="form__lb" for="fc-nome">Nome*</label>
+            <input class="form__in" id="fc-nome" name="nome" type="text" autocomplete="given-name" placeholder="Nome" maxlength="60" required>
+          </div>
+          <div class="form__campo">
+            <label class="form__lb" for="fc-sobrenome">Sobrenome*</label>
+            <input class="form__in" id="fc-sobrenome" name="sobrenome" type="text" autocomplete="family-name" placeholder="Sobrenome" maxlength="60" required>
+          </div>
+          <div class="form__campo">
+            <label class="form__lb" for="fc-cpf">CPF*</label>
+            <input class="form__in" id="fc-cpf" name="cpf" type="text" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14" required>
+          </div>
+          <div class="form__campo">
+            <label class="form__lb" for="fc-telefone">Telefone*</label>
+            <input class="form__in" id="fc-telefone" name="telefone" type="tel" autocomplete="tel-national" placeholder="11 9 9999-9999" maxlength="20" required>
+          </div>
+          <div class="form__campo form__campo--largo">
+            <label class="form__lb" for="fc-email">E-mail*</label>
+            <input class="form__in" id="fc-email" name="email" type="email" autocomplete="email" placeholder="exemplo@gmail.com" maxlength="255" required>
+          </div>
+          <div class="form__campo form__campo--largo">
+            <label class="form__lb" for="fc-mensagem">Mensagem*</label>
+            <textarea class="form__in" id="fc-mensagem" name="mensagem" rows="5" placeholder="Digite sua mensagem" maxlength="1000" required></textarea>
+            <span class="form__conta" aria-hidden="true">0/1000</span>
+          </div>
+        </div>
+        <div class="form__armadilha" aria-hidden="true">
+          <label for="fc-recado">Não preencha este campo</label>
+          <input id="fc-recado" name="recado" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="form__fim">
+          <button class="btn btn--solid btn--lg" type="submit">Enviar mensagem</button>
+          <p class="form__nota">* Campos obrigatórios.</p>
+        </div>
+        <p class="form__aviso" role="alert" hidden></p>
+      </form>
+      <div class="form__ok" id="fc-ok" role="status" tabindex="-1" hidden>
+        <h3>Mensagem enviada.</h3>
+        <p>Recebemos a sua mensagem. O número do seu protocolo é <b data-protocolo></b>.</p>
+        <p>Se precisar falar com a gente antes, ligue para o SAC: <a href="tel:08006022202">0800 602 2202</a>.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -485,5 +535,6 @@
 <script src="../js/chat.js"></script>
 <!-- /comum:scripts -->
 <script src="../js/accordion.js"></script>
+<script src="../js/formulario.js"></script>
 </body>
 </html>

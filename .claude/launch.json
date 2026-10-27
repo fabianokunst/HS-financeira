@@ -44,17 +44,6 @@
       "autoPort": false
     },
     {
-      "name": "simulador-tmp",
-      "runtimeExecutable": "python",
-      "runtimeArgs": [
-        "-m",
-        "http.server",
-        "8094"
-      ],
-      "port": 8094,
-      "autoPort": false
-    },
-    {
       "name": "fotos",
       "runtimeExecutable": "python",
       "runtimeArgs": [
