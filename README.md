@@ -143,12 +143,16 @@ DevTools.
 recorte nem vetorize: se precisar de outro tamanho ou versão, peça o arquivo
 original ao marketing.
 
+- `assets/marca/hs-financeira-logo.png` (194×48) — versão vermelha (desenho
+  preenchido, "HS" em branco), usada no cabeçalho branco. É a mesma que o site
+  oficial usa e não existe em tamanho maior: fica no tamanho natural (144px no
+  celular) para não borrar. Se o marketing mandar o vetor (SVG/AI), troque aqui.
 - `assets/marca/hs-financeira-logo-branco.png` (500×244) — logo branco com
-  "Uma empresa do Grupo Herval", usado no cabeçalho e no rodapé vermelhos. A
-  imagem tem margem transparente; o CSS (`.mark__logo`, `.ft__logo`) compensa
-  com margens negativas, sem tocar no arquivo.
-- `assets/marca/hs-financeira-logo.png` (194×48) — versão vermelha, para fundo
-  escuro ou branco.
+  "Uma empresa do Grupo Herval", usado no rodapé vermelho. É uma versão vazada
+  (só contorno), diferente da vermelha: não pinte este arquivo de vermelho para
+  usar em fundo claro.
+- Os dois PNGs têm margem transparente; o CSS (`.mark__logo`, `.ft__logo`)
+  compensa com margens negativas, sem tocar no arquivo.
 - `assets/marca/hs-financeira-simbolo.png` (400×400) — só o símbolo "HS"; é o
   logo dos dados estruturados.
 - `assets/favicon/` — `favicon-32.png`, `favicon-192.png` e
@@ -187,15 +191,16 @@ confere, sem gravar nada.
 Inclua a URL no `sitemap.xml` e linke a página de algum lugar do site.
 
 **Cores e tipografia** — tudo em [`css/base/tokens.css`](css/base/tokens.css),
-seguindo a identidade do site atual: vermelho `#D9222E` nas faixas (cabeçalho e
-rodapé, `--brand-band`), `#D3363B` em botões e destaques (`--brand`), títulos
+seguindo a identidade do site atual: vermelho `#D9222E` nas faixas (rodapé,
+`--brand-band`), `#D3363B` em botões e destaques (`--brand`), títulos
 em preto, texto em `#5F5C6B`, grafite `#33303E` e fonte Manrope (800 nos
 títulos). Todas as combinações de texto passam no contraste WCAG AA nos dois
 temas — ao criar uma cor nova, confira (texto normal ≥ 4,5:1). O vermelho
 `--brand` sobre o rosado `--brand-wash` não passa em texto pequeno; ali use
 `--brand-deep`. O tema escuro é o mesmo conjunto de tokens redefinido em dois
 blocos (`prefers-color-scheme` e `[data-theme="dark"]`); mexer só no primeiro
-deixa o tema inconsistente. Cabeçalho e rodapé ficam vermelhos nos dois temas.
+deixa o tema inconsistente. O cabeçalho é branco (`--paper`, escurece no tema
+escuro) e o rodapé fica vermelho nos dois temas.
 
 ---
 
