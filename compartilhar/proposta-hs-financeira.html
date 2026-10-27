@@ -249,71 +249,176 @@
   .ubots-chat-box{z-index:60}
 
   /* css/components/cookies.css */
-  /* Banner de consentimento de cookies (LGPD): réplica do banner do site
-     oficial (plugin CookieYes) — barra de ponta a ponta na base da tela, por
-     cima de tudo (inclusive do botão do chat), com as medidas, cores e botões de
-     lá. No celular os botões empilham, com o "Aceitar" em cima. O cartão de
-     golpes só abre depois da escolha (js/aviso.js). Começa com [hidden]; o
-     js/cookies.js mostra enquanto não há escolha. */
+  /* Banner de consentimento de cookies (LGPD), no formato do CookieYes do site
+     oficial: barra de ponta a ponta na base da tela, por cima de tudo
+     (inclusive do botão do chat), com os mesmos textos. Nas telas largas o
+     conteúdo fica na largura do site. No celular os botões empilham, com o
+     "Aceitar" em cima. O cartão de golpes só abre depois da escolha
+     (js/aviso.js). Começa com [hidden]; o js/cookies.js mostra enquanto não há
+     escolha. */
 
   .ck{
     position:fixed;z-index:70;
     left:0;right:0;bottom:0;
-    padding:16.5px 24px;
+    padding:20px max(24px,calc((100% - var(--wrap)) / 2 + var(--gut)));
     background:var(--paper);color:var(--ink-soft);
-    border:1px solid var(--line);
-    box-shadow:0 -1px 10px 0 rgba(172,171,171,.3);
+    border-top:1px solid var(--line);
+    box-shadow:0 -8px 28px -12px rgba(51,48,62,.22);
     font-size:14px;line-height:24px;
   }
   .ck[hidden]{display:none}
-  .ck__h{margin-bottom:12px;font-size:18px;font-weight:700}
-  .ck__grupo{display:flex;justify-content:space-between;align-items:center}
-  .ck__txt p{margin-bottom:14.4px}
+  .ck__h{margin-bottom:6px;color:var(--ink);font-size:17px;font-weight:700}
+  .ck__grupo{display:flex;justify-content:space-between;align-items:center;gap:32px}
+  .ck__txt{max-width:70ch}
+  .ck__txt p{margin-bottom:4px}
   .ck__txt p:last-child{margin-bottom:0}
-  .ck__txt b{font-weight:700}
-  .ck__acts{display:flex;justify-content:center;align-items:center;margin-left:15px}
-  /* Borda da cor do fundo, como no oficial (lá é branca sobre branco). */
+  .ck__txt b{color:var(--ink-2);font-weight:700}
+  .ck__acts{display:flex;align-items:center;gap:10px;flex:none}
+
+  /* Hierarquia: "Aceitar" cheio, na cor da marca; "Recusar" só com contorno,
+     mas do mesmo tamanho e no mesmo nível — recusar tem de ser tão fácil quanto
+     aceitar (guia de cookies da ANPD); "Personalizar" como link. */
   .ck__btn{
-    padding:8px 27px;margin-right:8px;
-    border:2px solid var(--paper);border-radius:2px;
-    color:#fff;font-size:14px;font-weight:500;line-height:24px;white-space:nowrap;
+    padding:9px 24px;
+    border:1px solid transparent;border-radius:var(--r-btn);
+    font-size:14px;font-weight:700;line-height:24px;white-space:nowrap;
+    transition:background-color .18s,border-color .18s,color .18s;
   }
-  .ck__btn:last-child{margin-right:0}
-  .ck__btn:hover{opacity:.8}
-  .ck__btn--recusar{background:#D8343C}
-  .ck__btn--aceitar{background:#38343C}
+  .ck__btn--aceitar{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+  .ck__btn--aceitar:hover{background:var(--brand-deep);border-color:var(--brand-deep)}
+  .ck__btn--recusar,.ck__btn--salvar{background:transparent;border-color:var(--line-strong);color:var(--ink-2)}
+  .ck__btn--recusar:hover,.ck__btn--salvar:hover{border-color:var(--ink-2);background:var(--paper-2)}
+  .ck__btn--personalizar{
+    padding-inline:8px;background:none;color:var(--ink-soft);font-weight:600;
+    text-decoration:underline;text-underline-offset:3px;
+  }
+  .ck__btn--personalizar:hover{color:var(--ink)}
   .ck__x{
-    position:absolute;top:5px;right:9px;
-    width:24px;height:24px;display:grid;place-items:center;
-    color:#828EA2;
+    position:absolute;top:8px;right:8px;
+    width:32px;height:32px;display:grid;place-items:center;
+    border-radius:var(--r-btn);color:var(--ink-faint);
   }
-  .ck__x svg{width:9px;height:9px}
+  .ck__x:hover{background:var(--paper-2);color:var(--ink)}
+  .ck__x svg{width:10px;height:10px}
 
   @media(max-width:768px){
     .ck__grupo{display:block}
-    .ck__acts{justify-content:flex-start;margin:10px 0 0}
-    .ck__btn{flex:auto;max-width:100%;margin-top:10px;white-space:normal}
+    .ck__acts{margin-top:14px}
+    .ck__btn--recusar,.ck__btn--aceitar{flex:1;white-space:normal}
   }
   @media(max-width:576px){
-    .ck{padding:16.5px 0 calc(16.5px + env(safe-area-inset-bottom))}
-    .ck__h,.ck__txt,.ck__acts{padding:0 28px}
+    .ck{padding:18px 24px calc(14px + env(safe-area-inset-bottom))}
+    .ck__h{padding-right:28px}
     .ck__txt{max-height:40vh;overflow-y:auto}
-    .ck__acts{flex-direction:column}
-    .ck__btn{width:100%;padding:8px;margin-right:0}
+    .ck__acts{flex-direction:column;align-items:stretch;gap:8px}
+    .ck__btn{width:100%}
     .ck__btn--aceitar{order:1}
     .ck__btn--recusar{order:2}
-  }
-  @media(max-width:425px){
-    .ck__h,.ck__txt,.ck__acts{padding:0 24px}
-    .ck__btn--aceitar{margin-top:16px}
+    .ck__btn--personalizar{order:3}
   }
   @media(max-width:352px){
+    .ck{padding-inline:16px}
     .ck__h{font-size:16px}
-    .ck__txt,.ck__btn{font-size:12px}
+    .ck__txt,.ck__btn{font-size:12.5px}
   }
   @media(max-height:480px){
     .ck{max-height:100vh;overflow-y:auto}
     .ck__txt{max-height:none;overflow-y:visible}
+  }
+
+  /* Painel "Personalizar": réplica do centro de preferências do CookieYes
+     (modo popup), com a relação das ferramentas por categoria. É um <dialog>:
+     abre por cima de tudo, prende o foco e fecha com Esc. */
+  .ck-pref{
+    width:845px;max-width:calc(100% - 16px);max-height:79vh;
+    margin:auto;padding:0;border:0;border-radius:var(--r);
+    background:var(--paper);color:var(--ink-soft);
+    box-shadow:0 32px 68px rgba(0,0,0,.3);
+    font-size:14px;line-height:24px;
+  }
+  .ck-pref[open]{display:flex;flex-direction:column}
+  .ck-pref::backdrop{background:rgba(0,0,0,.4)}
+  .ck-pref__topo{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 24px;border-bottom:1px solid var(--line);
+  }
+  .ck-pref__h{color:var(--ink);font-size:18px;font-weight:700;line-height:24px}
+  .ck-pref__x{width:32px;height:32px;flex:none;display:grid;place-items:center;border-radius:var(--r-btn);color:var(--ink-faint)}
+  .ck-pref__x:hover{background:var(--paper-2);color:var(--ink)}
+  .ck-pref__x svg{width:10px;height:10px}
+  .ck-pref__corpo{flex:1;overflow:auto;padding:0 24px}
+  .ck-pref__intro{padding:12px 0;border-bottom:1px solid var(--line)}
+  .ck-pref__intro p{margin-bottom:14.4px}
+  .ck-pref__intro p:last-child{margin-bottom:0}
+  .ck-cats{margin-bottom:10px}
+  .ck-cat{border-bottom:1px solid var(--line)}
+  .ck-cat:last-child{border-bottom:0}
+  .ck-cat__item{display:flex;margin-top:10px}
+  .ck-cat__seta{position:relative;flex:none;margin-right:22px}
+  .ck-cat__seta::before{
+    content:"";position:absolute;top:8px;width:6px;height:6px;
+    border-right:1.4px solid;border-bottom:1.4px solid;
+    transform:rotate(-45deg);transition:transform .2s ease-in-out;
+  }
+  .ck-cat.is-aberta .ck-cat__seta::before{transform:rotate(45deg)}
+  .ck-cat__info{width:100%}
+  .ck-cat__cab{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .ck-cat__btn{color:var(--ink);font-size:16px;font-weight:700;line-height:24px;text-align:left}
+  .ck-cat__sempre{color:#008000;font-weight:600}
+  .ck-cat__des{margin:10px 0 16px}
+  .ck-cat__lista{padding:0 22px;margin-bottom:16px}
+  .ck-cat__lista[hidden]{display:none}
+  .ck-tabela{background:var(--paper-2);border-radius:6px}
+  .ck-tabela ul{padding:15px 10px;border-bottom:1px solid var(--line);font-size:12px;line-height:24px}
+  .ck-tabela ul:last-child{border-bottom:0}
+  .ck-tabela li{display:flex;padding:3px 0}
+  .ck-tabela li:first-child{padding-top:0}
+  .ck-tabela li span:first-child{width:100px;flex:none;font-weight:600}
+  .ck-tabela li span:last-child{flex:1;margin-left:8px;overflow-wrap:anywhere}
+  /* Chave liga/desliga: cinza desligada, na cor da marca ligada. */
+  .ck-chave{display:flex}
+  .ck-chave input{
+    -webkit-appearance:none;appearance:none;position:relative;
+    width:44px;height:24px;margin:0;border-radius:50px;
+    background:#D0D5D2;cursor:pointer;
+  }
+  .ck-chave input::before{
+    content:"";position:absolute;left:2px;bottom:2px;
+    width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .4s;
+  }
+  .ck-chave input:checked{background:var(--brand)}
+  .ck-chave input:checked::before{transform:translateX(20px)}
+  .ck-pref__acoes{
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;
+    padding:20px 24px;border-top:1px solid var(--line);
+  }
+  .ck-pref__acoes .ck__btn{flex:auto;max-width:100%}
+
+  @media(max-width:576px){
+    .ck-pref{max-width:100%;max-height:100%;border-radius:0}
+    .ck-pref__acoes{flex-direction:column;padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+    .ck-pref__acoes{gap:8px}
+    .ck-pref__acoes .ck__btn{width:100%}
+    .ck-pref__acoes .ck__btn--aceitar{order:1}
+    .ck-pref__acoes .ck__btn--salvar{order:2}
+    .ck-pref__acoes .ck__btn--recusar{order:3}
+    .ck-cat__lista{padding-right:0}
+  }
+  @media(max-width:425px){
+    .ck-cat__seta{margin-right:15px}
+    .ck-cat__lista{padding:0 0 0 15px}
+    .ck-chave input{width:38px;height:21px}
+    .ck-chave input::before{width:17px;height:17px}
+    .ck-chave input:checked::before{transform:translateX(17px)}
+  }
+  @media(max-width:352px){
+    .ck-pref__h{font-size:16px}
+    .ck-pref__topo{padding:16px 24px}
+    .ck-pref__intro,.ck-cat__des,.ck-cat__sempre{font-size:12px}
+    .ck-cat__btn{font-size:14px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .ck-cat__seta::before,.ck-chave input::before{transition:none}
   }
 
   /* css/sections/aviso.css */
@@ -1837,8 +1942,11 @@
 <!-- ══════════════ COOKIES ══════════════ -->
 <div class="ck" id="cookies" role="region" aria-labelledby="ck-titulo" hidden>
   <!-- Consentimento de cookies (LGPD): réplica do banner do site oficial
-       (plugin CookieYes), com os mesmos textos e botões. Escondido até o
-       js/cookies.js decidir; sem JavaScript não há banner nem Google Analytics. -->
+       (plugin CookieYes), com os mesmos textos e botões, mais o painel
+       "Personalizar" com a relação das ferramentas por categoria. Escondido
+       até o js/cookies.js decidir; sem JavaScript não há banner nem nenhuma
+       ferramenta de terceiros. Ao incluir ou tirar uma ferramenta, atualize a
+       relação no painel e a cookiesVersao do js/config.js. -->
   <button class="ck__x" type="button" data-cookies="fechar" aria-label="Fechar">
     <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1l8 8M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
   </button>
@@ -1849,11 +1957,88 @@
       <p>Usamos cookies para aprimorar sua experiência de navegação, veicular anúncios ou conteúdos personalizados e analisar nosso tráfego. Ao clicar em <b>"Aceitar"</b>, você concorda com o uso de cookies.</p>
     </div>
     <div class="ck__acts">
+      <button class="ck__btn ck__btn--personalizar" type="button" data-cookies="personalizar">Personalizar</button>
       <button class="ck__btn ck__btn--recusar" type="button" data-cookies="recusar">Recusar</button>
       <button class="ck__btn ck__btn--aceitar" type="button" data-cookies="aceitar">Aceitar</button>
     </div>
   </div>
 </div>
+
+<dialog class="ck-pref" id="cookies-pref" aria-labelledby="ck-pref-titulo">
+  <div class="ck-pref__topo">
+    <p class="ck-pref__h" id="ck-pref-titulo" role="heading" aria-level="2">Personalizar preferências de consentimento</p>
+    <button class="ck-pref__x" type="button" data-cookies="voltar" aria-label="Fechar">
+      <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1l8 8M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="ck-pref__corpo">
+    <div class="ck-pref__intro">
+      <p>Usamos cookies para o site funcionar, para entender como ele é usado e para oferecer conteúdos e campanhas relevantes para você. Os necessários ficam sempre ativos; os demais só são ativados com o seu consentimento. Abra cada categoria para ver as ferramentas, e mude a sua escolha quando quiser em "Preferências de cookies", no rodapé.</p>
+    </div>
+    <div class="ck-cats">
+      <div class="ck-cat">
+        <div class="ck-cat__item">
+          <span class="ck-cat__seta" aria-hidden="true"></span>
+          <div class="ck-cat__info">
+            <div class="ck-cat__cab">
+              <button class="ck-cat__btn" type="button" data-cookies="detalhes" aria-expanded="false" aria-controls="ck-lista-necessarios">Necessários</button>
+              <span class="ck-cat__sempre">Sempre ativo</span>
+            </div>
+            <p class="ck-cat__des">Os cookies necessários são essenciais para as funções básicas do site, como guardar as suas preferências de consentimento e manter o chat de atendimento. Eles não guardam dados pessoais identificáveis.</p>
+          </div>
+        </div>
+        <div class="ck-cat__lista" id="ck-lista-necessarios" hidden>
+          <div class="ck-tabela">
+            <ul><li><span>Cookie</span><span>hs-cookies</span></li><li><span>Duração</span><span>1 ano</span></li><li><span>Descrição</span><span>HS Financeira: guarda a sua escolha de cookies, para o banner não aparecer em toda página.</span></li></ul>
+            <ul><li><span>Cookie</span><span>hs-aviso-dia</span></li><li><span>Duração</span><span>1 dia</span></li><li><span>Descrição</span><span>HS Financeira: guarda o dia em que o aviso contra golpes apareceu, para mostrá-lo uma vez por dia.</span></li></ul>
+            <ul><li><span>Cookie</span><span>ui-state, websocket-status, connecting</span></li><li><span>Duração</span><span>Sessão</span></li><li><span>Descrição</span><span>Ubots (chat de atendimento): mantêm a conexão e o estado da janela do chat.</span></li></ul>
+          </div>
+        </div>
+      </div>
+      <div class="ck-cat">
+        <div class="ck-cat__item">
+          <span class="ck-cat__seta" aria-hidden="true"></span>
+          <div class="ck-cat__info">
+            <div class="ck-cat__cab">
+              <button class="ck-cat__btn" type="button" data-cookies="detalhes" aria-expanded="false" aria-controls="ck-lista-analiticos">Analíticos</button>
+              <span class="ck-chave"><input type="checkbox" data-categoria="analiticos" aria-label="Permitir cookies analíticos"></span>
+            </div>
+            <p class="ck-cat__des">Os cookies analíticos são usados para entender como os visitantes interagem com o site. Eles ajudam a fornecer informações sobre métricas como número de visitantes, taxa de rejeição e origem do tráfego.</p>
+          </div>
+        </div>
+        <div class="ck-cat__lista" id="ck-lista-analiticos" hidden>
+          <div class="ck-tabela">
+            <ul><li><span>Cookie</span><span>_ga</span></li><li><span>Duração</span><span>2 anos</span></li><li><span>Descrição</span><span>Google Analytics: distingue um visitante do outro, para contar visitas.</span></li></ul>
+            <ul><li><span>Cookie</span><span>_ga_K19JZS99WR</span></li><li><span>Duração</span><span>2 anos</span></li><li><span>Descrição</span><span>Google Analytics: guarda o estado da sessão, para contar páginas vistas e tempo de visita.</span></li></ul>
+          </div>
+        </div>
+      </div>
+      <div class="ck-cat">
+        <div class="ck-cat__item">
+          <span class="ck-cat__seta" aria-hidden="true"></span>
+          <div class="ck-cat__info">
+            <div class="ck-cat__cab">
+              <button class="ck-cat__btn" type="button" data-cookies="detalhes" aria-expanded="false" aria-controls="ck-lista-publicidade">Publicidade</button>
+              <span class="ck-chave"><input type="checkbox" data-categoria="publicidade" aria-label="Permitir cookies de publicidade"></span>
+            </div>
+            <p class="ck-cat__des">Os cookies de publicidade são usados para oferecer conteúdos e campanhas personalizados com base nas páginas que você visitou e para analisar a eficácia dessas campanhas. Com esta categoria ativa, o nome e o e-mail informados ao abrir o chat também são enviados ao Emarsys.</p>
+          </div>
+        </div>
+        <div class="ck-cat__lista" id="ck-lista-publicidade" hidden>
+          <div class="ck-tabela">
+            <ul><li><span>Cookie</span><span>scarab.visitor</span></li><li><span>Duração</span><span>Sessão</span></li><li><span>Descrição</span><span>Emarsys (SAP): identifica o visitante para personalizar conteúdos e registrar os cliques no menu, no rodapé e nas redes sociais.</span></li></ul>
+            <ul><li><span>Cookie</span><span>wps-*</span></li><li><span>Duração</span><span>Persistente</span></li><li><span>Descrição</span><span>Emarsys (SAP): exibe campanhas no próprio site.</span></li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ck-pref__acoes">
+    <button class="ck__btn ck__btn--recusar" type="button" data-cookies="recusar">Recusar</button>
+    <button class="ck__btn ck__btn--salvar" type="button" data-cookies="salvar">Salvar minhas preferências</button>
+    <button class="ck__btn ck__btn--aceitar" type="button" data-cookies="aceitar">Aceitar</button>
+  </div>
+</dialog>
 
 <script>
 /* js/config.js */
@@ -1873,15 +2058,25 @@ HS.config = {
   /* Largura, em px, a partir da qual o menu mobile é fechado. */
   breakpointMenu: 960,
 
-  /* Google Analytics 4: a mesma propriedade do site atual. Só é carregado
-     depois do "Aceitar" no banner de cookies (js/cookies.js) e só nestes
-     domínios — em homologação e no localhost o banner funciona, mas nada vai
-     para o Google, para não misturar testes com os dados reais. */
+  /* Ferramentas de terceiros: as mesmas contas do site atual. Cada uma só é
+     carregada com a sua categoria aceita no banner de cookies (js/cookies.js)
+     e só nestes domínios — em homologação e no localhost o banner funciona,
+     mas nada vai para o Google nem para o Emarsys, para não misturar testes
+     com os dados reais. */
+  dominiosOficiais: ["hsfinanceira.com.br", "www.hsfinanceira.com.br"],
+  /* Google Analytics 4 — categoria "Analíticos". */
   analyticsId: "G-K19JZS99WR",
-  analyticsDominios: ["hsfinanceira.com.br", "www.hsfinanceira.com.br"],
+  /* Emarsys (SAP) — categoria "Publicidade" (js/emarsys.js). */
+  emarsysId: "1F668F10C779FDAD",
 
   /* Depois de quantos dias a escolha de cookies é perguntada de novo. */
-  cookiesValidadeDias: 365
+  cookiesValidadeDias: 365,
+  /* Versão do banner: troque a data quando entrar ou sair uma ferramenta, ou
+     mudar o texto, e todo mundo é perguntado de novo. Vai junto no registro. */
+  cookiesVersao: "2026-10-27",
+  /* Onde cada escolha é registrada, como prova do consentimento
+     (api/consentimento.php). Deixe "" para não registrar. */
+  consentimentoUrl: "/api/consentimento.php"
 };
 
 /* js/utils/format.js */
@@ -1919,60 +2114,109 @@ HS.format = (function () {
 })();
 
 /* js/cookies.js */
-/* Consentimento de cookies (LGPD) e Google Analytics 4.
-   O Analytics só é carregado depois do "Aceitar": antes da escolha, e se a
-   pessoa recusar, nenhuma requisição vai para o Google. A escolha fica no
-   localStorage ("hs-cookies") por HS.config.cookiesValidadeDias e pode ser
-   mudada a qualquer momento em "Preferências de cookies", no rodapé.
-   Ao recusar, os cookies do Analytics (_ga, _ga_…) são apagados — inclusive
-   os que o site antigo gravava sem pedir.
-   Fora dos domínios de HS.config.analyticsDominios — localhost, homologação,
-   o site aberto direto do disco (file://) e o arquivo de compartilhar/ — o
-   banner funciona igual, mas o Analytics não é carregado.
-   Enquanto o banner está aberto, HS.cookies.pendente é true; ao escolher,
-   dispara o evento "hs:cookies" no document (o aviso contra golpes espera
-   por ele para não ficar por baixo da barra). */
+/* Consentimento de cookies (LGPD), por categoria, como o CookieYes do site
+   oficial: "Necessários" (sempre ativos), "Analíticos" (Google Analytics 4)
+   e "Publicidade" (Emarsys). "Aceitar" liga tudo; "Recusar" e o X deixam só
+   os necessários; "Personalizar" (e "Preferências de cookies", no rodapé)
+   abre o painel com a relação das ferramentas e uma chave por categoria.
+   Nada de terceiros carrega antes da escolha. Ao desligar uma categoria, os
+   cookies dela são apagados — inclusive os que o site antigo gravava sem
+   pedir — e o que já rodava na página para de enviar na hora.
+   A escolha fica no localStorage ("hs-cookies") por cookiesValidadeDias e é
+   perguntada de novo quando cookiesVersao muda. Cada escolha também vai para
+   o servidor (consentimentoUrl), que guarda o registro como prova.
+   Fora de HS.config.dominiosOficiais (localhost, homologação, file://, o
+   arquivo de compartilhar/) o banner funciona, mas nenhuma ferramenta carrega.
+   Para os outros scripts: HS.cookies.permitido("publicidade") e o evento
+   "hs:cookies" no document a cada escolha (detail.categorias). O aviso contra
+   golpes espera por ele para não ficar por baixo da barra; o js/emarsys.js
+   liga e desliga o Emarsys com ele. */
 (function () {
   "use strict";
 
   var banner = document.getElementById("cookies");
-  if (!banner) return;
+  var painel = document.getElementById("cookies-pref");
+  if (!banner || !painel) return;
 
   var cfg = (window.HS && HS.config) || {};
   var CHAVE = "hs-cookies";
+  var CATEGORIAS = ["analiticos", "publicidade"];
   var DIA = 864e5;
-  var carregado = false;
+  var oficial = (cfg.dominiosOficiais || []).indexOf(location.hostname) !== -1;
+  var categorias = null;
+  var gaCarregado = false;
   var origemDoFoco = null;
 
   window.HS = window.HS || {};
-  HS.cookies = { pendente: false, abrir: abrir };
+  HS.cookies = {
+    pendente: false,
+    oficial: oficial,
+    permitido: function (categoria) { return !!(categorias && categorias[categoria]); },
+    abrir: abrirPainel
+  };
 
-  function lerEscolha() {
+  /* ── Escolha guardada ── */
+
+  function lerGuardado() {
+    try { return JSON.parse(localStorage.getItem(CHAVE)) || null; } catch (e) { return null; }
+  }
+
+  function escolhaValida(salvo) {
+    var validade = (cfg.cookiesValidadeDias || 365) * DIA;
+    return salvo && salvo.categorias && salvo.versao === cfg.cookiesVersao && Date.now() - salvo.em < validade;
+  }
+
+  /* Identificador aleatório deste navegador: liga a escolha guardada aqui ao
+     registro no servidor, sem dado pessoal nenhum. */
+  function idDoNavegador() {
+    var salvo = lerGuardado();
+    if (salvo && /^[0-9a-f]{32}$/.test(salvo.id)) return salvo.id;
+    var bytes = new Uint8Array(16);
+    crypto.getRandomValues(bytes);
+    return Array.prototype.map.call(bytes, function (b) { return (b + 256).toString(16).slice(1); }).join("");
+  }
+
+  function guardar(id) {
     try {
-      var salvo = JSON.parse(localStorage.getItem(CHAVE));
-      var validade = (cfg.cookiesValidadeDias || 365) * DIA;
-      if (salvo && /^(aceito|recusado)$/.test(salvo.escolha) && Date.now() - salvo.em < validade) return salvo.escolha;
-    } catch (e) { /* sem localStorage: pergunta de novo a cada página */ }
-    return null;
+      localStorage.setItem(CHAVE, JSON.stringify({ id: id, versao: cfg.cookiesVersao, em: Date.now(), categorias: categorias }));
+    } catch (e) { /* vale só para esta página */ }
   }
 
-  function salvarEscolha(escolha) {
-    try { localStorage.setItem(CHAVE, JSON.stringify({ escolha: escolha, em: Date.now() })); } catch (e) { /* vale só para esta página */ }
+  function registrar(id, acao) {
+    if (!cfg.consentimentoUrl || !/^https?:$/.test(location.protocol) || !navigator.sendBeacon) return;
+    var dados = { id: id, versao: cfg.cookiesVersao, acao: acao, categorias: categorias, pagina: location.pathname };
+    try {
+      navigator.sendBeacon(cfg.consentimentoUrl, new Blob([JSON.stringify(dados)], { type: "text/plain" }));
+    } catch (e) { /* o registro falhou, mas a escolha vale do mesmo jeito */ }
   }
 
-  function carregarAnalytics() {
-    if (!cfg.analyticsId) return;
-    if ((cfg.analyticsDominios || []).indexOf(location.hostname) === -1) return;
-    /* Quem recusou e aceitou de novo nesta mesma página volta a ser medido. */
+  /* ── Ferramentas ── */
+
+  function apagarCookies(padrao) {
+    var dominio = location.hostname.replace(/^www\./, "");
+    document.cookie.split(";").forEach(function (par) {
+      var nome = par.split("=")[0].trim();
+      if (!padrao.test(nome)) return;
+      ["", "; domain=" + dominio, "; domain=." + dominio].forEach(function (d) {
+        document.cookie = nome + "=; Max-Age=0; path=/" + d;
+      });
+    });
+  }
+  HS.cookies.apagarCookies = apagarCookies;
+
+  function ligarAnalytics() {
+    if (!oficial || !cfg.analyticsId) return;
+    /* Quem desligou e religou nesta mesma página volta a ser medido. */
     window["ga-disable-" + cfg.analyticsId] = false;
-    if (carregado) {
+    if (gaCarregado) {
       gtag("consent", "update", { analytics_storage: "granted" });
       return;
     }
-    carregado = true;
+    gaCarregado = true;
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () { dataLayer.push(arguments); };
-    /* Consentimento só para análise: nada de anúncios nem personalização. */
+    /* O Analytics é só para análise: os sinais de anúncio do Google ficam
+       sempre negados (a categoria "Publicidade" é a do Emarsys). */
     gtag("consent", "default", {
       analytics_storage: "granted",
       ad_storage: "denied",
@@ -1987,63 +2231,195 @@ HS.format = (function () {
     document.head.appendChild(s);
   }
 
-  function apagarCookiesAnalytics() {
-    var dominio = location.hostname.replace(/^www\./, "");
-    document.cookie.split(";").forEach(function (par) {
-      var nome = par.split("=")[0].trim();
-      if (!/^_ga(_|$)/.test(nome)) return;
-      ["", "; domain=" + dominio, "; domain=." + dominio].forEach(function (d) {
-        document.cookie = nome + "=; Max-Age=0; path=/" + d;
-      });
-    });
+  function desligarAnalytics() {
+    /* Só o "denied" não basta: o Analytics continuaria mandando pings sem
+       cookie; a trava ga-disable- corta qualquer envio. */
+    if (gaCarregado) {
+      gtag("consent", "update", { analytics_storage: "denied" });
+      window["ga-disable-" + cfg.analyticsId] = true;
+    }
+    apagarCookies(/^_ga(_|$)/);
   }
 
-  function abrir() {
+  function aplicar() {
+    if (categorias.analiticos) ligarAnalytics(); else desligarAnalytics();
+  }
+
+  /* ── Banner e painel ── */
+
+  function abrirBanner() {
     HS.cookies.pendente = true;
     banner.hidden = false;
   }
 
-  function escolher(escolha) {
-    salvarEscolha(escolha);
+  function abrirPainel(origem) {
+    origemDoFoco = origem || document.activeElement;
+    painel.querySelectorAll("[data-categoria]").forEach(function (chave) {
+      chave.checked = HS.cookies.permitido(chave.getAttribute("data-categoria"));
+    });
+    if (painel.showModal) painel.showModal(); else painel.setAttribute("open", "");
+  }
+
+  function fecharPainel() {
+    if (painel.open) {
+      if (painel.close) painel.close(); else painel.removeAttribute("open");
+    }
+  }
+
+  function escolher(acao) {
+    var novas = {};
+    CATEGORIAS.forEach(function (c) {
+      if (acao === "aceitar") novas[c] = true;
+      else if (acao === "salvar") novas[c] = !!painel.querySelector('[data-categoria="' + c + '"]:checked');
+      else novas[c] = false;
+    });
+    categorias = novas;
+    var id = idDoNavegador();
+    guardar(id);
+    registrar(id, acao);
+    aplicar();
+
     banner.hidden = true;
+    fecharPainel();
     var eraPendente = HS.cookies.pendente;
     HS.cookies.pendente = false;
-    if (escolha === "aceito") {
-      carregarAnalytics();
-    } else {
-      /* Quem aceitou e mudou de ideia nesta mesma página para de ser medido
-         já. Só o "denied" não basta: o Analytics continuaria mandando pings
-         sem cookie; a trava ga-disable- corta qualquer envio. */
-      if (carregado) {
-        gtag("consent", "update", { analytics_storage: "denied" });
-        window["ga-disable-" + cfg.analyticsId] = true;
-      }
-      apagarCookiesAnalytics();
-    }
-    if (origemDoFoco) { origemDoFoco.focus(); origemDoFoco = null; }
-    if (eraPendente) document.dispatchEvent(new CustomEvent("hs:cookies", { detail: { escolha: escolha } }));
+    if (origemDoFoco && document.contains(origemDoFoco) && !banner.contains(origemDoFoco)) origemDoFoco.focus();
+    origemDoFoco = null;
+    document.dispatchEvent(new CustomEvent("hs:cookies", {
+      detail: { categorias: categorias, acao: acao, eraPendente: eraPendente }
+    }));
+  }
+
+  function alternarCategoria(botao) {
+    var lista = document.getElementById(botao.getAttribute("aria-controls"));
+    var abrir = botao.getAttribute("aria-expanded") !== "true";
+    botao.setAttribute("aria-expanded", String(abrir));
+    botao.closest(".ck-cat").classList.toggle("is-aberta", abrir);
+    if (lista) lista.hidden = !abrir;
   }
 
   document.addEventListener("click", function (e) {
     var alvo = e.target.closest("[data-cookies]");
     if (!alvo) return;
     var acao = alvo.getAttribute("data-cookies");
-    if (acao === "abrir") {
-      origemDoFoco = alvo;
-      abrir();
-      banner.querySelector("[data-cookies]").focus();
-    } else if (acao === "aceitar") {
-      escolher("aceito");
-    } else if (acao === "recusar" || acao === "fechar") {
-      /* O X vale como "Recusar", como no CookieYes do site oficial. */
-      escolher("recusado");
+    if (acao === "abrir" || acao === "personalizar") {
+      abrirPainel(alvo);
+    } else if (acao === "voltar") {
+      fecharPainel();
+    } else if (acao === "detalhes") {
+      alternarCategoria(alvo);
+    } else if (acao === "aceitar" || acao === "recusar" || acao === "salvar" || acao === "fechar") {
+      /* O X da barra vale como "Recusar", como no CookieYes do site oficial. */
+      escolher(acao);
     }
   });
 
-  var escolha = lerEscolha();
-  if (escolha === "aceito") carregarAnalytics();
-  else if (escolha === "recusado") apagarCookiesAnalytics();
-  else abrir();
+  /* Fechar o painel sem escolher (X, Esc) devolve o foco a quem o abriu;
+     se ainda não houve escolha, o banner continua lá. */
+  painel.addEventListener("close", function () {
+    if (origemDoFoco && document.contains(origemDoFoco)) origemDoFoco.focus();
+    origemDoFoco = null;
+  });
+
+  var salvo = lerGuardado();
+  if (escolhaValida(salvo)) {
+    categorias = {};
+    CATEGORIAS.forEach(function (c) { categorias[c] = !!salvo.categorias[c]; });
+    aplicar();
+  } else {
+    /* Sem escolha (ou de uma versão anterior do banner): nada liga, e o que
+       o site antigo gravou sem pedir é apagado. */
+    categorias = { analiticos: false, publicidade: false };
+    apagarCookies(/^_ga(_|$)/);
+    abrirBanner();
+  }
+})();
+
+/* js/emarsys.js */
+/* Emarsys (SAP), a mesma conta do site atual (HS.config.emarsysId):
+   rastreamento de navegação e campanhas no próprio site (Web Channel).
+   Só carrega com a categoria "Publicidade" aceita no banner de cookies, e só
+   nos domínios oficiais (js/cookies.js). Manda os mesmos eventos que o site
+   atual manda:
+   - menu_click: links do menu principal (cabeçalho e menu do celular);
+   - menu_links: links do rodapé;
+   - social_click: redes sociais do rodapé;
+   - ubots_form: nome e e-mail informados ao abrir o chat (com setEmail).
+   Ao desligar a categoria, para de enviar na hora e apaga os cookies scarab.*
+   e o que o Web Channel guardou no navegador (wps-*). */
+(function () {
+  "use strict";
+
+  var cfg = (window.HS && HS.config) || {};
+  if (!cfg.emarsysId || !window.HS || !HS.cookies) return;
+
+  var carregado = false;
+  window.ScarabQueue = window.ScarabQueue || [];
+
+  function ativo() {
+    return HS.cookies.oficial && HS.cookies.permitido("publicidade");
+  }
+
+  function ligar() {
+    if (carregado || !ativo()) return;
+    carregado = true;
+    var s = document.createElement("script");
+    s.id = "scarab-js-api";
+    s.src = "https://cdn.scarabresearch.com/js/" + cfg.emarsysId + "/scarab-v2.js";
+    document.head.appendChild(s);
+    ScarabQueue.push(["go"]);
+  }
+
+  function desligar() {
+    HS.cookies.apagarCookies(/^scarab\./);
+    [localStorage, sessionStorage].forEach(function (area) {
+      try {
+        Object.keys(area).forEach(function (k) { if (/^wps/.test(k)) area.removeItem(k); });
+      } catch (e) { /* armazenamento bloqueado: não há o que apagar */ }
+    });
+  }
+
+  /* Cada evento depois do carregamento precisa de um "go" para ser enviado. */
+  function enviar(comandos) {
+    if (!ativo()) return;
+    comandos.forEach(function (c) { ScarabQueue.push(c); });
+    ScarabQueue.push(["go"]);
+  }
+
+  function texto(el) {
+    return (el.getAttribute("aria-label") || el.textContent).replace(/\s+/g, " ").trim();
+  }
+
+  document.addEventListener("click", function (e) {
+    var link = e.target.closest("a[href]");
+    if (!link || !ativo()) return;
+    if (link.closest(".nav, .mnav")) {
+      enviar([["tag", "menu_click", { texto: texto(link), url: link.href }]]);
+    } else if (link.closest(".ft__soc")) {
+      enviar([["tag", "social_click", { redeSocial: texto(link), url: link.href }]]);
+    } else if (link.closest(".ft")) {
+      enviar([["tag", "menu_links", { texto: texto(link), url: link.href }]]);
+    }
+  });
+
+  /* O formulário do chat é criado pelo widget da Ubots depois do carregamento:
+     o envio é capturado no document. */
+  document.addEventListener("submit", function (e) {
+    var form = e.target;
+    if (!form.matches || !form.matches("#ubots-form-div form.ubots-form") || !ativo()) return;
+    var nome = form.querySelector("#ubots-name");
+    var email = form.querySelector("#ubots-email");
+    nome = nome ? nome.value.trim() : "";
+    email = email ? email.value.trim() : "";
+    if (!email) return;
+    enviar([["setEmail", email], ["tag", "ubots_form", { nome: nome, email: email }]]);
+  }, true);
+
+  document.addEventListener("hs:cookies", function () {
+    if (ativo()) ligar(); else desligar();
+  });
+
+  if (ativo()) ligar(); else desligar();
 })();
 
 /* js/aviso.js */

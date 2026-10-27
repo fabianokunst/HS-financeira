@@ -36,8 +36,9 @@ python -m http.server 8080     # ou: npm run serve
 ```
 
 **Para publicar:** copie a pasta (menos `tools/`, `reference/`, `docs/` e os
-arquivos de configuração) para o servidor, **incluindo o `.htaccess` e o
-`404.html`**, ou aponte Netlify/Vercel/S3/nginx para a raiz do repositório e
+arquivos de configuração) para o servidor, **incluindo o `.htaccess`, o
+`404.html` e a pasta `api/`** (o registro dos consentimentos de cookies, que
+precisa de PHP — ver "Registro dos consentimentos"), ou aponte Netlify/Vercel/S3/nginx para a raiz do repositório e
 reproduza nele as regras do `.htaccess`. Não há etapa de build. Atenção: as
 páginas linkam documentos em `https://hsfinanceira.com.br/wp-content/uploads/…`
 (contratos, políticas, relatórios, demonstrações financeiras), que hoje moram
@@ -66,6 +67,7 @@ HS-Financeira/
 ├── category/categoria/        # lista do blog (endereço herdado do WordPress)
 ├── 404.html                   # página de endereço inexistente (caminhos absolutos)
 ├── .htaccess                  # https sem www, 301 dos endereços só do WordPress, 404
+├── api/consentimento.php      # registro dos consentimentos de cookies (PHP)
 ├── css/
 │   ├── base/
 │   │   ├── tokens.css          # cores, fontes, espaçamento, tema claro/escuro
@@ -80,9 +82,10 @@ HS-Financeira/
 │       ├── pagina.css          # blocos das páginas internas (abertura, texto, etapas, arquivos…)
 │       └── aviso-pagina.css    # só da aviso/
 ├── js/
-│   ├── config.js               # taxa do simulador, ID do Analytics e parâmetros de negócio
+│   ├── config.js               # taxa do simulador, contas do GA e do Emarsys, parâmetros
 │   ├── utils/format.js         # formatação de números em pt-BR
-│   ├── cookies.js              # banner de consentimento (LGPD) e Google Analytics 4
+│   ├── cookies.js              # banner de consentimento por categoria (LGPD) e Google Analytics 4
+│   ├── emarsys.js              # Emarsys (categoria "Publicidade") e os eventos de clique
 │   ├── aviso.js                # cartão de aviso contra golpes, uma vez por dia
 │   ├── nav.js                  # menu mobile
 │   ├── accordion.js            # FAQ
@@ -140,24 +143,49 @@ na primeira página aberta no dia. A data fica no `localStorage`
 DevTools. Na primeira visita o cartão espera a escolha de cookies, cuja barra
 ocupa a base da tela.
 
-**Analytics e banner de cookies** — o Google Analytics 4 é a mesma propriedade
-do site atual (`analyticsId` em [`js/config.js`](js/config.js)) e só é
-carregado **depois do "Aceitar"** no banner (seção `COOKIES`, copiada para todas
-as páginas pelo `npm run paginas`). O banner é réplica do site atual (plugin
-CookieYes): barra na base da tela com os mesmos textos, "Recusar", "Aceitar" e
-o X, que vale como "Recusar". Antes da escolha, e com "Recusar", nada vai
-para o Google; ao recusar, os cookies `_ga` são apagados e, se o Analytics já
-estava rodando na página (quem aceitou e mudou de ideia pelo rodapé), ele para
-de enviar na hora, sem esperar recarregar. A escolha fica no
-`localStorage` (`hs-cookies`) por `cookiesValidadeDias` e pode ser mudada em
-"Preferências de cookies", no rodapé. Em homologação, no `localhost`, aberto
-direto do disco e no arquivo único de `compartilhar/` o banner funciona, mas o
-Analytics só carrega nos domínios de `analyticsDominios`. Para ver o banner de
-novo depois de escolher, apague a chave `hs-cookies` no DevTools ou use
-"Preferências de cookies". Diferença em
-relação ao site atual: lá o banner não bloqueia nada e o Analytics mede todo
-mundo, então os números vão cair depois da troca — passam a contar só quem
-aceita.
+**Cookies e ferramentas de terceiros** — o site usa as mesmas ferramentas do
+site atual, com as mesmas contas (em [`js/config.js`](js/config.js)), e cada
+uma só carrega com a sua categoria aceita no banner (seção `COOKIES`, copiada
+para todas as páginas pelo `npm run paginas`):
+
+| Categoria | Ferramenta | O que faz |
+|---|---|---|
+| Necessários (sempre) | escolha de cookies, aviso de golpes, chat da Ubots | só `localStorage`/`sessionStorage` do próprio site e do chat |
+| Analíticos | Google Analytics 4 (`analyticsId`) | visitas e páginas vistas; sinais de anúncio do Google sempre negados |
+| Publicidade | Emarsys/SAP (`emarsysId`, [`js/emarsys.js`](js/emarsys.js)) | rastreamento e campanhas no site; os mesmos eventos do site atual: `menu_click`, `menu_links`, `social_click` e `ubots_form` (nome e e-mail do chat) |
+
+O banner segue o formato do CookieYes do site atual: barra na base da tela com
+os mesmos textos, "Aceitar" (liga tudo), "Recusar" e o X (só os necessários) e
+"Personalizar", que abre o painel com a relação acima e uma chave por
+categoria — o mesmo painel abre em "Preferências de cookies", no rodapé.
+Antes da escolha nada de terceiros carrega, e os cookies que o site antigo
+gravava sem pedir (`_ga`, `scarab.*`) são apagados. Ao desligar uma categoria,
+os cookies dela somem e o que já rodava na página para de enviar na hora.
+
+A escolha fica no `localStorage` (`hs-cookies`) por `cookiesValidadeDias`.
+**Ao incluir ou tirar uma ferramenta**, atualize a relação no painel (bloco
+`COOKIES` do `index.html`, depois `npm run paginas`) e a data de
+`cookiesVersao`: todo mundo é perguntado de novo. Em homologação, no
+`localhost`, aberto do disco e no arquivo único o banner funciona, mas nenhuma
+ferramenta carrega fora de `dominiosOficiais`. Para ver o banner de novo,
+apague a chave `hs-cookies` no DevTools ou use "Preferências de cookies".
+Diferença em relação ao site atual: lá o banner não bloqueia nada e tudo mede
+todo mundo, então os números do GA e do Emarsys vão cair depois da troca —
+passam a contar só quem aceita.
+
+**Registro dos consentimentos** — a LGPD pede que quem coleta consiga provar o
+consentimento (art. 8º, § 2º). A cada escolha, o `js/cookies.js` manda para
+[`api/consentimento.php`](api/consentimento.php) o identificador aleatório do
+navegador, a versão do banner, a ação e cada categoria; o PHP grava uma linha
+por escolha, com data, página, IP sem o último bloco e navegador, em
+`consentimentos-AAAA-MM.jsonl`, numa pasta **fora** da área pública:
+`consentimentos-cookies/`, ao lado da pasta do site (ou onde a variável de
+ambiente `HS_CONSENTIMENTOS_DIR` indicar). Precisa de PHP 8, que a hospedagem
+atual já tem (LiteSpeed, PHP 8.5). Para consultar um caso, procure o
+identificador (fica no `hs-cookies` do navegador da pessoa) nesses arquivos.
+O site atual não guarda registro nenhum: o CookieYes de lá é a versão gratuita,
+que só guarda a escolha no navegador. Para testar localmente:
+`php -S 127.0.0.1:8099 -t .` (o `python -m http.server` não roda PHP).
 
 **Logo e favicon — não alterar** — são os arquivos oficiais do site atual
 (hsfinanceira.com.br), copiados sem nenhuma edição. Não redesenhe, recolora,
