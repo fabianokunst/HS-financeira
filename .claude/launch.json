@@ -31,6 +31,17 @@
       ],
       "port": 8097,
       "autoPort": false
+    },
+    {
+      "name": "lojas",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8098"
+      ],
+      "port": 8098,
+      "autoPort": false
     }
   ]
 }

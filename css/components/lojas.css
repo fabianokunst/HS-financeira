@@ -1,0 +1,27 @@
+/* Selos das lojas de aplicativos — Google Play e App Store.
+   Seguem o desenho dos selos oficiais: fundo preto, borda cinza, logo da loja
+   e duas linhas de texto ("Disponível no" / "Baixar na" + nome da loja).
+   Preto nos dois temas, como os selos oficiais; a borda os separa do fundo escuro. */
+
+.loja{
+  display:inline-flex;align-items:center;gap:11px;
+  min-height:54px;padding:8px 20px 8px 15px;border-radius:var(--r-btn);
+  background:#000;color:#fff;border:1px solid #A6A6A6;
+  transition:background .18s,border-color .18s,transform .18s;
+}
+.loja:hover{background:#1F1C26;border-color:#fff}
+.loja:active{transform:translateY(1px)}
+.loja svg{flex:0 0 auto;width:27px;height:27px}
+.loja__txt{display:flex;flex-direction:column;gap:3px;line-height:1;text-align:left;white-space:nowrap}
+.loja__txt small{font-size:11px;font-weight:600;letter-spacing:.01em}
+.loja__txt b{font-size:19px;font-weight:700;letter-spacing:-.015em}
+.loja--play .loja__txt small{font-size:9.5px;letter-spacing:.07em;text-transform:uppercase}
+/* No celular os dois selos encolhem para caber lado a lado */
+@media(max-width:430px){
+  .loja{gap:8px;min-height:48px;padding:7px 13px 7px 11px}
+  .loja svg{width:22px;height:22px}
+  .loja__txt small{font-size:9.5px}
+  .loja__txt b{font-size:16px}
+  .loja--play .loja__txt small{font-size:8.5px}
+}
+@media(prefers-reduced-motion:reduce){.loja{transition:none}.loja:active{transform:none}}
