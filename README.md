@@ -92,7 +92,8 @@ HS-Financeira/
 │   ├── simulador.js            # cálculo da parcela
 │   └── chat.js                 # inicia o chat de atendimento (Ubots)
 ├── assets/
-│   ├── img/                    # as 5 fotos da página
+│   ├── img/                    # as 5 fotos da página inicial
+│   │   └── paginas/            # foto de pessoa das páginas internas (a mesma do site atual)
 │   ├── favicon/                # favicons oficiais do site atual (.ico, 32, 192 e 180px)
 │   ├── og/                     # imagem de compartilhamento (WhatsApp, redes), 1200×630
 │   └── marca/                  # logo oficial (branco, vermelho e símbolo) — não alterar
@@ -133,6 +134,19 @@ as imagens são ~70% do peso do arquivo único. Foto de banco de imagens: anote 
 origem aqui. `empresas-executivos.jpg` (faixa Para empresas) é do Unsplash, de
 Rodrigo Rodrigues | WOLF ΛRT — https://unsplash.com/photos/dGrDvseyRhs — sob a
 Licença Unsplash (uso comercial livre, crédito não obrigatório).
+
+**Fotos das páginas internas** — as páginas que no site atual têm foto de
+pessoa usam a mesma foto aqui, discreta, no topo do quadro-resumo da abertura
+(`.resumo__foto` em [`css/sections/pagina.css`](css/sections/pagina.css)):
+Crédito Pessoal, Consignado INSS, Cartão Hoje, CDC, Investimentos, Antecipação
+de recebíveis, CDC PJ e Nossa história. Os arquivos em `assets/img/paginas/`
+saem dos PNGs recortados do WordPress (`/wp-content/uploads/2022/…`, mesma
+pessoa, sem retoque): recortados na altura do peito numa tela transparente de
+768×320, em WebP (11–22 KB cada; o original do Cartão Hoje tem 23 MB). O fundo
+rosado vem do CSS (`--brand-wash`), por isso acompanha o tema escuro. Para
+trocar, gere um WebP no mesmo formato, com a pessoa encostada na base, e mude
+também o `sitemap.xml`. Páginas sem foto de pessoa no site atual (políticas,
+governança, contato…) ficam sem foto.
 
 **Mudar o aviso contra golpes** — o texto aparece em dois lugares: no cartão
 de aviso do `index.html` (seção `AVISO`) e no comunicado da `aviso/index.html`.
