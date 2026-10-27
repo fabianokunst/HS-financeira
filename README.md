@@ -126,8 +126,8 @@ troque o nome também no `index.html`). Vale recomprimir antes: as imagens são
 
 **Mudar o aviso contra golpes** — o texto aparece em dois lugares: na faixa do
 topo do `index.html` (seção `AVISO`) e no comunicado da `aviso/index.html`. Mantenha
-os dois iguais. Ao fechar a faixa no "x", ela fica fechada até o fim da visita
-(`sessionStorage`); numa nova visita volta a aparecer.
+os dois iguais. O "x" fecha a faixa só na página aberta: nada fica guardado no
+navegador, então ela aparece sempre que o site é aberto ou recarregado.
 
 **Logo e favicon — não alterar** — são os arquivos oficiais do site atual
 (hsfinanceira.com.br), copiados sem nenhuma edição. Não redesenhe, recolora,
