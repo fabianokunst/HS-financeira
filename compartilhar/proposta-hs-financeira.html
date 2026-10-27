@@ -248,6 +248,45 @@
   .ubots-webchat-button-message{z-index:40}
   .ubots-chat-box{z-index:60}
 
+  /* css/components/cookies.css */
+  /* Banner de consentimento de cookies (LGPD). Mesmo canto e mesmo desenho do
+     cartão de aviso contra golpes, que só abre depois da escolha (js/aviso.js);
+     no celular, painel encostado na base da tela. O canto direito é do botão do
+     chat. Começa com [hidden]; o js/cookies.js mostra enquanto não há escolha. */
+
+  .ck{
+    position:fixed;z-index:56;
+    left:24px;bottom:24px;
+    width:min(420px,calc(100vw - 48px));
+    max-height:calc(100svh - 48px);overflow-y:auto;overscroll-behavior:contain;
+    background:var(--paper);color:var(--ink-2);
+    border:1px solid var(--line);border-radius:var(--r);
+    box-shadow:var(--shadow-lift);
+    font-size:13.5px;line-height:1.6;
+    animation:ck-entra .28s ease both;
+  }
+  .ck[hidden]{display:none}
+  .ck__in{padding:18px 20px 20px;display:grid;gap:14px}
+  .ck__h{font-size:15.5px;font-weight:700;color:var(--ink);margin-bottom:6px}
+  .ck__txt p{margin:0;text-wrap:pretty}
+  .ck__txt b{color:var(--ink);font-weight:600}
+  .ck__txt a{color:var(--brand);font-weight:700;border-bottom:1px solid transparent}
+  .ck__txt a:hover{border-bottom-color:var(--brand)}
+  .ck__acts{display:flex;gap:10px}
+  .ck__acts .btn{flex:1;padding:10px 16px;font-size:14.5px}
+  @keyframes ck-entra{from{opacity:0;transform:translateY(14px)}}
+
+  @media(max-width:620px){
+    .ck{
+      left:0;right:0;bottom:0;width:auto;max-height:75svh;
+      border-width:1px 0 0;border-radius:var(--r) var(--r) 0 0;
+    }
+    .ck__in{padding:16px var(--gut) calc(18px + env(safe-area-inset-bottom))}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .ck{animation:none}
+  }
+
   /* css/sections/aviso.css */
   /* Aviso contra golpes: cartão flutuante no canto inferior esquerdo (no celular,
      painel encostado na base da tela). Começa escondido; o aviso.js abre uma
@@ -765,8 +804,9 @@
   .ft__about{margin-top:16px;line-height:1.6;max-width:34ch}
   .ft h2{font-size:14px;font-weight:800;letter-spacing:0;color:#fff;margin-bottom:14px}
   .ft__col ul{display:grid;gap:9px}
-  .ft__col a{border-bottom:1px solid transparent}
-  .ft__col a:hover{border-bottom-color:#fff}
+  .ft__col a,.ft__col button{border-bottom:1px solid transparent}
+  .ft__col a:hover,.ft__col button:hover{border-bottom-color:#fff}
+  .ft__col button{text-align:left;line-height:inherit}
   .ft :focus-visible{outline-color:#fff}
   .ft__phones{display:grid;gap:12px;margin-top:18px}
   .ft__ph{display:flex;flex-direction:column;gap:1px}
@@ -1734,6 +1774,7 @@
         <li><a href="https://hsfinanceira.com.br/canal-de-etica-e-denuncia/">Canal de Ética e Denúncia</a></li>
         <li><a href="https://hsfinanceira.com.br/lgpd/">LGPD</a></li>
         <li><a href="https://hsfinanceira.com.br/politicas-de-privacidade-e-transparencia/">Privacidade e transparência</a></li>
+        <li><button type="button" data-cookies="abrir">Preferências de cookies</button></li>
         <li><a href="https://hsfinanceira.com.br/cadastro-positivo-2/">Cadastro Positivo</a></li>
         <li><a href="https://hsfinanceira.com.br/category/categoria/">Blog</a></li>
         <li><a href="https://hsfinanceira.gupy.io/">Trabalhe conosco</a></li>
@@ -1764,6 +1805,22 @@
   </div>
 </footer>
 
+<!-- ══════════════ COOKIES ══════════════ -->
+<div class="ck" id="cookies" role="region" aria-labelledby="ck-titulo" hidden>
+  <!-- Consentimento de cookies (LGPD). Escondido até o js/cookies.js decidir;
+       sem JavaScript não há banner e também não há Google Analytics. -->
+  <div class="ck__in">
+    <div class="ck__txt">
+      <p class="ck__h" id="ck-titulo">Valorizamos a sua privacidade!</p>
+      <p>Usamos cookies de análise (Google Analytics) para entender como o site é usado e melhorar a sua navegação. Eles só são ativados se você clicar em <b>"Aceitar"</b>, e você pode mudar de ideia em "Preferências de cookies", no rodapé. <a href="https://hsfinanceira.com.br/politicas-de-privacidade-e-transparencia/">Saiba mais</a></p>
+    </div>
+    <div class="ck__acts">
+      <button class="btn btn--line" type="button" data-cookies="recusar">Recusar</button>
+      <button class="btn btn--solid" type="button" data-cookies="aceitar">Aceitar</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* js/config.js */
 /* Parâmetros de negócio da página.
@@ -1780,7 +1837,17 @@ HS.config = {
   prazoPadrao: 18,
 
   /* Largura, em px, a partir da qual o menu mobile é fechado. */
-  breakpointMenu: 960
+  breakpointMenu: 960,
+
+  /* Google Analytics 4: a mesma propriedade do site atual. Só é carregado
+     depois do "Aceitar" no banner de cookies (js/cookies.js) e só nestes
+     domínios — em homologação e no localhost o banner funciona, mas nada vai
+     para o Google, para não misturar testes com os dados reais. */
+  analyticsId: "G-K19JZS99WR",
+  analyticsDominios: ["hsfinanceira.com.br", "www.hsfinanceira.com.br"],
+
+  /* Depois de quantos dias a escolha de cookies é perguntada de novo. */
+  cookiesValidadeDias: 365
 };
 
 /* js/utils/format.js */
@@ -1815,6 +1882,122 @@ HS.format = (function () {
       return { inteiro: p[0], centavos: p[1] };
     }
   };
+})();
+
+/* js/cookies.js */
+/* Consentimento de cookies (LGPD) e Google Analytics 4.
+   O Analytics só é carregado depois do "Aceitar": antes da escolha, e se a
+   pessoa recusar, nenhuma requisição vai para o Google. A escolha fica no
+   localStorage ("hs-cookies") por HS.config.cookiesValidadeDias e pode ser
+   mudada a qualquer momento em "Preferências de cookies", no rodapé.
+   Ao recusar, os cookies do Analytics (_ga, _ga_…) são apagados — inclusive
+   os que o site antigo gravava sem pedir.
+   Aberto direto do disco (file://, o arquivo de compartilhar/) não há banner
+   nem Analytics. Fora dos domínios de HS.config.analyticsDominios o banner
+   funciona, mas o Analytics não é carregado.
+   Enquanto o banner está aberto, HS.cookies.pendente é true; ao escolher,
+   dispara o evento "hs:cookies" no document (o aviso contra golpes espera
+   por ele para não disputar o mesmo canto da tela). */
+(function () {
+  "use strict";
+
+  var banner = document.getElementById("cookies");
+  if (!banner || location.protocol === "file:") return;
+
+  var cfg = (window.HS && HS.config) || {};
+  var CHAVE = "hs-cookies";
+  var DIA = 864e5;
+  var carregado = false;
+  var origemDoFoco = null;
+
+  window.HS = window.HS || {};
+  HS.cookies = { pendente: false, abrir: abrir };
+
+  function lerEscolha() {
+    try {
+      var salvo = JSON.parse(localStorage.getItem(CHAVE));
+      var validade = (cfg.cookiesValidadeDias || 365) * DIA;
+      if (salvo && /^(aceito|recusado)$/.test(salvo.escolha) && Date.now() - salvo.em < validade) return salvo.escolha;
+    } catch (e) { /* sem localStorage: pergunta de novo a cada página */ }
+    return null;
+  }
+
+  function salvarEscolha(escolha) {
+    try { localStorage.setItem(CHAVE, JSON.stringify({ escolha: escolha, em: Date.now() })); } catch (e) { /* vale só para esta página */ }
+  }
+
+  function carregarAnalytics() {
+    if (carregado || !cfg.analyticsId) return;
+    if ((cfg.analyticsDominios || []).indexOf(location.hostname) === -1) return;
+    carregado = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    /* Consentimento só para análise: nada de anúncios nem personalização. */
+    gtag("consent", "default", {
+      analytics_storage: "granted",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied"
+    });
+    gtag("js", new Date());
+    gtag("config", cfg.analyticsId);
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(cfg.analyticsId);
+    document.head.appendChild(s);
+  }
+
+  function apagarCookiesAnalytics() {
+    var dominio = location.hostname.replace(/^www\./, "");
+    document.cookie.split(";").forEach(function (par) {
+      var nome = par.split("=")[0].trim();
+      if (!/^_ga(_|$)/.test(nome)) return;
+      ["", "; domain=" + dominio, "; domain=." + dominio].forEach(function (d) {
+        document.cookie = nome + "=; Max-Age=0; path=/" + d;
+      });
+    });
+  }
+
+  function abrir() {
+    HS.cookies.pendente = true;
+    banner.hidden = false;
+  }
+
+  function escolher(escolha) {
+    salvarEscolha(escolha);
+    banner.hidden = true;
+    var eraPendente = HS.cookies.pendente;
+    HS.cookies.pendente = false;
+    if (escolha === "aceito") {
+      carregarAnalytics();
+    } else {
+      /* Quem aceitou e mudou de ideia nesta mesma página para de ser medido já. */
+      if (carregado) gtag("consent", "update", { analytics_storage: "denied" });
+      apagarCookiesAnalytics();
+    }
+    if (origemDoFoco) { origemDoFoco.focus(); origemDoFoco = null; }
+    if (eraPendente) document.dispatchEvent(new CustomEvent("hs:cookies", { detail: { escolha: escolha } }));
+  }
+
+  document.addEventListener("click", function (e) {
+    var alvo = e.target.closest("[data-cookies]");
+    if (!alvo) return;
+    var acao = alvo.getAttribute("data-cookies");
+    if (acao === "abrir") {
+      origemDoFoco = alvo;
+      abrir();
+      banner.querySelector("[data-cookies]").focus();
+    } else if (acao === "aceitar") {
+      escolher("aceito");
+    } else if (acao === "recusar") {
+      escolher("recusado");
+    }
+  });
+
+  var escolha = lerEscolha();
+  if (escolha === "aceito") carregarAnalytics();
+  else if (escolha === "recusado") apagarCookiesAnalytics();
+  else abrir();
 })();
 
 /* js/aviso.js */
@@ -1865,10 +2048,20 @@ HS.format = (function () {
 
   if (jaApareceuHoje()) return;
 
-  setTimeout(function () {
-    marcarHoje();
-    aviso.classList.add("is-open");
-  }, ATRASO);
+  function abrir() {
+    setTimeout(function () {
+      marcarHoje();
+      aviso.classList.add("is-open");
+    }, ATRASO);
+  }
+
+  /* Com o banner de cookies aberto (primeira visita), o cartão espera a
+     escolha: os dois usam o mesmo canto da tela (no celular, a base). */
+  if (window.HS && HS.cookies && HS.cookies.pendente) {
+    document.addEventListener("hs:cookies", abrir, { once: true });
+  } else {
+    abrir();
+  }
 })();
 
 /* js/nav.js */

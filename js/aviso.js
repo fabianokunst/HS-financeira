@@ -45,8 +45,18 @@
 
   if (jaApareceuHoje()) return;
 
-  setTimeout(function () {
-    marcarHoje();
-    aviso.classList.add("is-open");
-  }, ATRASO);
+  function abrir() {
+    setTimeout(function () {
+      marcarHoje();
+      aviso.classList.add("is-open");
+    }, ATRASO);
+  }
+
+  /* Com o banner de cookies aberto (primeira visita), o cartão espera a
+     escolha: os dois usam o mesmo canto da tela (no celular, a base). */
+  if (window.HS && HS.cookies && HS.cookies.pendente) {
+    document.addEventListener("hs:cookies", abrir, { once: true });
+  } else {
+    abrir();
+  }
 })();

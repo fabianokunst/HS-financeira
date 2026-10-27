@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="../css/components/field.css">
   <link rel="stylesheet" href="../css/components/chips.css">
   <link rel="stylesheet" href="../css/components/chat.css">
+  <link rel="stylesheet" href="../css/components/cookies.css">
   <link rel="stylesheet" href="../css/sections/aviso.css">
   <link rel="stylesheet" href="../css/sections/rail.css">
   <link rel="stylesheet" href="../css/sections/header.css">
@@ -253,6 +254,7 @@
         <li><a href="../canal-de-etica-e-denuncia/">Canal de Ética e Denúncia</a></li>
         <li><a href="../lgpd/">LGPD</a></li>
         <li><a href="../politicas-de-privacidade-e-transparencia/">Privacidade e transparência</a></li>
+        <li><button type="button" data-cookies="abrir">Preferências de cookies</button></li>
         <li><a href="../cadastro-positivo-2/">Cadastro Positivo</a></li>
         <li><a href="../category/categoria/">Blog</a></li>
         <li><a href="https://hsfinanceira.gupy.io/">Trabalhe conosco</a></li>
@@ -283,10 +285,27 @@
   </div>
 </footer>
 
+<!-- ══════════════ COOKIES ══════════════ -->
+<div class="ck" id="cookies" role="region" aria-labelledby="ck-titulo" hidden>
+  <!-- Consentimento de cookies (LGPD). Escondido até o js/cookies.js decidir;
+       sem JavaScript não há banner e também não há Google Analytics. -->
+  <div class="ck__in">
+    <div class="ck__txt">
+      <p class="ck__h" id="ck-titulo">Valorizamos a sua privacidade!</p>
+      <p>Usamos cookies de análise (Google Analytics) para entender como o site é usado e melhorar a sua navegação. Eles só são ativados se você clicar em <b>"Aceitar"</b>, e você pode mudar de ideia em "Preferências de cookies", no rodapé. <a href="../politicas-de-privacidade-e-transparencia/">Saiba mais</a></p>
+    </div>
+    <div class="ck__acts">
+      <button class="btn btn--line" type="button" data-cookies="recusar">Recusar</button>
+      <button class="btn btn--solid" type="button" data-cookies="aceitar">Aceitar</button>
+    </div>
+  </div>
+</div>
+
 <!-- Scripts comuns: copiados do index.html por tools/paginas.mjs. -->
 <!-- comum:scripts -->
 <script src="../js/config.js"></script>
 <script src="../js/utils/format.js"></script>
+<script src="../js/cookies.js"></script>
 <script src="../js/aviso.js"></script>
 <script src="../js/nav.js"></script>
 <script src="../js/links-locais.js"></script>

@@ -15,7 +15,8 @@
  *     theme-color, ícones, fontes e o CSS de fundação, componentes e blocos
  *     comuns (tudo menos o CSS das seções que só existem na página inicial);
  *   - no <body>, os blocos AVISO, TOP RAIL, HEADER e FOOTER — só os que a
- *     página tiver (a página do aviso, por exemplo, não repete a faixa AVISO);
+ *     página tiver (a página do aviso, por exemplo, não repete a faixa AVISO) —
+ *     e o banner COOKIES, que entra logo depois do rodapé se a página não o tiver;
  *   - antes de </body>, entre <!-- comum:scripts --> e <!-- /comum:scripts -->,
  *     os scripts comuns.
  *
@@ -44,7 +45,11 @@ const VERIFICAR = process.argv.includes("--verificar");
 const FORA = new Set(["assets", "css", "js", "docs", "tools", "compartilhar", "reference", "node_modules", "wp-content"]);
 
 /* Blocos copiados do index.html, pelo nome do comentário de seção. */
-const BLOCOS = ["AVISO", "TOP RAIL", "HEADER", "FOOTER"];
+const BLOCOS = ["AVISO", "TOP RAIL", "HEADER", "FOOTER", "COOKIES"];
+
+/* Blocos que toda página com o bloco de referência recebe, logo depois dele,
+   mesmo que ainda não os tenha. */
+const INSERIR_DEPOIS = { COOKIES: "FOOTER" };
 
 /* CSS e JS das seções que só existem na página inicial ficam de fora do comum. */
 const SO_DA_HOME = /(?:css\/sections\/(?!(?:aviso|rail|header|cta-final|footer)\.css)[^"]+|js\/(?:simulador|accordion)\.js)"/;
@@ -165,8 +170,12 @@ function montar(pagina, html, comum, enderecosLocais) {
 
   for (const nome of BLOCOS) {
     const atual = acharBloco(html, nome);
-    if (!atual) continue;
-    html = html.slice(0, atual.inicio) + ajustar(comum.blocos[nome]) + html.slice(atual.fim);
+    if (atual) {
+      html = html.slice(0, atual.inicio) + ajustar(comum.blocos[nome]) + html.slice(atual.fim);
+      continue;
+    }
+    const referencia = INSERIR_DEPOIS[nome] && acharBloco(html, INSERIR_DEPOIS[nome]);
+    if (referencia) html = html.slice(0, referencia.fim) + "\n\n" + ajustar(comum.blocos[nome]) + html.slice(referencia.fim);
   }
 
   const scripts = trocarRegiao(html, "<!-- comum:scripts -->", "<!-- /comum:scripts -->", "", comum.scripts.map(ajustar));

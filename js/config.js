@@ -12,5 +12,15 @@ HS.config = {
   prazoPadrao: 18,
 
   /* Largura, em px, a partir da qual o menu mobile é fechado. */
-  breakpointMenu: 960
+  breakpointMenu: 960,
+
+  /* Google Analytics 4: a mesma propriedade do site atual. Só é carregado
+     depois do "Aceitar" no banner de cookies (js/cookies.js) e só nestes
+     domínios — em homologação e no localhost o banner funciona, mas nada vai
+     para o Google, para não misturar testes com os dados reais. */
+  analyticsId: "G-K19JZS99WR",
+  analyticsDominios: ["hsfinanceira.com.br", "www.hsfinanceira.com.br"],
+
+  /* Depois de quantos dias a escolha de cookies é perguntada de novo. */
+  cookiesValidadeDias: 365
 };

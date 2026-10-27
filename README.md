@@ -72,7 +72,7 @@ HS-Financeira/
 │   │   └── reset.css           # elementos base e utilitários (.wrap, .lede, .eyebrow)
 │   ├── layout/
 │   │   └── section.css         # casca de seção (.sec, .sec__head, .sec__h2)
-│   ├── components/             # reutilizáveis: buttons, tag, field, chips, chat
+│   ├── components/             # reutilizáveis: buttons, tag, field, chips, chat, cookies
 │   └── sections/               # um arquivo por seção, mesmo nome da seção
 │       ├── aviso.css  rail.css  header.css  hero.css  facts.css  produtos.css
 │       ├── simulador.css  split.css  empresas.css  parceiros.css  investimentos.css
@@ -80,8 +80,9 @@ HS-Financeira/
 │       ├── pagina.css          # blocos das páginas internas (abertura, texto, etapas, arquivos…)
 │       └── aviso-pagina.css    # só da aviso/
 ├── js/
-│   ├── config.js               # taxa do simulador e parâmetros de negócio
+│   ├── config.js               # taxa do simulador, ID do Analytics e parâmetros de negócio
 │   ├── utils/format.js         # formatação de números em pt-BR
+│   ├── cookies.js              # banner de consentimento (LGPD) e Google Analytics 4
 │   ├── aviso.js                # cartão de aviso contra golpes, uma vez por dia
 │   ├── nav.js                  # menu mobile
 │   ├── accordion.js            # FAQ
@@ -136,7 +137,21 @@ Mantenha os dois iguais. O cartão fica no canto inferior esquerdo — o direito
 do botão do chat — (no celular, encostado na base da tela) e aparece **uma vez por dia**:
 na primeira página aberta no dia. A data fica no `localStorage`
 (`hs-aviso-dia`); para ver o cartão de novo no mesmo dia, apague essa chave no
-DevTools.
+DevTools. Na primeira visita o cartão espera a escolha de cookies, que usa o
+mesmo canto da tela.
+
+**Analytics e banner de cookies** — o Google Analytics 4 é a mesma propriedade
+do site atual (`analyticsId` em [`js/config.js`](js/config.js)) e só é
+carregado **depois do "Aceitar"** no banner (seção `COOKIES`, copiada para todas
+as páginas pelo `npm run paginas`). Antes da escolha, e com "Recusar", nada vai
+para o Google; ao recusar, os cookies `_ga` são apagados. A escolha fica no
+`localStorage` (`hs-cookies`) por `cookiesValidadeDias` e pode ser mudada em
+"Preferências de cookies", no rodapé. Em homologação e no `localhost` o banner
+funciona, mas o Analytics só carrega nos domínios de `analyticsDominios`; no
+arquivo único de `compartilhar/` não há banner nem Analytics. Diferença em
+relação ao site atual: lá o banner não bloqueia nada e o Analytics mede todo
+mundo, então os números vão cair depois da troca — passam a contar só quem
+aceita.
 
 **Logo e favicon — não alterar** — são os arquivos oficiais do site atual
 (hsfinanceira.com.br), copiados sem nenhuma edição. Não redesenhe, recolora,

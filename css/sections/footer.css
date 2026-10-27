@@ -8,8 +8,9 @@
 .ft__about{margin-top:16px;line-height:1.6;max-width:34ch}
 .ft h2{font-size:14px;font-weight:800;letter-spacing:0;color:#fff;margin-bottom:14px}
 .ft__col ul{display:grid;gap:9px}
-.ft__col a{border-bottom:1px solid transparent}
-.ft__col a:hover{border-bottom-color:#fff}
+.ft__col a,.ft__col button{border-bottom:1px solid transparent}
+.ft__col a:hover,.ft__col button:hover{border-bottom-color:#fff}
+.ft__col button{text-align:left;line-height:inherit}
 .ft :focus-visible{outline-color:#fff}
 .ft__phones{display:grid;gap:12px;margin-top:18px}
 .ft__ph{display:flex;flex-direction:column;gap:1px}
