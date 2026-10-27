@@ -37,13 +37,14 @@ python -m http.server 8080     # ou: npm run serve
 
 **Para publicar:** copie a pasta (menos `tools/`, `reference/`, `docs/` e os
 arquivos de configuração) para o servidor, **incluindo o `.htaccess`, o
-`404.html` e a pasta `api/`** (o registro dos consentimentos de cookies, que
-precisa de PHP — ver "Registro dos consentimentos"), ou aponte Netlify/Vercel/S3/nginx para a raiz do repositório e
-reproduza nele as regras do `.htaccess`. Não há etapa de build. Atenção: as
-páginas linkam documentos em `https://hsfinanceira.com.br/wp-content/uploads/…`
-(contratos, políticas, relatórios, demonstrações financeiras), que hoje moram
-no WordPress — a pasta `wp-content/uploads/` precisa continuar no servidor
-depois da troca, ou esses links e os PDFs indexados no Google viram 404.
+`404.html` e a pasta `api/`** (o registro dos consentimentos de cookies e os
+formulários, que precisam de PHP — ver "Registro dos consentimentos" e
+"Formulários"), ou aponte Netlify/Vercel/S3/nginx para a raiz do repositório e
+reproduza nele as regras do `.htaccess`. Não há etapa de build. Publique
+também a pasta `wp-content/uploads/`: é a cópia de todos os arquivos que o
+WordPress servia (contratos, políticas, relatórios, demonstrações financeiras,
+imagens), nos mesmos endereços, para os links das páginas e os PDFs indexados
+no Google continuarem funcionando depois que o WordPress for apagado.
 
 **Para atualizar o arquivo único** depois de mexer no site:
 
@@ -68,13 +69,15 @@ HS-Financeira/
 ├── 404.html                   # página de endereço inexistente (caminhos absolutos)
 ├── .htaccess                  # https sem www, 301 dos endereços só do WordPress, 404
 ├── api/consentimento.php      # registro dos consentimentos de cookies (PHP)
+├── api/formulario.php         # Fale Conosco e pedidos da LGPD → Emarsys e e-mail (PHP)
 ├── css/
 │   ├── base/
 │   │   ├── tokens.css          # cores, fontes, espaçamento, tema claro/escuro
 │   │   └── reset.css           # elementos base e utilitários (.wrap, .lede, .eyebrow)
 │   ├── layout/
 │   │   └── section.css         # casca de seção (.sec, .sec__head, .sec__h2)
-│   ├── components/             # reutilizáveis: buttons, tag, field, chips, chat, cookies
+│   ├── components/             # reutilizáveis: buttons, tag, field, chips, chat, cookies,
+│   │                           #   formulario (só envie-nos-uma-mensagem/ e lgpd/)
 │   └── sections/               # um arquivo por seção, mesmo nome da seção
 │       ├── aviso.css  rail.css  header.css  hero.css  facts.css  produtos.css
 │       ├── simulador.css  split.css  empresas.css  parceiros.css  investimentos.css
@@ -91,6 +94,7 @@ HS-Financeira/
 │   ├── tema.js                 # seletor de modo escuro (o site abre sempre claro)
 │   ├── accordion.js            # FAQ
 │   ├── simulador.js            # cálculo da parcela
+│   ├── formulario.js           # Fale Conosco e pedidos da LGPD: confere, envia e confirma
 │   └── chat.js                 # inicia o chat de atendimento (Ubots)
 ├── assets/
 │   ├── img/                    # as 5 fotos da página inicial
@@ -105,7 +109,8 @@ HS-Financeira/
 ├── tools/seo-check.mjs         # confere SEO e sincroniza o JSON-LD do FAQ (npm run seo)
 ├── compartilhar/
 │   └── proposta-hs-financeira.html   # o arquivo para enviar ao time (751 KB)
-└── reference/                  # versão original, antes da organização
+├── wp-content/uploads/         # todos os arquivos do WordPress, nos mesmos endereços (ver "Cópia do WordPress")
+└── reference/                  # não publicado: cópia das páginas e do conteúdo do WordPress, versão original
 ```
 
 A ordem de carregamento mora no `index.html`: os `<link>` do `<head>` definem a
@@ -209,6 +214,45 @@ identificador (fica no `hs-cookies` do navegador da pessoa) nesses arquivos.
 O site atual não guarda registro nenhum: o CookieYes de lá é a versão gratuita,
 que só guarda a escolha no navegador. Para testar localmente:
 `php -S 127.0.0.1:8099 -t .` (o `python -m http.server` não roda PHP).
+
+**Formulários** — o Fale Conosco (`envie-nos-uma-mensagem/`) e os três pedidos
+da LGPD (`lgpd/`: excluir dados, opor-se ao tratamento, denunciar tratamento
+irregular) são os mesmos do site atual, com os mesmos campos. No WordPress
+eram formulários do Elementor (os da LGPD em popups) e um script mandava cada
+envio ao Emarsys por um iframe oculto, com nome, CPF, e-mail e telefone na URL.
+Aqui o [`js/formulario.js`](js/formulario.js) confere os campos (CPF pelos
+dígitos verificadores, telefone com DDD) e manda por POST para
+[`api/formulario.php`](api/formulario.php), que confere de novo e repassa:
+
+- ao **Emarsys**, de servidor para servidor, com a mesma chamada de hoje
+  (`link.cartaohoje.com.br/u/register.php`, CID 1093070733, um formulário por
+  tipo: Fale Conosco f=1413, exclusão 1414, oposição 1415, denúncia 1416). O
+  CPF vai só com os dígitos; o telefone, com 55 na frente; a pergunta do nome
+  social (exclusão e oposição) vai como S/N em `inp_17061`. Duas correções em
+  relação ao script atual: ele não mandava o nome social na oposição, que o
+  formulário 1415 do Emarsys exige, e não punha o 55 em telefones do DDD 55;
+- por **e-mail**, para `contato@` (Fale Conosco) ou `lgpd@` (LGPD), com
+  "Responder" indo para a pessoa e um número de protocolo, que ela também vê
+  na tela.
+
+Basta um dos dois dar certo; se os dois falham, a pessoa é avisada para usar o
+e-mail ou o telefone. Nada do envio fica gravado no servidor. Contra robôs, em
+vez do reCAPTCHA do site atual: um campo invisível que só robô preenche, um
+tempo mínimo de preenchimento e no máximo 5 envios por IP em 15 minutos (20
+por dia), contados num arquivo por IP embaralhado em `formularios-site/`, ao
+lado da pasta do site (ou em `HS_FORMULARIOS_DIR`). São um serviço que a pessoa
+pediu: não dependem do banner de cookies. Sem JavaScript, o formulário vai
+direto para o PHP, que responde com uma página simples.
+
+Fora de `hsfinanceira.com.br` (homologação, localhost) nada sai: o envio é
+conferido e respondido, mas sem Emarsys nem e-mail. Para testar o repasse,
+aponte `HS_FORMULARIOS_EMARSYS_URL` para um servidor de teste e
+`HS_FORMULARIOS_EMAIL_PARA` para uma caixa de teste (valem também no ar).
+O e-mail sai pela função `mail()` do PHP, de `nao-responda@hsfinanceira.com.br`
+(ou `HS_FORMULARIOS_REMETENTE`): **depois de publicar, mande um envio de teste
+de cada página e confira que chegou a `contato@` e a `lgpd@` e ao Emarsys** —
+se a hospedagem não entregar e-mail pelo `mail()`, o endereço remetente
+precisa estar autorizado no SPF do domínio ou é preciso usar SMTP.
 
 **Logo e favicon — não alterar** — são os arquivos oficiais do site atual
 (hsfinanceira.com.br), copiados sem nenhuma edição. Não redesenhe, recolora,
@@ -340,13 +384,34 @@ Regras que mantêm o SEO:
   solicitações da LGPD (`/lgpd/`) eram formulários do WordPress. O site estático
   ainda não tem para onde enviá-los: as páginas mostram os canais oficiais e um
   comentário `PENDENTE` no HTML lista os campos de cada formulário.
-- **Pendente — documentos:** os PDFs e imagens linkados continuam em
-  `/wp-content/uploads/…` (ver "Para publicar").
 - **Conferir com a HS:** o telefone da Cobrança na página do CDC (o site antigo
   dizia 3564-7374; o resto do site diz (51) 3564-8374, que foi o usado); o
   WhatsApp de investimentos sem o 55 (`phone=5140426468`), como no site antigo;
   e os comentários `Conferir` em `governanca/` e `divulgacao-de-resultados/`,
   onde o site antigo ligava dois períodos diferentes ao mesmo PDF.
+
+### Cópia do WordPress
+
+O WordPress (hospedado na Hostinger) vai ser apagado, e só o que está neste
+projeto fica. Em 27/10/2026 foi copiado, pelo próprio site, tudo o que ele
+publica:
+
+- **`wp-content/uploads/`** — 1.120 arquivos, 377 MB: os 279 itens da
+  biblioteca de mídia com todos os tamanhos gerados pelo WordPress (116 PDFs,
+  imagens, SVGs, um ZIP), as imagens dos modelos do Elementor e o CSS e as
+  fontes que ele gerava. Mesmos caminhos do servidor, byte a byte (ver
+  `.gitattributes`). Os 47 links do site novo para essa pasta têm o arquivo.
+- **`reference/wordpress/`** — o HTML dos 27 endereços, o conteúdo da API REST
+  (páginas, posts, mídia) e os sitemaps antigos. Detalhes no
+  [`LEIA-ME`](reference/LEIA-ME.md).
+
+O que não sai pelo site e só existe no painel da hospedagem: o **banco de
+dados** (com as mensagens recebidas pelos formulários de contato, LGPD e
+denúncia), o tema, os plugins, as configurações e 10 itens da biblioteca que
+pertencem a modelos não publicados do Elementor. Antes de apagar, baixe o
+backup completo (arquivos e banco) no painel da Hostinger e guarde-o em
+`backup-wordpress/`, na raiz: a pasta está no `.gitignore`, porque o banco tem
+dados pessoais e as senhas do `wp-config.php`, que não devem ir para o GitHub.
 
 ---
 

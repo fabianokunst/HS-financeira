@@ -3,6 +3,10 @@ node_modules/
 .DS_Store
 Thumbs.db
 
+# Backup completo do WordPress baixado do painel da hospedagem (banco com dados
+# pessoais e senhas do wp-config.php): fica só nesta máquina, nunca no GitHub.
+backup-wordpress/
+
 # Configuração local do Claude Code (hooks de sincronização desta máquina)
 .claude/settings.local.json
 

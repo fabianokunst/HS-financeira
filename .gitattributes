@@ -1,3 +1,8 @@
 * text=auto eol=lf
 *.jpg binary
 *.png binary
+
+# Cópia do WordPress: guardada byte a byte, sem converter fim de linha nos
+# CSS, JS, SVG e HTML que vieram do servidor antigo.
+wp-content/** -text
+reference/wordpress/** -text
