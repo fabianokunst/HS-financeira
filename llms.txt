@@ -62,4 +62,5 @@ Este arquivo resume, para assistentes de IA, as informações oficiais publicada
 - [Nossa história](https://hsfinanceira.com.br/nossa-historia/)
 - [LGPD e privacidade](https://hsfinanceira.com.br/lgpd/)
 - [Cadastro Positivo](https://hsfinanceira.com.br/cadastro-positivo-2/)
+- [Blog](https://hsfinanceira.com.br/category/categoria/): dicas de finanças pessoais (reserva de emergência, como escolher um serviço financeiro, cuidados com o dinheiro)
 - [Trabalhe conosco](https://hsfinanceira.gupy.io/)

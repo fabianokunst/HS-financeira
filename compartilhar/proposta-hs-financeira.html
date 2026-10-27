@@ -453,12 +453,18 @@
       gap:24px;padding-block:26px 32px;
     }
     .hero__media{order:-1;align-self:auto;display:block}
-    .hero__img{height:clamp(170px,28svh,270px);min-height:0;object-position:52% 24%}
+    /* na faixa baixa só cabe parte da foto: 72% enquadra o rosto e o celular */
+    .hero__img{height:clamp(170px,28svh,270px);min-height:0;object-position:52% 72%}
     .hero__badge{left:auto;right:14px;bottom:14px;padding:11px 15px;max-width:196px}
     .hero__badge b{font-size:23px}
     .hero__h1{margin-bottom:16px}
     .hero__tags{margin:18px 0 20px}
     .hero__fine{margin-top:14px}
+  }
+  /* No celular o selo ocupa metade da largura da foto e cobria o rosto da
+     cliente. O "Financeira do Grupo Herval · desde 2005" logo abaixo já diz o mesmo. */
+  @media(max-width:600px){
+    .hero__badge{display:none}
   }
 
   /* css/sections/facts.css */
@@ -687,6 +693,22 @@
   .docs a{font-size:13.5px;color:var(--ink-2);border-bottom:1px solid var(--line-strong);transition:color .18s,border-color .18s}
   .docs a:hover{color:var(--brand);border-bottom-color:var(--brand)}
   @media(max-width:820px){.docs{grid-template-columns:1fr}}
+
+  /* css/sections/novidades.css */
+  /* Novidades — os três posts do blog, como na home do site atual */
+
+  .nov__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .nov{
+    border:1px solid var(--line);border-radius:var(--r);padding:24px;background:var(--paper);height:100%;
+    display:flex;flex-direction:column;gap:9px;transition:border-color .18s,box-shadow .18s;
+  }
+  .nov:hover{border-color:var(--line-strong);box-shadow:var(--shadow-lift)}
+  .nov__dt{font-size:12.5px;color:var(--ink-faint)}
+  .nov__h{font:inherit;font-size:17px;font-weight:700;line-height:1.35;letter-spacing:-.01em;color:var(--ink)}
+  .nov p{font-size:13.5px;color:var(--ink-soft);line-height:1.55}
+  .nov__go{margin-top:auto;padding-top:12px;font-size:13.5px;font-weight:600;color:var(--brand)}
+  @media(max-width:820px){.nov__grid{grid-template-columns:1fr}}
+  @media(prefers-reduced-motion:reduce){.nov{transition:none}}
 
   /* css/sections/ajuda.css */
   /* FAQ em acordeão */
@@ -1335,7 +1357,7 @@
           <div class="sim__row"><dt>Total a pagar</dt><dd class="num" id="rTot">R$ 4.262,17</dd></div>
         </dl>
         <p class="sim__note">Simulação com taxa de referência, sem IOF e tarifas. A taxa aprovada, o limite e o Custo Efetivo Total (CET) são definidos após análise de crédito e informados antes da assinatura do contrato.</p>
-        <div class="sim__cta"><a class="btn btn--onDark" href="#">Continuar com esta simulação</a></div>
+        <div class="sim__cta"><a class="btn btn--onDark" href="https://hsfinanceira.com.br/solicitar-credito-pessoal/">Continuar com esta simulação</a></div>
       </div>
     </div>
   </div>
@@ -1543,6 +1565,40 @@
   </div>
 </section>
 
+<!-- ══════════════ NOVIDADES ══════════════ -->
+<section class="sec sec--line" id="novidades">
+  <div class="wrap">
+    <div class="sec__head sec__head--split">
+      <div class="sec__headL">
+        <p class="eyebrow">Blog</p>
+        <h2 class="sec__h2">Acompanhe as <i>novidades.</i></h2>
+        <p class="lede">Dicas da HS Financeira para você cuidar melhor do seu dinheiro: organizar o orçamento, montar uma reserva e escolher o produto certo.</p>
+      </div>
+      <a class="btn btn--line" href="https://hsfinanceira.com.br/category/categoria/">Ver todos os posts</a>
+    </div>
+    <ul class="nov__grid">
+      <li><a class="nov" href="https://hsfinanceira.com.br/especialista-da-5-dicas-para-lidar-melhor-com-seu-dinheiro/">
+        <time class="nov__dt" datetime="2022-11-03">3 de novembro de 2022</time>
+        <h3 class="nov__h">Especialista dá 5 dicas para lidar melhor com seu dinheiro</h3>
+        <p>Andressa Campeol, coordenadora de Risco e Compliance da HS Financeira, dá dicas para quem quer melhorar a relação com o dinheiro.</p>
+        <span class="nov__go">Ler o post &rarr;</span>
+      </a></li>
+      <li><a class="nov" href="https://hsfinanceira.com.br/qual-a-importancia-de-ter-uma-reserva-de-emergencia/">
+        <time class="nov__dt" datetime="2022-11-03">3 de novembro de 2022</time>
+        <h3 class="nov__h">Qual a importância de ter uma reserva de emergência</h3>
+        <p>Essa economia é essencial para lidar com as finanças com mais tranquilidade, já que proporciona maior segurança em situações inesperadas.</p>
+        <span class="nov__go">Ler o post &rarr;</span>
+      </a></li>
+      <li><a class="nov" href="https://hsfinanceira.com.br/como-escolher-a-contratacao-de-um-servico-financeiro/">
+        <time class="nov__dt" datetime="2022-10-05">5 de outubro de 2022</time>
+        <h3 class="nov__h">Como escolher a contratação de um serviço financeiro?</h3>
+        <p>Propósito, aderência, comprometimento, taxa de juros e prazo: os pontos mais importantes para escolher um produto financeiro.</p>
+        <span class="nov__go">Ler o post &rarr;</span>
+      </a></li>
+    </ul>
+  </div>
+</section>
+
 <!-- ══════════════ FAQ ══════════════ -->
 <section class="sec sec--line" id="ajuda">
   <div class="wrap faq__grid">
@@ -1679,6 +1735,7 @@
         <li><a href="https://hsfinanceira.com.br/lgpd/">LGPD</a></li>
         <li><a href="https://hsfinanceira.com.br/politicas-de-privacidade-e-transparencia/">Privacidade e transparência</a></li>
         <li><a href="https://hsfinanceira.com.br/cadastro-positivo-2/">Cadastro Positivo</a></li>
+        <li><a href="https://hsfinanceira.com.br/category/categoria/">Blog</a></li>
         <li><a href="https://hsfinanceira.gupy.io/">Trabalhe conosco</a></li>
         <li><a href="https://portalhsfinanceira.com.br/login/index.php">Educação corporativa</a></li>
       </ul>

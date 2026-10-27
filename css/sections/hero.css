@@ -65,10 +65,16 @@
     gap:24px;padding-block:26px 32px;
   }
   .hero__media{order:-1;align-self:auto;display:block}
-  .hero__img{height:clamp(170px,28svh,270px);min-height:0;object-position:52% 24%}
+  /* na faixa baixa só cabe parte da foto: 72% enquadra o rosto e o celular */
+  .hero__img{height:clamp(170px,28svh,270px);min-height:0;object-position:52% 72%}
   .hero__badge{left:auto;right:14px;bottom:14px;padding:11px 15px;max-width:196px}
   .hero__badge b{font-size:23px}
   .hero__h1{margin-bottom:16px}
   .hero__tags{margin:18px 0 20px}
   .hero__fine{margin-top:14px}
+}
+/* No celular o selo ocupa metade da largura da foto e cobria o rosto da
+   cliente. O "Financeira do Grupo Herval · desde 2005" logo abaixo já diz o mesmo. */
+@media(max-width:600px){
+  .hero__badge{display:none}
 }

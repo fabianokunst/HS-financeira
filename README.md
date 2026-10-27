@@ -58,7 +58,7 @@ Requer Node 18+, e só para isso — o site nunca depende dele.
 
 ```
 HS-Financeira/
-├── index.html                 # página inicial: <head>, 15 seções, dados estruturados
+├── index.html                 # página inicial: <head>, 16 seções, dados estruturados
 ├── credito-pessoal/index.html # páginas internas: uma pasta por endereço do site atual
 ├── aviso/index.html           #   (avisos de segurança, destino do "Saiba Mais"),
 ├── governanca/index.html      #   governança, LGPD, parceiros, posts do blog…
@@ -75,8 +75,8 @@ HS-Financeira/
 │   ├── components/             # reutilizáveis: buttons, tag, field, chips, chat
 │   └── sections/               # um arquivo por seção, mesmo nome da seção
 │       ├── aviso.css  rail.css  header.css  hero.css  facts.css  produtos.css
-│       ├── simulador.css  split.css  empresas.css  parceiros.css
-│       ├── investimentos.css  governanca.css  ajuda.css  cta-final.css  footer.css
+│       ├── simulador.css  split.css  empresas.css  parceiros.css  investimentos.css
+│       ├── governanca.css  novidades.css  ajuda.css  cta-final.css  footer.css
 │       ├── pagina.css          # blocos das páginas internas (abertura, texto, etapas, arquivos…)
 │       └── aviso-pagina.css    # só da aviso/
 ├── js/
