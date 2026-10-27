@@ -77,6 +77,7 @@ HS-Financeira/
 │   ├── layout/
 │   │   └── section.css         # casca de seção (.sec, .sec__head, .sec__h2)
 │   ├── components/             # reutilizáveis: buttons, tag, field, chips, chat, cookies,
+│   │                           #   entrada (animação de abertura do topo de toda página),
 │   │                           #   formulario (só envie-nos-uma-mensagem/ e lgpd/)
 │   └── sections/               # um arquivo por seção, mesmo nome da seção
 │       ├── aviso.css  rail.css  header.css  hero.css  facts.css  produtos.css
@@ -85,6 +86,7 @@ HS-Financeira/
 │       ├── pagina.css          # blocos das páginas internas (abertura, texto, etapas, arquivos…)
 │       └── aviso-pagina.css    # só da aviso/
 ├── js/
+│   ├── entrada.js              # abertura animada: título palavra a palavra e contagem do "+20 anos"
 │   ├── config.js               # taxa do simulador, contas do GA e do Emarsys, parâmetros
 │   ├── utils/format.js         # formatação de números em pt-BR
 │   ├── cookies.js              # banner de consentimento por categoria (LGPD) e Google Analytics 4

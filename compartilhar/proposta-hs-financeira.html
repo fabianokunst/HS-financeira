@@ -439,6 +439,147 @@
     .ck-cat__seta::before,.ck-chave input::before{transition:none}
   }
 
+  /* css/components/entrada.css */
+  /* Entrada animada do topo de cada página — o .hero da inicial e a abertura .pg
+     das páginas internas (inclusive a 404).
+
+     Tudo é CSS: cada peça começa escondida pelo preenchimento "backwards" da
+     animação e, ao terminar, volta ao próprio estilo, sem deixar nada preso. Sem
+     suporte a animação, ou com "reduzir movimento" ligado no sistema, a página
+     aparece pronta de imediato. O js/entrada.js completa com o que o CSS não faz
+     sozinho: quebra o <h1> em palavras, que sobem uma a uma de trás de uma
+     máscara, e conta o "+20 anos" do selo da foto. Sem o JS, o título entra
+     inteiro, saindo do desfoque.
+
+     A cena da página inicial, em milissegundos:
+       0     uma linha vermelha corre sob o cabeçalho
+       60    a linha de apoio (eyebrow) se desenha da esquerda para a direita
+       140   as palavras do título sobem, uma a cada 55 ms
+       160   uma cortina vermelha cobre a foto e se recolhe, revelando-a em zoom
+       500   o parágrafo sai do desfoque; depois tags, botões e a letra miúda
+       1250  o selo "+20 anos" salta sobre a foto e conta de 0 a 20
+     Nas páginas internas a trilha abre a cena e o quadro-resumo sobe ao lado
+     do título.
+
+     Os seletores ficam presos ao .hero e ao .pg: a inicial reaproveita
+     .hero__acts e .hero__fine mais abaixo, nos investimentos. */
+
+  @media(prefers-reduced-motion:no-preference){
+
+    .hero,.pg{
+      --ent-saida:cubic-bezier(.16,1,.3,1);      /* arranca rápido e assenta devagar */
+      --ent-mola:cubic-bezier(.34,1.56,.64,1);   /* passa um pouco do ponto e volta */
+      --ent-cortina:cubic-bezier(.77,0,.18,1);
+      --ent-h1:.14s;                             /* quando a primeira palavra sobe */
+    }
+    .pg{--ent-h1:.18s;position:relative}
+
+    /* Itens em cascata: --n é a posição do item no grupo (0, 1, 2…). As palavras
+       do título recebem o --n do js/entrada.js. */
+    :is(.pg__trilha,.hero__tags,.pg__fatos,.hero__acts,.pg__acts,.resumo dl)>:nth-child(2){--n:1}
+    :is(.pg__trilha,.hero__tags,.pg__fatos,.hero__acts,.pg__acts,.resumo dl)>:nth-child(3){--n:2}
+    :is(.pg__trilha,.hero__tags,.pg__fatos,.hero__acts,.pg__acts,.resumo dl)>:nth-child(4){--n:3}
+    :is(.pg__trilha,.hero__tags,.pg__fatos,.hero__acts,.pg__acts,.resumo dl)>:nth-child(5){--n:4}
+    :is(.pg__trilha,.hero__tags,.pg__fatos,.hero__acts,.pg__acts,.resumo dl)>:nth-child(n+6){--n:5}
+
+    /* ── Linha de carregamento sob o cabeçalho ── */
+    .hero::before,.pg::before{
+      content:"";position:absolute;z-index:3;top:0;left:0;right:0;height:3px;
+      background:linear-gradient(90deg,transparent,var(--brand-fill) 45%,var(--brand-band));
+      transform-origin:0 50%;pointer-events:none;
+      animation:ent-linha 1.5s var(--ent-cortina) both;
+    }
+
+    /* ── Trilha (páginas internas) ── */
+    .pg__trilha>*{animation:ent-desliza .7s calc(var(--n,0) * 40ms) var(--ent-saida) backwards}
+
+    /* ── Linha de apoio ── */
+    .hero .eyebrow{animation:ent-risca .8s .06s var(--ent-saida) backwards}
+    .pg .eyebrow{animation:ent-risca .8s .1s var(--ent-saida) backwards}
+    .pg .comunicado .eyebrow{animation:none}
+
+    /* ── Título: inteiro (sem o JS) ou palavra a palavra (.is-palavras) ── */
+    .hero__h1,.pg__h1{animation:ent-foco 1s var(--ent-h1) var(--ent-saida) backwards}
+    .hero__h1.is-palavras,.pg__h1.is-palavras{animation:none}
+    .palavra{
+      display:inline-block;
+      /* folga para acentos, cedilha e descendentes; embaixo, a borda da máscara */
+      clip-path:inset(-.25em -.3em -.18em -.3em);
+    }
+    .palavra__in{
+      display:inline-block;transform-origin:0 100%;
+      animation:ent-palavra 1s calc(var(--ent-h1) + var(--n,0) * 55ms) var(--ent-saida) backwards;
+    }
+
+    /* ── Parágrafo, tags, botões, letra miúda ── */
+    .hero .lede{animation:ent-foco 1s .5s var(--ent-saida) backwards}
+    .pg .lede,.pg .post__meta{animation:ent-foco 1s .48s var(--ent-saida) backwards}
+
+    .hero .hero__tags>*{animation:ent-pula .7s calc(.68s + var(--n,0) * 70ms) var(--ent-mola) backwards}
+    .pg .pg__fatos>*{animation:ent-pula .7s calc(.62s + var(--n,0) * 70ms) var(--ent-mola) backwards}
+
+    .hero .hero__acts>*{animation:ent-sobe .9s calc(.86s + var(--n,0) * 100ms) var(--ent-saida) backwards}
+    .pg .pg__acts>*{animation:ent-sobe .9s calc(.76s + var(--n,0) * 100ms) var(--ent-saida) backwards}
+
+    .hero .hero__fine{animation:ent-mostra .9s 1.06s ease backwards}
+    .pg .comunicado{animation:ent-sobe 1s .62s var(--ent-saida) backwards}
+
+    /* ── Foto da inicial: cortina da marca, depois zoom que assenta ── */
+    .hero__media::after{
+      content:"";position:absolute;inset:0;border-radius:var(--r);
+      background:var(--brand-fill);pointer-events:none;
+      transform:scaleX(0);
+      animation:ent-cortina 1.15s .16s var(--ent-cortina) both;
+    }
+    /* a foto aparece atrás da cortina já fechada (aos 45% dela) */
+    .hero__img{animation:ent-mostra .01s .69s backwards,ent-zoom 1.9s .68s var(--ent-saida) backwards}
+    .hero__badge{animation:ent-selo .9s 1.25s var(--ent-mola) backwards}
+    .hero__scroll{animation:ent-mostra .8s 1.5s ease backwards}
+
+    /* ── Quadro-resumo das internas: sobe por uma fresta, a foto se revela ── */
+    .pg .resumo{animation:ent-ergue 1.1s .26s var(--ent-saida) backwards}
+    .pg .resumo__foto{animation:ent-revela 1.1s .5s ease backwards}
+    .pg .resumo dl>*{animation:ent-sobe .8s calc(.62s + var(--n,0) * 80ms) var(--ent-saida) backwards}
+
+    /* ── Quadros-chave ── */
+    @keyframes ent-linha{
+      0%{transform:scaleX(0);opacity:1}
+      55%{transform:scaleX(1);opacity:1}
+      100%{transform:scaleX(1);opacity:0}
+    }
+    @keyframes ent-risca{
+      from{opacity:0;transform:translateX(-14px);clip-path:inset(0 100% 0 0)}
+      to{opacity:1;transform:none;clip-path:inset(0 -1em 0 0)}
+    }
+    @keyframes ent-foco{from{opacity:0;transform:translateY(22px);filter:blur(10px)}}
+    /* gira pelo canto de baixo: a palavra entra "de lado" sem passar da máscara */
+    @keyframes ent-palavra{from{transform:translateY(130%) rotate(5deg)}}
+    @keyframes ent-sobe{from{opacity:0;transform:translateY(22px)}}
+    @keyframes ent-desliza{from{opacity:0;transform:translateX(-12px)}}
+    @keyframes ent-pula{from{opacity:0;transform:translateY(12px) scale(.82)}}
+    @keyframes ent-mostra{from{opacity:0}}
+    @keyframes ent-cortina{
+      0%{transform:scaleX(0);transform-origin:0 50%}
+      45%{transform:scaleX(1);transform-origin:0 50%}
+      55%{transform:scaleX(1);transform-origin:100% 50%}
+      100%{transform:scaleX(0);transform-origin:100% 50%}
+    }
+    /* Zoom de 1.14 para 1 sem vazar da moldura: o recorte encolhe na mesma
+       proporção — (1 - 1/1.14) / 2 = 6.14% de cada lado, e o raio dividido por
+       1.14 —, então a parte visível tem sempre o tamanho e os cantos da foto. */
+    @keyframes ent-zoom{
+      from{transform:scale(1.14);clip-path:inset(6.14% round calc(var(--r) / 1.14))}
+      to{transform:none;clip-path:inset(0 round var(--r))}
+    }
+    @keyframes ent-selo{from{opacity:0;transform:translateY(18px) scale(.86)}}
+    @keyframes ent-ergue{
+      from{opacity:0;transform:translateY(40px);clip-path:inset(100% 0 0 0 round var(--r))}
+      30%{opacity:1}
+      to{opacity:1;transform:none;clip-path:inset(0 0 0 0 round var(--r))}
+    }
+    @keyframes ent-revela{from{opacity:0;filter:blur(12px) saturate(.2)}}
+  }
+
   /* css/sections/aviso.css */
   /* Aviso contra golpes: cartão flutuante no canto inferior esquerdo (no celular,
      painel encostado na base da tela). Começa escondido; o aviso.js abre uma
@@ -2374,6 +2515,106 @@
 </dialog>
 
 <script>
+/* js/entrada.js */
+/* Entrada animada do topo da página — a parte que o CSS não faz sozinho
+   (a cena inteira está em css/components/entrada.css):
+
+   - quebra o <h1> em palavras (.palavra), que sobem uma a uma de trás de uma
+     máscara; terminada a subida, o título volta a ser o texto do HTML;
+   - conta de 0 até o número do selo da foto da inicial ("+20 anos") enquanto
+     ele salta para o lugar.
+
+   Com "reduzir movimento" ligado no sistema, não faz nada: o CSS também não
+   anima, e a página aparece pronta. */
+(function () {
+  "use strict";
+
+  if (!window.matchMedia || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  var DURACAO_CONTAGEM = 1100;
+
+  var titulo = document.querySelector(".hero__h1, .pg__h1");
+  if (titulo && !jaComecou(titulo)) palavraAPalavra(titulo);
+
+  var selo = document.querySelector(".hero__badge");
+  if (selo) contarAoEntrar(selo);
+
+  /* O título entra inteiro pelo CSS até o script quebrá-lo. Se o script chegou
+     tarde e o título já começou a aparecer, deixa como está: quebrar agora
+     faria o texto sumir e voltar. */
+  function jaComecou(el) {
+    if (!el.getAnimations) return false;
+    return el.getAnimations().some(function (animacao) {
+      var t = animacao.effect && animacao.effect.getComputedTiming();
+      return t && t.localTime > t.delay;
+    });
+  }
+
+  function palavraAPalavra(h1) {
+    var original = Array.prototype.map.call(h1.childNodes, function (no) { return no.cloneNode(true); });
+    var palavras = [];
+
+    /* Desce pelos filhos (o <i> do destaque, por exemplo) e troca cada trecho
+       de texto por palavras embrulhadas, mantendo os espaços como estavam. O
+       espaço inseparável (&nbsp;) fica dentro da palavra: não vira quebra. */
+    (function quebrar(no) {
+      Array.prototype.slice.call(no.childNodes).forEach(function (filho) {
+        if (filho.nodeType === 1) return quebrar(filho);
+        if (filho.nodeType !== 3) return;
+        var trechos = filho.nodeValue.split(/([ \t\n\r\f]+)/);
+        var pacote = document.createDocumentFragment();
+        trechos.forEach(function (trecho, i) {
+          if (!trecho) return;
+          if (i % 2) { pacote.appendChild(document.createTextNode(trecho)); return; }
+          var mascara = document.createElement("span");
+          var palavra = document.createElement("span");
+          mascara.className = "palavra";
+          palavra.className = "palavra__in";
+          palavra.style.setProperty("--n", palavras.length);
+          palavra.textContent = trecho;
+          mascara.appendChild(palavra);
+          pacote.appendChild(mascara);
+          palavras.push(palavra);
+        });
+        no.replaceChild(pacote, filho);
+      });
+    })(h1);
+
+    if (!palavras.length) return;
+    h1.classList.add("is-palavras");
+
+    /* A última palavra assentou: devolve o texto original (seleção, leitores
+       de tela e quebra de linha voltam ao normal). O .is-palavras fica, para o
+       CSS não reiniciar a entrada do título inteiro. */
+    palavras[palavras.length - 1].addEventListener("animationend", function () {
+      while (h1.firstChild) h1.removeChild(h1.firstChild);
+      original.forEach(function (no) { h1.appendChild(no); });
+    });
+  }
+
+  /* Só começa quando o selo começa a aparecer: no celular ele fica escondido e
+     o número nunca é tocado. */
+  function contarAoEntrar(caixa) {
+    var numero = caixa.querySelector(".num");
+    var partes = numero && numero.textContent.match(/^(\D*)(\d+)([\s\S]*)$/);
+    if (!partes) return;
+    var alvo = Number(partes[2]);
+
+    caixa.addEventListener("animationstart", function iniciar(e) {
+      if (e.target !== caixa) return;
+      caixa.removeEventListener("animationstart", iniciar);
+      var inicio = null;
+      numero.textContent = partes[1] + "0" + partes[3];
+      window.requestAnimationFrame(function passo(agora) {
+        if (inicio === null) inicio = agora;
+        var t = Math.min((agora - inicio) / DURACAO_CONTAGEM, 1);
+        numero.textContent = partes[1] + Math.round(alvo * (1 - Math.pow(1 - t, 3))) + partes[3];
+        if (t < 1) window.requestAnimationFrame(passo);
+      });
+    });
+  }
+})();
+
 /* js/config.js */
 /* Parâmetros de negócio da página.
    É o único arquivo que a equipe precisa editar para ajustar a simulação. */
