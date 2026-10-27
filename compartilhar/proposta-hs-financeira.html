@@ -249,42 +249,71 @@
   .ubots-chat-box{z-index:60}
 
   /* css/components/cookies.css */
-  /* Banner de consentimento de cookies (LGPD). Mesmo canto e mesmo desenho do
-     cartão de aviso contra golpes, que só abre depois da escolha (js/aviso.js);
-     no celular, painel encostado na base da tela. O canto direito é do botão do
-     chat. Começa com [hidden]; o js/cookies.js mostra enquanto não há escolha. */
+  /* Banner de consentimento de cookies (LGPD): réplica do banner do site
+     oficial (plugin CookieYes) — barra de ponta a ponta na base da tela, por
+     cima de tudo (inclusive do botão do chat), com as medidas, cores e botões de
+     lá. No celular os botões empilham, com o "Aceitar" em cima. O cartão de
+     golpes só abre depois da escolha (js/aviso.js). Começa com [hidden]; o
+     js/cookies.js mostra enquanto não há escolha. */
 
   .ck{
-    position:fixed;z-index:56;
-    left:24px;bottom:24px;
-    width:min(420px,calc(100vw - 48px));
-    max-height:calc(100svh - 48px);overflow-y:auto;overscroll-behavior:contain;
-    background:var(--paper);color:var(--ink-2);
-    border:1px solid var(--line);border-radius:var(--r);
-    box-shadow:var(--shadow-lift);
-    font-size:13.5px;line-height:1.6;
-    animation:ck-entra .28s ease both;
+    position:fixed;z-index:70;
+    left:0;right:0;bottom:0;
+    padding:16.5px 24px;
+    background:var(--paper);color:var(--ink-soft);
+    border:1px solid var(--line);
+    box-shadow:0 -1px 10px 0 rgba(172,171,171,.3);
+    font-size:14px;line-height:24px;
   }
   .ck[hidden]{display:none}
-  .ck__in{padding:18px 20px 20px;display:grid;gap:14px}
-  .ck__h{font-size:15.5px;font-weight:700;color:var(--ink);margin-bottom:6px}
-  .ck__txt p{margin:0;text-wrap:pretty}
-  .ck__txt b{color:var(--ink);font-weight:600}
-  .ck__txt a{color:var(--brand);font-weight:700;border-bottom:1px solid transparent}
-  .ck__txt a:hover{border-bottom-color:var(--brand)}
-  .ck__acts{display:flex;gap:10px}
-  .ck__acts .btn{flex:1;padding:10px 16px;font-size:14.5px}
-  @keyframes ck-entra{from{opacity:0;transform:translateY(14px)}}
-
-  @media(max-width:620px){
-    .ck{
-      left:0;right:0;bottom:0;width:auto;max-height:75svh;
-      border-width:1px 0 0;border-radius:var(--r) var(--r) 0 0;
-    }
-    .ck__in{padding:16px var(--gut) calc(18px + env(safe-area-inset-bottom))}
+  .ck__h{margin-bottom:12px;font-size:18px;font-weight:700}
+  .ck__grupo{display:flex;justify-content:space-between;align-items:center}
+  .ck__txt p{margin-bottom:14.4px}
+  .ck__txt p:last-child{margin-bottom:0}
+  .ck__txt b{font-weight:700}
+  .ck__acts{display:flex;justify-content:center;align-items:center;margin-left:15px}
+  /* Borda da cor do fundo, como no oficial (lá é branca sobre branco). */
+  .ck__btn{
+    padding:8px 27px;margin-right:8px;
+    border:2px solid var(--paper);border-radius:2px;
+    color:#fff;font-size:14px;font-weight:500;line-height:24px;white-space:nowrap;
   }
-  @media(prefers-reduced-motion:reduce){
-    .ck{animation:none}
+  .ck__btn:last-child{margin-right:0}
+  .ck__btn:hover{opacity:.8}
+  .ck__btn--recusar{background:#D8343C}
+  .ck__btn--aceitar{background:#38343C}
+  .ck__x{
+    position:absolute;top:5px;right:9px;
+    width:24px;height:24px;display:grid;place-items:center;
+    color:#828EA2;
+  }
+  .ck__x svg{width:9px;height:9px}
+
+  @media(max-width:768px){
+    .ck__grupo{display:block}
+    .ck__acts{justify-content:flex-start;margin:10px 0 0}
+    .ck__btn{flex:auto;max-width:100%;margin-top:10px;white-space:normal}
+  }
+  @media(max-width:576px){
+    .ck{padding:16.5px 0 calc(16.5px + env(safe-area-inset-bottom))}
+    .ck__h,.ck__txt,.ck__acts{padding:0 28px}
+    .ck__txt{max-height:40vh;overflow-y:auto}
+    .ck__acts{flex-direction:column}
+    .ck__btn{width:100%;padding:8px;margin-right:0}
+    .ck__btn--aceitar{order:1}
+    .ck__btn--recusar{order:2}
+  }
+  @media(max-width:425px){
+    .ck__h,.ck__txt,.ck__acts{padding:0 24px}
+    .ck__btn--aceitar{margin-top:16px}
+  }
+  @media(max-width:352px){
+    .ck__h{font-size:16px}
+    .ck__txt,.ck__btn{font-size:12px}
+  }
+  @media(max-height:480px){
+    .ck{max-height:100vh;overflow-y:auto}
+    .ck__txt{max-height:none;overflow-y:visible}
   }
 
   /* css/sections/aviso.css */
@@ -1807,16 +1836,21 @@
 
 <!-- ══════════════ COOKIES ══════════════ -->
 <div class="ck" id="cookies" role="region" aria-labelledby="ck-titulo" hidden>
-  <!-- Consentimento de cookies (LGPD). Escondido até o js/cookies.js decidir;
-       sem JavaScript não há banner e também não há Google Analytics. -->
-  <div class="ck__in">
+  <!-- Consentimento de cookies (LGPD): réplica do banner do site oficial
+       (plugin CookieYes), com os mesmos textos e botões. Escondido até o
+       js/cookies.js decidir; sem JavaScript não há banner nem Google Analytics. -->
+  <button class="ck__x" type="button" data-cookies="fechar" aria-label="Fechar">
+    <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1l8 8M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+  </button>
+  <p class="ck__h" id="ck-titulo">Valorizamos a sua privacidade!</p>
+  <div class="ck__grupo">
     <div class="ck__txt">
-      <p class="ck__h" id="ck-titulo">Valorizamos a sua privacidade!</p>
-      <p>Usamos cookies de análise (Google Analytics) para entender como o site é usado e melhorar a sua navegação. Eles só são ativados se você clicar em <b>"Aceitar"</b>, e você pode mudar de ideia em "Preferências de cookies", no rodapé. <a href="https://hsfinanceira.com.br/politicas-de-privacidade-e-transparencia/">Saiba mais</a></p>
+      <p><b>HS FINANCEIRA SA CFI</b></p>
+      <p>Usamos cookies para aprimorar sua experiência de navegação, veicular anúncios ou conteúdos personalizados e analisar nosso tráfego. Ao clicar em <b>"Aceitar"</b>, você concorda com o uso de cookies.</p>
     </div>
     <div class="ck__acts">
-      <button class="btn btn--line" type="button" data-cookies="recusar">Recusar</button>
-      <button class="btn btn--solid" type="button" data-cookies="aceitar">Aceitar</button>
+      <button class="ck__btn ck__btn--recusar" type="button" data-cookies="recusar">Recusar</button>
+      <button class="ck__btn ck__btn--aceitar" type="button" data-cookies="aceitar">Aceitar</button>
     </div>
   </div>
 </div>
@@ -1897,7 +1931,7 @@ HS.format = (function () {
    funciona, mas o Analytics não é carregado.
    Enquanto o banner está aberto, HS.cookies.pendente é true; ao escolher,
    dispara o evento "hs:cookies" no document (o aviso contra golpes espera
-   por ele para não disputar o mesmo canto da tela). */
+   por ele para não ficar por baixo da barra). */
 (function () {
   "use strict";
 
@@ -1989,7 +2023,8 @@ HS.format = (function () {
       banner.querySelector("[data-cookies]").focus();
     } else if (acao === "aceitar") {
       escolher("aceito");
-    } else if (acao === "recusar") {
+    } else if (acao === "recusar" || acao === "fechar") {
+      /* O X vale como "Recusar", como no CookieYes do site oficial. */
       escolher("recusado");
     }
   });
@@ -2056,7 +2091,7 @@ HS.format = (function () {
   }
 
   /* Com o banner de cookies aberto (primeira visita), o cartão espera a
-     escolha: os dois usam o mesmo canto da tela (no celular, a base). */
+     escolha: a barra de cookies cobriria a parte de baixo do cartão. */
   if (window.HS && HS.cookies && HS.cookies.pendente) {
     document.addEventListener("hs:cookies", abrir, { once: true });
   } else {

@@ -137,13 +137,15 @@ Mantenha os dois iguais. O cartão fica no canto inferior esquerdo — o direito
 do botão do chat — (no celular, encostado na base da tela) e aparece **uma vez por dia**:
 na primeira página aberta no dia. A data fica no `localStorage`
 (`hs-aviso-dia`); para ver o cartão de novo no mesmo dia, apague essa chave no
-DevTools. Na primeira visita o cartão espera a escolha de cookies, que usa o
-mesmo canto da tela.
+DevTools. Na primeira visita o cartão espera a escolha de cookies, cuja barra
+ocupa a base da tela.
 
 **Analytics e banner de cookies** — o Google Analytics 4 é a mesma propriedade
 do site atual (`analyticsId` em [`js/config.js`](js/config.js)) e só é
 carregado **depois do "Aceitar"** no banner (seção `COOKIES`, copiada para todas
-as páginas pelo `npm run paginas`). Antes da escolha, e com "Recusar", nada vai
+as páginas pelo `npm run paginas`). O banner é réplica do site atual (plugin
+CookieYes): barra na base da tela com os mesmos textos, "Recusar", "Aceitar" e
+o X, que vale como "Recusar". Antes da escolha, e com "Recusar", nada vai
 para o Google; ao recusar, os cookies `_ga` são apagados. A escolha fica no
 `localStorage` (`hs-cookies`) por `cookiesValidadeDias` e pode ser mudada em
 "Preferências de cookies", no rodapé. Em homologação e no `localhost` o banner

@@ -53,7 +53,7 @@
   }
 
   /* Com o banner de cookies aberto (primeira visita), o cartão espera a
-     escolha: os dois usam o mesmo canto da tela (no celular, a base). */
+     escolha: a barra de cookies cobriria a parte de baixo do cartão. */
   if (window.HS && HS.cookies && HS.cookies.pendente) {
     document.addEventListener("hs:cookies", abrir, { once: true });
   } else {

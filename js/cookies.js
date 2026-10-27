@@ -10,7 +10,7 @@
    funciona, mas o Analytics não é carregado.
    Enquanto o banner está aberto, HS.cookies.pendente é true; ao escolher,
    dispara o evento "hs:cookies" no document (o aviso contra golpes espera
-   por ele para não disputar o mesmo canto da tela). */
+   por ele para não ficar por baixo da barra). */
 (function () {
   "use strict";
 
@@ -102,7 +102,8 @@
       banner.querySelector("[data-cookies]").focus();
     } else if (acao === "aceitar") {
       escolher("aceito");
-    } else if (acao === "recusar") {
+    } else if (acao === "recusar" || acao === "fechar") {
+      /* O X vale como "Recusar", como no CookieYes do site oficial. */
       escolher("recusado");
     }
   });
